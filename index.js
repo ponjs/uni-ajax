@@ -13,7 +13,19 @@ import UniAjax from './lib/ajax';
  * @param {boolean} [params.withCredentials] 跨域请求时是否携带凭证（cookies）
  */
 function createInstance(params) {
-  return new UniAjax(params);
+  const context = new UniAjax(params);
+
+  const request = context.request;
+
+  context.request = function(params) {
+    return request.call(context, params);
+  };
+
+  for (let item in request) {
+    context.request[item] = request[item];
+  }
+
+  return context;
 }
 
 export default createInstance;
