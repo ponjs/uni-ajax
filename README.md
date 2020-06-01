@@ -58,7 +58,7 @@ Vue.prototype.request = request;
 request(params);
 ```
 
-`params` <object>
+`params` \<object\>
 
 | 参数            | 类型             | 说明 |
 | :---            | :---            | :--- |
@@ -75,7 +75,8 @@ request(params);
 | fail            | function        | 接口调用失败的回调函数 |
 | complete        | function        | 接口调用结束的回调函数（调用成功、失败都会执行） |
 
-返回 `<object|Promise>` 当参数有 `success` / `fail` / `complete` 之一时返回 `requestTask` 对象，则返回 `Promise` 对象
+返回 `<object|Promise>` 当参数有 `success` / `fail` / `complete` 之一时返回 `requestTask` 对象，则返回 `Promise` 对象  
+但与原API不同的是，`then`返回的是请求成功对象，`catch`返回的是请求失败对象。（原API没有`catch`，只有`then`返回数组`[err, res]`）
 
 ``` JavaScript
 request.get(url, data, options);
@@ -84,9 +85,9 @@ request.put(url, data, options);
 request.delete(url, data, options);
 ```
 
-`url` <string> 请求地址
-`data` <object|string> 请求参数
-`options` <object> 其他配置
+`url` \<string\> 请求地址  
+`data` \<object|string\> 请求参数  
+`options` \<object\> 其他配置
 
 | 参数            | 类型    | 说明 |
 | :---            | :---    | :--- |
@@ -98,7 +99,3 @@ request.delete(url, data, options);
 | withCredentials | boolean | 跨域请求时是否携带凭证（cookies） |
 
 返回 `<Promise>` 返回请求的 `Promise` 对象
-
-## Tips
-
-使用`request(params)`时，如果没有传入 `success` / `fail` / `complete` 参数，则会返回封装后的`Promise`对象，但与原API不同的是，`then`返回的是请求成功对象，`catch`返回的是请求失败对象。（原API没有`catch`，只有`then`返回数组`[err, res]`）
