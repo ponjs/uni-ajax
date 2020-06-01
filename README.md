@@ -6,7 +6,7 @@
 
 ## Import
 
-首先创建个`request.js`用于处理拦截器、接口根地址、默认参数等，在处理方法后导出`UniAjax`实例上的`request`方法
+创建`request.js`用于处理拦截器、接口根地址、默认参数等，在处理方法后导出`UniAjax`实例上的`request`方法
 
 ``` JavaScript
 // request.js
@@ -75,8 +75,7 @@ request(params);
 | fail            | function        | 接口调用失败的回调函数 |
 | complete        | function        | 接口调用结束的回调函数（调用成功、失败都会执行） |
 
-返回 `<object|Promise>` 当参数有 `success` / `fail` / `complete` 之一时返回 `requestTask` 对象，则返回 `Promise` 对象  
-但与原API不同的是，`then`返回的是请求成功对象，`catch`返回的是请求失败对象。（原API没有`catch`，只有`then`返回数组`[err, res]`）
+当参数有 `success` / `fail` / `complete` 之一时返回 `requestTask` 对象，则返回 `Promise` 对象。但与原API不同的是，`then`返回的是请求成功对象，`catch`返回的是请求失败对象。（原API没有`catch`，只有`then`返回数组`[err, res]`）
 
 ``` JavaScript
 request.get(url, data, options);
@@ -98,4 +97,4 @@ request.delete(url, data, options);
 | sslVerify       | boolean | 验证 ssl 证书 |
 | withCredentials | boolean | 跨域请求时是否携带凭证（cookies） |
 
-返回 `<Promise>` 返回请求的 `Promise` 对象
+返回请求的 `Promise` 对象
