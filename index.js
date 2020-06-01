@@ -12,7 +12,7 @@ import UniAjax from './lib/ajax';
  * @param {boolean} [params.sslVerify] 验证 ssl 证书
  * @param {boolean} [params.withCredentials] 跨域请求时是否携带凭证（cookies）
  */
-function createInstance(params) {
+function createInstance(params = {}) {
   const context = new UniAjax(params);
 
   const request = context.request;
