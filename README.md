@@ -74,6 +74,8 @@ request(params);
 | success         | function        | 收到开发者服务器成功返回的回调函数 |
 | fail            | function        | 接口调用失败的回调函数 |
 | complete        | function        | 接口调用结束的回调函数（调用成功、失败都会执行） |
+| response        | object          | 响应拦截器可以接收到的参数 |
+| ...             | any             | 请求拦截器接收参数 |
 
 当参数有 `success` / `fail` / `complete` 之一时返回 `requestTask` 对象，则返回 `Promise` 对象。但与原API不同的是，`then`返回的是请求成功对象，`catch`返回的是请求失败对象。（原API没有`catch`，只有`then`返回数组`[err, res]`）
 
@@ -96,5 +98,7 @@ request.delete(url, data, options);
 | responseType    | string  | 设置响应的数据类型。合法值：text、arraybuffer |
 | sslVerify       | boolean | 验证 ssl 证书 |
 | withCredentials | boolean | 跨域请求时是否携带凭证（cookies） |
+| response        | object  | 响应拦截器可以接收到的参数 |
+| ...             | any     | 请求拦截器接收参数 |
 
 返回请求的 `Promise` 对象
