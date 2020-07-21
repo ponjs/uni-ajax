@@ -4,7 +4,28 @@
 * 加入了拦截器、接口根地址、默认参数
 * 优化了 Promise 返回值
 
-## Import
+## 安装
+
+### 下载安装
+
+* 在uni-app插件市场右上角选择`使用HBuilder X 导入插件`或者`下载插件ZIP`。
+* 如果您的项目是由HBuilder X创建的标准uni-app项目，将下载解压后的`uni-ajax`文件夹，复制到项目根目录。
+* 如果您的项目是由vue-cli模式创建的， 请将下载后的`uni-ajax`文件夹放到项目的`src`文件夹中即可。
+
+
+### npm 安装
+```
+// 如果您的项目是HBuilder X创建的，根目录又没有package.json文件的话，请先执行如下命令：
+// npm init -y
+
+// 安装
+npm install uni-ajax
+
+// 更新
+npm update uni-ajax
+```
+
+## 引入
 
 创建`request.js`用于处理拦截器、接口根地址、默认参数等，在处理方法后导出`UniAjax`实例上的`request`方法
 
@@ -43,7 +64,7 @@ const request = ajax.request;
 export default request;
 ```
 
-然后在`main.js`引入该`request.js`，将`request`方法挂载在`Vue`原型链上
+然后在`main.js`引入该`request.js`，将`request`方法挂载在`Vue`原型链上（如果您是像我这样挂载在`Vue`原型链上，则通过`this.request`调用）
 
 ``` JavaScript
 // main.js
@@ -52,7 +73,9 @@ import request from './utils/request';
 Vue.prototype.request = request;
 ```
 
-## Usage 
+## 使用
+
+### 基本使用
 
 ``` JavaScript
 request(params);
@@ -63,7 +86,7 @@ request(params);
 | 参数            | 类型             | 说明 |
 | :---            | :---            | :--- |
 | url             | string          | 请求地址，不填时默认 baseUrl，如果没有 baseUrl 又没有 url 则请求失败 |
-| data            | object / string | 请求参数，如果 method 为 GET 时且有参数为 object，会序列化处理拼接在 url 上 |
+| data            | object / string | 请求参数 |
 | header          | object          | 设置请求的 header，header 中不能设置 Referer |
 | method          | string          | 请求协议，必须大写 |
 | timeout         | number          | 超时时间，单位 ms |
@@ -78,6 +101,9 @@ request(params);
 | ...             | any             | 请求拦截器接收参数 |
 
 当参数有 `success` / `fail` / `complete` 之一时返回 `requestTask` 对象，则返回 `Promise` 对象。但与原API不同的是，`then`返回的是请求成功对象，`catch`返回的是请求失败对象。（原API没有`catch`，只有`then`返回数组`[err, res]`）
+
+
+### method 方法使用
 
 ``` JavaScript
 request.get(url, data, options);
@@ -102,3 +128,15 @@ request.delete(url, data, options);
 | ...             | any     | 请求拦截器接收参数 |
 
 返回请求的 `Promise` 对象
+
+### 其他方法
+
+获取配置的接口根地址`baseUrl`
+``` JavaScript
+request.baseUrl
+```
+
+根据配置的接口根地址获取源地址`origin`
+``` JavaScript
+request.origin
+```
