@@ -65,13 +65,13 @@ const request = ajax.request;
 export default request;
 ```
 
-然后在`main.js`引入该`request.js`，将`request`方法挂载在`Vue`原型链上（如果您是像我这样挂载在`Vue`原型链上，则通过`this.request`调用）
+然后在`main.js`引入该`request.js`，将`request`方法挂载在`Vue`原型链上（如果您是像我这样挂载在`Vue`原型链上，则通过`this.$request`调用）
 
 ``` JavaScript
 // main.js
 
 import request from './utils/request';
-Vue.prototype.request = request;
+Vue.prototype.$request = request;
 ```
 
 ## 使用
