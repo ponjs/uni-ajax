@@ -1,9 +1,9 @@
 # uni-ajax
 
-- 封装 uni-app 的 request API
-- 加入了请求拦截器、响应拦截器
+- 支持 Promise API
+- 加入请求拦截器、响应拦截器
 - 可以配置接口根地址、默认参数
-- 可以使用 method 方法请求
+- 支持 method 方法请求
 
 ## 安装
 
@@ -37,11 +37,7 @@ import ajax from 'uni-ajax';
 
 // Default configuration
 const _ajax = ajax.create({
-  // baseUrl: 'https://example.com/',
-  // header: {
-  //   'Content-Type': 'application/x-www-form-urlencoded'
-  // },
-  // method: 'POST'
+  // baseUrl: 'https://example.com/'
 });
 
 _ajax.interceptors.request.use(
@@ -80,11 +76,31 @@ Vue.prototype.$ajax = ajax;
 
 ## 使用
 
-### 基本使用
-
 ```JavaScript
-ajax(params);
+
+// 常规使用
+ajax();
+
+// 请求方式使用
+ajax.get();
+ajax.post();
+ajax.put();
+ajax.delete();
+
+// 其他属性
+ajax.baseUrl    // 获取配置的接口根地址 baseUrl
+ajax.origin     // 根据配置的接口根地址获取源地址 origin
 ```
+
+上面的方法中，传参方式有`params`或`url[, data[, options]]`，返回都是`Promise`对象，但是`resolve`和`reject`的返回不同
+
+- `params`
+  - resolve：requestTask 对象
+- `url[, data[, options]]`
+  - resolve：请求成功对象
+  - reject：请求失败对象
+
+### 参数
 
 `params` \<object\>
 
@@ -105,17 +121,6 @@ ajax(params);
 | response        | object          | 响应拦截器可以接收到的参数                                           |
 | ...             | any             | 请求拦截器接收参数                                                   |
 
-当参数有 `success` / `fail` / `complete` 之一时返回 `requestTask` 对象，则返回 `Promise` 对象。但与原 API 不同的是，`then`返回的是请求成功对象，`catch`返回的是请求失败对象。（原 API 没有`catch`，只有`then`返回数组`[err, res]`）
-
-### method 方法使用
-
-```JavaScript
-ajax.get(url, data, options);
-ajax.post(url, data, options);
-ajax.put(url, data, options);
-ajax.delete(url, data, options);
-```
-
 `url` \<string\> 请求地址  
 `data` \<object|string\> 请求参数  
 `options` \<object\> 其他配置
@@ -130,19 +135,3 @@ ajax.delete(url, data, options);
 | withCredentials | boolean | 跨域请求时是否携带凭证（cookies）                  |
 | response        | object  | 响应拦截器可以接收到的参数                         |
 | ...             | any     | 请求拦截器接收参数                                 |
-
-返回请求的 `Promise` 对象
-
-### 其他属性
-
-获取配置的接口根地址`baseUrl`
-
-```JavaScript
-ajax.baseUrl
-```
-
-根据配置的接口根地址获取源地址`origin`
-
-```JavaScript
-ajax.origin
-```
