@@ -5,6 +5,10 @@
 - 可以配置接口根地址、默认参数
 - 支持 method 方法请求
 
+## 文档
+
+[https://uniajax.ponjs.com](https://uniajax.ponjs.com)
+
 ## 安装
 
 ### 下载安装
@@ -28,7 +32,7 @@ npm update uni-ajax
 
 ## 引入
 
-创建`ajax.js`用于处理拦截器、接口根地址、默认参数等，然后导出`create`后的方法
+创建`ajax.js`用于处理拦截器、接口根地址、默认参数等，然后导出`create`创建后的实例
 
 ```JavaScript
 // ajax.js
@@ -77,7 +81,6 @@ Vue.prototype.$ajax = ajax;
 ## 使用
 
 ```JavaScript
-
 // 常规使用
 ajax();
 
@@ -104,22 +107,22 @@ ajax.origin     // 根据配置的接口根地址获取源地址 origin
 
 `params` \<object\>
 
-| 参数            | 类型            | 说明                                                                 |
-| :-------------- | :-------------- | :------------------------------------------------------------------- |
-| url             | string          | 请求地址，不填时默认 baseUrl，如果没有 baseUrl 又没有 url 则请求失败 |
-| data            | object / string | 请求参数                                                             |
-| header          | object          | 设置请求的 header，header 中不能设置 Referer                         |
-| method          | string          | 请求协议，必须大写                                                   |
-| timeout         | number          | 超时时间，单位 ms                                                    |
-| dataType        | string          | 如果设为 json，会尝试对返回的数据做一次 JSON.parse                   |
-| responseType    | string          | 设置响应的数据类型。合法值：text、arraybuffer                        |
-| sslVerify       | boolean         | 验证 ssl 证书                                                        |
-| withCredentials | boolean         | 跨域请求时是否携带凭证（cookies）                                    |
-| success         | function        | 收到开发者服务器成功返回的回调函数                                   |
-| fail            | function        | 接口调用失败的回调函数                                               |
-| complete        | function        | 接口调用结束的回调函数（调用成功、失败都会执行）                     |
-| response        | object          | 响应拦截器可以接收到的参数                                           |
-| ...             | any             | 请求拦截器接收参数                                                   |
+| 参数            | 类型            | 说明                                                                       |
+| :-------------- | :-------------- | :------------------------------------------------------------------------- |
+| url             | string          | 请求地址，不填时默认配置的 baseUrl，如果没有 baseUrl 又没有 url 则请求失败 |
+| data            | object / string | 请求参数                                                                   |
+| header          | object          | 设置请求的 header，header 中不能设置 Referer                               |
+| method          | string          | 请求协议，不填时默认配置的 method 或 GET，必须大写                         |
+| timeout         | number          | 超时时间，单位 ms                                                          |
+| dataType        | string          | 如果设为 json，会尝试对返回的数据做一次 JSON.parse                         |
+| responseType    | string          | 设置响应的数据类型。合法值：text、arraybuffer                              |
+| sslVerify       | boolean         | 验证 ssl 证书                                                              |
+| withCredentials | boolean         | 跨域请求时是否携带凭证（cookies）                                          |
+| success         | function        | 收到开发者服务器成功返回的回调函数                                         |
+| fail            | function        | 接口调用失败的回调函数                                                     |
+| complete        | function        | 接口调用结束的回调函数（调用成功、失败都会执行）                           |
+| response        | object          | 响应拦截器可以接收到的参数                                                 |
+| ...             | any             | 传递给请求拦截器的参数                                                     |
 
 `url` \<string\> 请求地址  
 `data` \<object|string\> 请求参数  
@@ -134,4 +137,4 @@ ajax.origin     // 根据配置的接口根地址获取源地址 origin
 | sslVerify       | boolean | 验证 ssl 证书                                      |
 | withCredentials | boolean | 跨域请求时是否携带凭证（cookies）                  |
 | response        | object  | 响应拦截器可以接收到的参数                         |
-| ...             | any     | 请求拦截器接收参数                                 |
+| ...             | any     | 传递给请求拦截器的参数                             |
