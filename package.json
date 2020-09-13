@@ -1,6 +1,6 @@
 {
   "name": "uni-ajax",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "description": "封装 uni-app 的 request API",
   "main": "index.js",
   "keywords": [

@@ -2,7 +2,7 @@ import ajax from 'uni-ajax';
 
 // Default configuration
 const _ajax = ajax.create({
-  // baseUrl: 'https://example.com/'
+  // baseURL: 'https://example.com/'
 });
 
 _ajax.interceptors.request.use(

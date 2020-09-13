@@ -4,6 +4,7 @@
 - 加入请求拦截器、响应拦截器
 - 可以配置接口根地址、默认参数
 - 支持 method 方法请求
+- 支持 task 操作
 
 ## 文档
 
@@ -41,7 +42,7 @@ import ajax from 'uni-ajax';
 
 // Default configuration
 const _ajax = ajax.create({
-  // baseUrl: 'https://example.com/'
+  // baseURL: 'https://example.com/'
 });
 
 _ajax.interceptors.request.use(
@@ -91,7 +92,7 @@ ajax.put();
 ajax.delete();
 
 // 其他属性
-ajax.baseUrl    // 获取配置的接口根地址 baseUrl
+ajax.baseURL    // 获取配置的接口根地址 baseURL
 ajax.origin     // 根据配置的接口根地址获取源地址 origin
 ```
 
@@ -99,9 +100,10 @@ ajax.origin     // 根据配置的接口根地址获取源地址 origin
 
 - `params`
   - resolve：requestTask 对象
-- `url[, data[, options]]`
-  - resolve：请求成功对象
   - reject：请求失败对象
+- `url[, data[, options]]`
+  - resolve：响应成功对象
+  - reject：响应失败对象
 
 ### 参数
 
@@ -109,7 +111,7 @@ ajax.origin     // 根据配置的接口根地址获取源地址 origin
 
 | 参数            | 类型            | 说明                                                                       |
 | :-------------- | :-------------- | :------------------------------------------------------------------------- |
-| url             | string          | 请求地址，不填时默认配置的 baseUrl，如果没有 baseUrl 又没有 url 则请求失败 |
+| url             | string          | 请求地址，不填时默认配置的 baseURL，如果没有 baseURL 又没有 url 则请求失败 |
 | data            | object / string | 请求参数                                                                   |
 | header          | object          | 设置请求的 header，header 中不能设置 Referer                               |
 | method          | string          | 请求协议，不填时默认配置的 method 或 GET，必须大写                         |
@@ -128,13 +130,14 @@ ajax.origin     // 根据配置的接口根地址获取源地址 origin
 `data` \<object|string\> 请求参数  
 `options` \<object\> 其他配置
 
-| 参数            | 类型    | 说明                                               |
-| :-------------- | :------ | :------------------------------------------------- |
-| header          | object  | 设置请求的 header，header 中不能设置 Referer       |
-| timeout         | number  | 超时时间，单位 ms                                  |
-| dataType        | string  | 如果设为 json，会尝试对返回的数据做一次 JSON.parse |
-| responseType    | string  | 设置响应的数据类型。合法值：text、arraybuffer      |
-| sslVerify       | boolean | 验证 ssl 证书                                      |
-| withCredentials | boolean | 跨域请求时是否携带凭证（cookies）                  |
-| response        | object  | 响应拦截器可以接收到的参数                         |
-| ...             | any     | 传递给请求拦截器的参数                             |
+| 参数            | 类型    | 说明                                                                            |
+| :-------------- | :------ | :------------------------------------------------------------------------------ |
+| header          | object  | 设置请求的 header，header 中不能设置 Referer                                    |
+| method          | string  | 请求协议（如果是请求方式使用，method 设置是无效的，只有在 ajax() 使用时才生效） |
+| timeout         | number  | 超时时间，单位 ms                                                               |
+| dataType        | string  | 如果设为 json，会尝试对返回的数据做一次 JSON.parse                              |
+| responseType    | string  | 设置响应的数据类型。合法值：text、arraybuffer                                   |
+| sslVerify       | boolean | 验证 ssl 证书                                                                   |
+| withCredentials | boolean | 跨域请求时是否携带凭证（cookies）                                               |
+| response        | object  | 响应拦截器可以接收到的参数                                                      |
+| ...             | any     | 传递给请求拦截器的参数                                                          |
