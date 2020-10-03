@@ -38,8 +38,10 @@ npm update uni-ajax
 ```JavaScript
 // ajax.js
 
-import Vue from 'vue';          // 引入 Vue 用于将请求实例挂载在 Vue 原型链上
-import ajax from 'uni-ajax';    // 引入 uni-ajax 模块
+// 引入 Vue 用于将请求实例挂载在 Vue 原型链上
+import Vue from 'vue';
+// 引入 uni-ajax 模块
+import ajax from 'uni-ajax';
 
 const _ajax = ajax.create({
   // 默认配置
