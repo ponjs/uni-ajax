@@ -6,5 +6,5 @@ module.exports = {
   semi: true, // 使用分号
   singleQuote: true, // 使用单引号
   tabWidth: 2, // tab缩进大小
-  printWidth: 100
+  printWidth: 100 // 行宽
 };
