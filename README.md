@@ -1,4 +1,4 @@
-# uni-ajax
+## ✨ 特性
 
 - 支持 Promise API
 - 加入请求拦截器、响应拦截器
@@ -6,11 +6,11 @@
 - 支持 method 方法请求
 - 支持 task 操作
 
-## 文档
+## 🍟 文档
 
 [https://uniajax.ponjs.com](https://uniajax.ponjs.com)
 
-## 安装
+## 🥗 安装
 
 ### 下载安装
 
@@ -31,55 +31,57 @@ npm install uni-ajax
 npm update uni-ajax
 ```
 
-## 引入
+## 🥐 引入
 
-创建`ajax.js`用于处理拦截器、接口根地址、默认参数等，然后导出`create`创建后的实例
+新建`ajax.js`文件（文件名自定义）用于处理拦截器、接口根地址、默认参数等
 
 ```JavaScript
 // ajax.js
+import Vue from 'vue';          // 引入 Vue 用于将请求实例挂载在 Vue 原型链上
+import ajax from 'uni-ajax';    // 引入 uni-ajax 模块
 
-import ajax from 'uni-ajax';
-
-// Default configuration
 const _ajax = ajax.create({
-  // baseURL: 'https://example.com/'
+  // 默认配置
 });
 
 _ajax.interceptors.request.use(
   request => {
-    // Do something before request is sent
+    // 在发送请求之前做些什么
     return request;
   },
   error => {
-    // Do something with request error
+    // 对请求错误做些什么
     return error;
   }
 );
 
 _ajax.interceptors.response.use(
   response => {
-    // Do something with response data
+    // 对响应数据做点什么
     return response;
   },
   error => {
-    // Do something with response error
+    // 对响应错误做点什么
     return error;
   }
 );
 
+// 如果您是像我下面这样挂载在 Vue 原型链上，则通过 this.$ajax 调用
+Vue.prototype.$ajax = _ajax;
+
+// 导出 create 创建后的实例
 export default _ajax;
 ```
 
-然后在`main.js`引入该`ajax.js`，将`ajax`方法挂载在`Vue`原型链上（如果您是像我下面这样挂载在`Vue`原型链上，则通过`this.$ajax`调用）
+然后在`main.js`引入该`ajax.js`
 
 ```JavaScript
 // main.js
 
-import ajax from './utils/ajax';
-Vue.prototype.$ajax = ajax;
+import './utils/ajax';    // 路径需根据项目实际情况
 ```
 
-## 使用
+## 🥪 使用
 
 ```JavaScript
 // 常规使用
@@ -123,8 +125,8 @@ ajax.origin     // 根据配置的接口根地址获取源地址 origin
 | success         | function        | 收到开发者服务器成功返回的回调函数                                         |
 | fail            | function        | 接口调用失败的回调函数                                                     |
 | complete        | function        | 接口调用结束的回调函数（调用成功、失败都会执行）                           |
-| response        | object          | 响应拦截器可以接收到的参数                                                 |
-| ...             | any             | 传递给请求拦截器的参数                                                     |
+| response        | object          | 响应拦截器可以接收到的值                                                   |
+| ...             | any             | 传递给请求拦截器的值                                                       |
 
 `url` \<string\> 请求地址  
 `data` \<object|string\> 请求参数  
@@ -139,5 +141,5 @@ ajax.origin     // 根据配置的接口根地址获取源地址 origin
 | responseType    | string  | 设置响应的数据类型。合法值：text、arraybuffer                                   |
 | sslVerify       | boolean | 验证 ssl 证书                                                                   |
 | withCredentials | boolean | 跨域请求时是否携带凭证（cookies）                                               |
-| response        | object  | 响应拦截器可以接收到的参数                                                      |
-| ...             | any     | 传递给请求拦截器的参数                                                          |
+| response        | object  | 响应拦截器可以接收到的值                                                        |
+| ...             | any     | 传递给请求拦截器的值                                                            |
