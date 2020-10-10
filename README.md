@@ -8,7 +8,7 @@
 
 ## 🍟 文档
 
-[https://uniajax.ponjs.com](https://uniajax.ponjs.com)
+[https://uniajax.ponjs.com](https://uniajax.ponjs.com) 👈
 
 ## 🥗 安装
 
@@ -38,14 +38,14 @@ npm update uni-ajax
 ```JavaScript
 // ajax.js
 
-import ajax from 'uni-ajax';                             // 引入 uni-ajax 模块
+import ajax from 'uni-ajax'                             // 引入 uni-ajax 模块
 
-const _ajax = ajax.create(config);                       // 创建请求实例 可配置默认项
+const _ajax = ajax.create(config)                       // 创建请求实例 可配置默认项
 
-_ajax.interceptors.request.use(fulfilled, rejected);     // 请求拦截器
-_ajax.interceptors.response.use(fulfilled, rejected);    // 响应拦截器
+_ajax.interceptors.request.use(fulfilled, rejected)     // 请求拦截器
+_ajax.interceptors.response.use(fulfilled, rejected)    // 响应拦截器
 
-export default _ajax;                                    // 导出创建后的实例
+export default _ajax                                    // 导出创建后的实例
 ```
 
 然后在`main.js`引入该`ajax.js`
@@ -53,8 +53,8 @@ export default _ajax;                                    // 导出创建后的�
 ```JavaScript
 // main.js
 
-import ajax from './utils/ajax';    // 路径需根据项目实际情况
-Vue.prototype.$ajax = ajax;         // 挂载在 Vue 原型链上（通过 this.$ajax 调用）
+import ajax from './utils/ajax'    // 路径需根据项目实际情况
+Vue.prototype.$ajax = ajax         // 挂载在 Vue 原型链上（通过 this.$ajax 调用）
 ```
 
 ## 🥪 使用
@@ -65,13 +65,13 @@ Vue.prototype.$ajax = ajax;         // 挂载在 Vue 原型链上（通过 this.
 
 ```JavaScript
 // 常规使用
-ajax();
+ajax()
 
 // 请求方式使用
-ajax.get();
-ajax.post();
-ajax.put();
-ajax.delete();
+ajax.get()
+ajax.post()
+ajax.put()
+ajax.delete()
 ```
 
 **其他属性**
@@ -84,11 +84,11 @@ ajax.origin     // 根据配置的接口根地址获取源地址 origin
 **RequestTask 方法**
 
 ```JavaScript
-const request = ajax();            // 常规使用或请求方式使用
+const request = ajax()            // 常规使用或请求方式使用
 
-request.abort();                   // 中断请求任务
-request.onHeadersReceived(fn);     // 监听 HTTP Response Header 事件
-request.offHeadersReceived(fn);    // 取消监听 HTTP Response Header 事件
+request.abort()                   // 中断请求任务
+request.onHeadersReceived(fn)     // 监听 HTTP Response Header 事件
+request.offHeadersReceived(fn)    // 取消监听 HTTP Response Header 事件
 ```
 
 ### 参数
