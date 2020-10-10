@@ -38,24 +38,11 @@ npm update uni-ajax
 ```JavaScript
 // ajax.js
 
-// 引入 uni-ajax 和 vue（用于挂载实例）
-import Vue from 'vue';
-import ajax from 'uni-ajax';
-
-// 创建请求实例 可配置默认项
-const _ajax = ajax.create(config);
-
-// 请求拦截器
-_ajax.interceptors.request.use(fulfilled, rejected);
-
-// 响应拦截器
-_ajax.interceptors.response.use(fulfilled, rejected);
-
-// 挂载在 Vue 原型链上
-Vue.prototype.$ajax = _ajax;
-
-// 导出创建后的实例
-export default _ajax;
+import ajax from 'uni-ajax';                             // 引入 uni-ajax 模块
+const _ajax = ajax.create(config);                       // 创建请求实例 可配置默认项
+_ajax.interceptors.request.use(fulfilled, rejected);     // 请求拦截器
+_ajax.interceptors.response.use(fulfilled, rejected);    // 响应拦截器
+export default _ajax;                                    // 导出创建后的实例
 ```
 
 然后在`main.js`引入该`ajax.js`
@@ -63,7 +50,8 @@ export default _ajax;
 ```JavaScript
 // main.js
 
-import './utils/ajax';    // 路径需根据项目实际情况
+import ajax from './utils/ajax';    // 路径需根据项目实际情况
+Vue.prototype.$ajax = _ajax;        // 挂载在 Vue 原型链上（通过 this.$ajax() 调用）
 ```
 
 ## 🥪 使用
