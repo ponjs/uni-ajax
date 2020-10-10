@@ -54,7 +54,7 @@ export default _ajax;                                    // 导出创建后的�
 // main.js
 
 import ajax from './utils/ajax';    // 路径需根据项目实际情况
-Vue.prototype.$ajax = ajax;         // 挂载在 Vue 原型链上（通过 this.$ajax() 调用）
+Vue.prototype.$ajax = ajax;         // 挂载在 Vue 原型链上（通过 this.$ajax 调用）
 ```
 
 ## 🥪 使用
