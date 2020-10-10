@@ -14,9 +14,9 @@
 
 ### 下载安装
 
-- 在 uni-app 插件市场右上角选择`使用HBuilder X 导入插件`或者`下载插件ZIP`。
-- 如果您的项目是由 HBuilder X 创建的标准 uni-app 项目，将下载解压后的`uni-ajax`文件夹，复制到项目根目录。
-- 如果您的项目是由 vue-cli 模式创建的， 请将下载后的`uni-ajax`文件夹放到项目的`src`文件夹中即可。
+- 在 uni-app 插件市场右上角选择`使用HBuilder X 导入插件`或者`下载插件ZIP`
+- 如果您的项目是由 HBuilder X 创建的标准 uni-app 项目，将下载解压后的`uni-ajax`文件夹，复制到项目根目录
+- 如果您的项目是由 vue-cli 模式创建的， 请将下载后的`uni-ajax`文件夹放到项目的`src`文件夹中即可
 
 ### npm 安装
 
@@ -74,13 +74,6 @@ ajax.put()
 ajax.delete()
 ```
 
-**其他属性**
-
-```JavaScript
-ajax.baseURL    // 获取配置的接口根地址 baseURL
-ajax.origin     // 根据配置的接口根地址获取源地址 origin
-```
-
 **RequestTask 方法**
 
 ```JavaScript
@@ -89,6 +82,13 @@ const request = ajax()            // 常规使用或请求方式使用
 request.abort()                   // 中断请求任务
 request.onHeadersReceived(fn)     // 监听 HTTP Response Header 事件
 request.offHeadersReceived(fn)    // 取消监听 HTTP Response Header 事件
+```
+
+**其他属性**
+
+```JavaScript
+ajax.baseURL    // 获取配置的接口根地址 baseURL
+ajax.origin     // 根据配置的接口根地址获取源地址 origin
 ```
 
 ### 参数
