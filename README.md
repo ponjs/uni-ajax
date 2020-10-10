@@ -33,40 +33,28 @@ npm update uni-ajax
 
 ## 🥐 引入
 
-新建`ajax.js`文件（文件名自定义）用于处理拦截器、接口根地址、默认参数等
+新建`ajax.js`文件（文件名自定义）用于处理拦截器、接口根地址、默认参数等，详情配置请查看文档
 
 ```JavaScript
 // ajax.js
 
+// 引入 uni-ajax 和 vue（用于挂载实例）
 import Vue from 'vue';
 import ajax from 'uni-ajax';
 
-// 创建请求实例 可默认配置
-const _ajax = ajax.create();
+// 创建请求实例 可配置默认项
+const _ajax = ajax.create(config);
 
 // 请求拦截器
-_ajax.interceptors.request.use(
-  config => {
-    return config;
-  },
-  error => {
-    return error;
-  }
-);
+_ajax.interceptors.request.use(fulfilled, rejected);
 
 // 响应拦截器
-_ajax.interceptors.response.use(
-  response => {
-    return response;
-  },
-  error => {
-    return error;
-  }
-);
+_ajax.interceptors.response.use(fulfilled, rejected);
 
 // 挂载在 Vue 原型链上
 Vue.prototype.$ajax = _ajax;
 
+// 导出创建后的实例
 export default _ajax;
 ```
 
