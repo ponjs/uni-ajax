@@ -1,13 +1,13 @@
-import UniAjax from './lib/ajax';
+import UniAjax from './lib/ajax'
 
 function createInstance(defaultConfig) {
-  return new UniAjax(defaultConfig).request;
+  return new UniAjax(defaultConfig).request
 }
 
-const uniAjax = createInstance();
+const uniAjax = createInstance()
 
 uniAjax.create = function create(instanceConfig) {
-  return createInstance(instanceConfig);
-};
+  return createInstance(instanceConfig)
+}
 
-export default uniAjax;
+export default uniAjax
