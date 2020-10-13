@@ -42,8 +42,8 @@ import ajax from 'uni-ajax'                             // 引入 uni-ajax 模�
 
 const _ajax = ajax.create(config)                       // 创建请求实例 可配置默认项
 
-_ajax.interceptors.request.use(fulfilled, rejected)     // 请求拦截器
-_ajax.interceptors.response.use(fulfilled, rejected)    // 响应拦截器
+_ajax.interceptors.request.use(fulfilled, rejected)     // 添加请求拦截器
+_ajax.interceptors.response.use(fulfilled, rejected)    // 添加响应拦截器
 
 export default _ajax                                    // 导出创建后的实例
 ```
