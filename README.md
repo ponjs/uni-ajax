@@ -33,7 +33,7 @@ npm update uni-ajax
 
 ## 🥐 引入
 
-新建`ajax.js`文件（文件名自定义）用于处理拦截器、接口根地址、默认参数等，详细配置请查看文档
+新建`ajax.js`文件（文件名自定义）用于处理拦截器、接口根地址、默认参数等，详细配置请[查看文档][1]
 
 ```JavaScript
 // ajax.js
@@ -93,17 +93,18 @@ ajax.origin     // 根据配置的接口根地址获取源地址 origin
 
 ### 参数
 
-上面的请求方法中，传参方式有`config`或`url[, data[, config]]`，直接返回都是封装后的[Promise 对象][1]，并支持[RequestTask 方法][2]
+上面的请求方法中，传参方式有`config`或`url[, data[, config]]`，直接返回都是封装后的[Promise 对象][2]，并支持[RequestTask 方法][3]
 
-- [config][3]
+- [config][4]
   - `resolve` &nbsp;响应成功对象 / RequestTask 对象
   - `reject` &nbsp;&nbsp;&nbsp;请求或响应失败对象 / 无
 
-* [url[, data[, config]]][4]
+* [url[, data[, config]]][5]
   - `resolve` &nbsp;响应成功对象
   - `reject` &nbsp;&nbsp;&nbsp;请求或响应失败对象
 
-[1]: https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise
-[2]: https://uniajax.ponjs.com/usage.html#requesttask
-[3]: https://uniajax.ponjs.com/usage.html#config
-[4]: https://uniajax.ponjs.com/usage.html#url-data-config
+[1]: https://uniajax.ponjs.com/config.html
+[2]: https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise
+[3]: https://uniajax.ponjs.com/usage.html#requesttask
+[4]: https://uniajax.ponjs.com/usage.html#config
+[5]: https://uniajax.ponjs.com/usage.html#url-data-config
