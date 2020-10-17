@@ -1,15 +1,12 @@
 import Interceptor from './interceptor'
 import defaults, { METHOD } from './defaults'
 import { detachRequest, originURL } from './helpers'
-import { forEach, hasProp, merge } from './utils'
+import { forEach, merge } from './utils'
 import { handleRequest, handleResponse, requestRejected } from './handle'
 
 export default class Ajax {
   constructor(config) {
     this.config = merge(defaults, config)
-
-    // 修改 this 指向
-    this.request = this.request.bind(this)
 
     // 挂载拦截器
     this.request.interceptors = { request: new Interceptor(), response: new Interceptor() }
@@ -30,7 +27,7 @@ export default class Ajax {
           ))
     )
   }
-  request(...args) {
+  request = (...args) => {
     // 分类请求参数
     const { callback, params } = detachRequest(...args)
     // 回调函数字段
@@ -43,19 +40,19 @@ export default class Ajax {
       // 中断请求任务
       abort() {
         aborted = true
-        hasProp(requestTask, 'abort', prop => prop())
+        requestTask?.abort()
         return this
       }
       // 监听 HTTP Response Header 事件
       onHeadersReceived(fn) {
         onHeadRcvd = fn
-        hasProp(requestTask, 'onHeadersReceived', prop => prop(fn))
+        requestTask?.onHeadersReceived(fn)
         return this
       }
       // 取消监听 HTTP Response Header 事件
       offHeadersReceived(fn) {
         offHeadRcvd = fn
-        hasProp(requestTask, 'offHeadersReceived', prop => prop(fn))
+        requestTask?.offHeadersReceived(fn)
         return this
       }
     }
@@ -85,8 +82,8 @@ export default class Ajax {
       fields.length && resolve(requestTask)
 
       // 判断是否执行监听 HTTP Response Header 事件
-      onHeadRcvd && hasProp(requestTask, 'onHeadersReceived', prop => prop(onHeadRcvd))
-      offHeadRcvd && hasProp(requestTask, 'offHeadersReceived', prop => prop(offHeadRcvd))
+      onHeadRcvd && requestTask?.onHeadersReceived(onHeadRcvd)
+      offHeadRcvd && requestTask?.offHeadersReceived(offHeadRcvd)
     })
   }
 }

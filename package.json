@@ -1,11 +1,15 @@
 {
   "name": "uni-ajax",
-  "version": "2.1.7",
-  "description": "封装 uni-app 的 request API",
-  "main": "index.js",
+  "version": "2.1.8",
+  "description": "封装 uni-app 的 request 请求",
+  "main": "dist",
+  "scripts": {
+    "build": "webpack",
+    "prepublishOnly": "npm run build"
+  },
   "files": [
-    "lib",
-    "index.js"
+    "dist",
+    "src"
   ],
   "keywords": [
     "uni-app",
@@ -18,5 +22,16 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/ponjs/uni-ajax"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.1",
+    "@babel/core": "^7.12.1",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-proposal-optional-chaining": "^7.12.1",
+    "@babel/plugin-transform-runtime": "^7.12.1",
+    "babel-loader": "^8.1.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "webpack": "^5.1.2",
+    "webpack-cli": "^4.0.0"
   }
 }

@@ -20,20 +20,6 @@ export function forEach(obj, fn) {
 }
 
 /**
- * 获取目标对象属性
- * @description 因为 vue cli 上使用 es2020 的 ?. 可选链会报错，所以只好这么写
- * @param {object} target 目标对象
- * @param {string} prop 被获取的属性名
- * @param {function} callback 属性存在回调
- * @returns {any} 目标对象属性或回调执行返回
- */
-export function hasProp(target, prop, callback) {
-  let value = target === null || target === undefined ? undefined : target[prop]
-  typeof value === 'function' && (value = value.bind(target))
-  return typeof callback === 'function' ? callback(value) : value
-}
-
-/**
  * 对象深合并
  * @param  {...object} args 对象
  * @returns {object} 合并后的对象

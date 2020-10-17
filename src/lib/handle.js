@@ -1,6 +1,6 @@
 import { METHOD } from './defaults'
 import { combineURL, isCallback } from './helpers'
-import { forEach, hasProp, merge } from './utils'
+import { forEach, merge } from './utils'
 
 /**
  * 请求错误
@@ -41,8 +41,8 @@ export async function handleRequest(request) {
   const method = config.method.toLowerCase()
   config.header = merge(
     this.config.header,
-    hasProp(this.config.header, method),
-    hasProp(config.header, method),
+    this.config.header?.[method],
+    config.header?.[method],
     config.header
   )
 
