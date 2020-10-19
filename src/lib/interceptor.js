@@ -1,4 +1,4 @@
-class Interceptor {
+export default class Interceptor {
   constructor() {
     this.fulfilled = async res => res
     this.rejected = async err => err
@@ -13,5 +13,3 @@ class Interceptor {
     typeof rejected === 'function' && (this.rejected = rejected)
   }
 }
-
-export default Interceptor
