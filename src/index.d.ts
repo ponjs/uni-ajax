@@ -22,7 +22,7 @@ export interface AjaxRequestConfig {
 }
 
 export interface AjaxCallbackConfig<T = any> extends AjaxRequestConfig {
-  success?: (result: AjaxResponse<T>) => void
+  success?: (result: T) => void
   fail?: (result: any) => void
   complete?: (result: any) => void
 }
@@ -46,12 +46,16 @@ export interface AjaxRequestTask<T = void> {
   offHeadersReceived(callback: (result: any) => void): T
 }
 
-export interface AjaxPromise<T = any> extends Promise<AjaxResponse<T>>, AjaxRequestTask<AjaxPromise<T>> {}
+export interface AjaxPromise<T = any> extends Promise<T>, AjaxRequestTask<AjaxPromise<T>> {}
 
 export interface AjaxContext {
-  <T = any>(config?: AjaxRequestConfig): AjaxPromise<T>
-  <T = any>(config?: AjaxCallbackConfig<T>): Promise<AjaxRequestTask>
-  <T = any>(url?: string, data?: Data, config?: AjaxRequestConfig): AjaxPromise<T>
+  <T = any, R = AjaxResponse<T>>(config?: AjaxRequestConfig): AjaxPromise<R>
+  <T = any, R = AjaxResponse<T>>(config?: AjaxCallbackConfig<R>): Promise<AjaxRequestTask>
+  <T = any, R = AjaxResponse<T>>(
+    url?: string,
+    data?: Data,
+    config?: AjaxRequestConfig
+  ): AjaxPromise<R>
 }
 
 export interface AjaxInstance extends AjaxContext {
