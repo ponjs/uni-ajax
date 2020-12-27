@@ -9,32 +9,32 @@
 
 ## 🍟 文档
 
-**[uniajax.ponjs.com](https://uniajax.ponjs.com)**
+**[uniajax.ponjs.com][1]**
 
 ## 🥗 安装
 
-### 下载安装
+**插件市场**
 
-- 在 uni-app 插件市场右上角选择`使用HBuilder X 导入插件`或者`下载插件ZIP`
-- 如果您的项目是由 HBuilder X 创建的标准 uni-app 项目，将下载解压后的`uni-ajax`文件夹，复制到项目根目录
-- 如果您的项目是由 vue-cli 模式创建的， 请将下载后的`uni-ajax`文件夹放到项目的`src`文件夹中即可
+- 在插件市场右上角选择`使用HBuilder X 导入插件`或者`下载插件ZIP`。
+- 如果您的项目是由`HBuilder X`创建，将下载解压后的`uni-ajax`文件夹，放到项目根目录。
+- 如果您的项目是由`vue-cli`模式创建的，将下载解压后的`uni-ajax`文件夹放到项目的`src`文件夹中。
 
-### npm 安装
+**NPM**
 
-```
-// 如果您的项目是HBuilder X创建的，根目录又没有package.json文件的话，请先执行如下命令：
-// npm init -y
+```bash
+# 如果您的项目是HBuilder X创建的，根目录又没有package.json文件的话，请先执行如下命令：
+# npm init -y
 
-// 安装
+# 安装
 npm install uni-ajax
 
-// 更新
+# 更新
 npm update uni-ajax
 ```
 
-## 🥐 引入
+## 🥐 实例
 
-新建`ajax.js`文件（文件名自定义）用于处理拦截器、接口根地址、默认参数等，详细配置请[查看文档][1]
+新建`ajax.js`文件（文件名自定义）用于处理拦截器、接口根地址、默认参数等，详细配置请[查看文档][2]
 
 ```JavaScript
 // ajax.js
@@ -60,25 +60,23 @@ Vue.prototype.$ajax = ajax         // 挂载在 Vue 原型链上（通过 this.$
 
 ## 🥪 使用
 
-### 方法
-
 **请求方法**
 
 ```JavaScript
-// 常规使用
+// 常规方法
 ajax()
 
-// 请求方式使用
+// 请求方法别名
 ajax.get()
 ajax.post()
 ajax.put()
 ajax.delete()
 ```
 
-**RequestTask 方法**
+**RequestTask**
 
 ```JavaScript
-const request = ajax()                  // 常规使用或请求方式使用
+const request = ajax()                  // 请求方法每项皆可
 
 request.abort()                         // 中断请求任务
 request.onHeadersReceived(callback)     // 监听 HTTP Response Header 事件
@@ -92,20 +90,5 @@ ajax.baseURL    // 获取配置的接口根地址 baseURL
 ajax.origin     // 根据配置的接口根地址获取源地址 origin
 ```
 
-### 参数
-
-上面的请求方法中，传参方式有`config`或`url[, data[, config]]`，直接返回都是封装后的[Promise 对象][2]，并支持[RequestTask 方法][3]
-
-- [config][4]
-  - `resolve` &nbsp;响应成功对象 / RequestTask 对象
-  - `reject` &nbsp;&nbsp;&nbsp;请求或响应失败对象 / 无
-
-* [url[, data[, config]]][5]
-  - `resolve` &nbsp;响应成功对象
-  - `reject` &nbsp;&nbsp;&nbsp;请求或响应失败对象
-
-[1]: https://uniajax.ponjs.com/config.html
-[2]: https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise
-[3]: https://uniajax.ponjs.com/usage.html#requesttask
-[4]: https://uniajax.ponjs.com/usage.html#config
-[5]: https://uniajax.ponjs.com/usage.html#url-data-config
+[1]: https://uniajax.ponjs.com
+[2]: https://uniajax.ponjs.com/instance/create.html
