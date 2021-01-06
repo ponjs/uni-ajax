@@ -1,34 +1,34 @@
 /**
  * 分离请求对象
  * @param {string|object} url 请求地址 / 请求配置
- * @param {object} [data] 请求参数
+ * @param {string|object} [data] 请求参数
  * @param {object} [config] 请求配置
  * @returns {object} 回调函数对象 去除回调的请求参数
  */
 export function detachRequest(url, data, config) {
-  let request = {}
-  // 判断第一个参数是字符串还是对象
-  if (typeof url === 'string') {
-    request = { url, data }
-
-    // 过滤参数 剔除 url data success fail complete
-    for (const k in config) {
-      if (!isCallback(k) && !request.hasOwnProperty(k)) {
-        request[k] = config[k]
-      }
-    }
-  } else {
-    request = { ...url }
-  }
-
   // 回调函数对象
   let callback = {}
-  // 去除回调的请求参数
+  // 去除回调的请求参数对象
   let params = {}
 
-  for (const k in request) {
-    if (isCallback(k)) callback[k] = request[k]
-    else params[k] = request[k]
+  // 判断第一个参数是字符串还是对象
+  if (typeof url === 'string') {
+    params.url = url
+
+    // 约束 data 数据类型
+    ;['object', 'string'].includes(typeof data) && (params.data = data)
+
+    // 分离参数
+    for (const k in config) {
+      if (isCallback(k)) callback[k] = config[k]
+      else if (!params.hasOwnProperty(k)) params[k] = config[k]
+    }
+  } else {
+    // 分离参数
+    for (const k in url) {
+      if (isCallback(k)) callback[k] = url[k]
+      else params[k] = url[k]
+    }
   }
 
   return { callback, params }
