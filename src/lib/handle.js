@@ -37,7 +37,7 @@ export async function handleRequest(request) {
   // 拼接 url
   config.url = combineURL(config.baseURL, config.url)
 
-  // header 调整优先级
+  // 调整 header 优先级
   const method = config.method.toLowerCase()
   config.header = merge(
     this.config.header,
@@ -50,7 +50,7 @@ export async function handleRequest(request) {
   forEach(METHOD, method => delete config.header[method])
 
   // 清除回调函数
-  forEach(config, (fun, key) => isCallback(key) && delete config[key])
+  forEach(config, (fn, key) => isCallback(key) && delete config[key])
 
   return config
 }
