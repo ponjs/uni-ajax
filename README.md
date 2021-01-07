@@ -39,14 +39,14 @@ npm update uni-ajax
 ```JavaScript
 // ajax.js
 
-import ajax from 'uni-ajax'                             // 引入 uni-ajax 模块
+import ajax from 'uni-ajax'                                 // 引入 uni-ajax 模块
 
-const _ajax = ajax.create(config)                       // 创建请求实例 可配置默认项
+const _ajax = ajax.create(config)                           // 创建请求实例 可配置默认项
 
-_ajax.interceptors.request.use(fulfilled, rejected)     // 注册请求拦截器
-_ajax.interceptors.response.use(fulfilled, rejected)    // 注册响应拦截器
+_ajax.interceptors.request.use(onFulfilled, onRejected)     // 注册请求拦截器
+_ajax.interceptors.response.use(onFulfilled, onRejected)    // 注册响应拦截器
 
-export default _ajax                                    // 导出创建后的实例
+export default _ajax                                        // 导出创建后的实例
 ```
 
 然后在`main.js`引入该`ajax.js`
