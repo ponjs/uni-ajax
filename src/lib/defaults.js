@@ -7,5 +7,6 @@ export default {
   responseType: 'text',
   sslVerify: true,
   withCredentials: false,
-  firstIpv4: false
+  firstIpv4: false,
+  validateStatus: statusCode => statusCode >= 200 && statusCode < 300
 }

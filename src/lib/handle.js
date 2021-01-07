@@ -67,9 +67,9 @@ export function handleResponse(config, callback, resolve, reject) {
   return async res => {
     try {
       // 根据状态码判断要执行的回调和拦截器
-      const interceptor = res.statusCode >= 200 && res.statusCode < 300 ? 'fulfilled' : 'rejected'
-      var result = await this.request.interceptors.response[interceptor]({ config, ...res })
-      var field = interceptor === 'fulfilled' ? 'success' : 'fail'
+      const state = !config.validateStatus || config.validateStatus(res.statusCode) ? 'fulfilled' : 'rejected'
+      var result = await this.request.interceptors.response[state]({ config, ...res })
+      var field = state === 'fulfilled' ? 'success' : 'fail'
     } catch (error) {
       // 拦截器返回错误
       result = error

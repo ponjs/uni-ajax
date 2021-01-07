@@ -19,6 +19,7 @@ export interface AjaxRequestConfig {
   sslVerify?: boolean
   withCredentials?: boolean
   firstIpv4?: boolean
+  validateStatus?: ((statusCode: number) => boolean) | null
 }
 
 export interface AjaxCallbackConfig<T = any> extends AjaxRequestConfig {
