@@ -3,17 +3,6 @@ import { combineURL, isCallback } from './helpers'
 import { forEach, merge } from './utils'
 
 /**
- * 请求错误
- * @param {object} config 请求配置
- * @param {string} errMsg 错误信息
- * @returns {Promise} 返回 Promise reject
- */
-export async function requestRejected(config, errMsg) {
-  const error = await this.request.interceptors.request.rejected({ config, errMsg })
-  return Promise.reject(error)
-}
-
-/**
  * 处理请求前
  * @param {object} request 请求参数
  * @returns {object} 处理后的请求参数对象
@@ -31,7 +20,11 @@ export async function handleRequest(request) {
 
   // 判断请求拦截返回是否为对象
   if (Object.prototype.toString.call(config) !== '[object Object]') {
-    return requestRejected.call(this, config, 'request:fail parameter')
+    const error = await this.request.interceptors.request.rejected({
+      config,
+      errMsg: 'request:fail parameter'
+    })
+    return Promise.reject(error)
   }
 
   // 拼接 url

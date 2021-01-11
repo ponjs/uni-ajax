@@ -2,7 +2,7 @@ import Interceptor from './interceptor'
 import defaults, { METHOD } from './defaults'
 import { detachRequest, originURL } from './helpers'
 import { forEach, merge } from './utils'
-import { handleRequest, handleResponse, requestRejected } from './handle'
+import { handleRequest, handleResponse } from './handle'
 
 export default class Ajax {
   constructor(config) {
@@ -62,8 +62,10 @@ export default class Ajax {
       try {
         // 请求拦截后的配置和回调
         var config = await handleRequest.call(this, params)
+        // 接口调用结束的回调函数
+        var complete = handleResponse.call(this, config, callback, resolve, reject)
         // 判断是否被取消请求
-        if (aborted) return await requestRejected.call(this, config, 'request:fail abort')
+        if (aborted) return complete({ errMsg: 'request:fail abort' })
       } catch (error) {
         // 如果有回调参数 异步执行 fail / complete
         if (fields.includes('fail')) (async () => callback.fail(error))()
@@ -73,10 +75,7 @@ export default class Ajax {
       }
 
       // 发起请求
-      requestTask = uni.request({
-        ...config,
-        complete: handleResponse.call(this, config, callback, resolve, reject)
-      })
+      requestTask = uni.request({ ...config, complete })
 
       // 当传入 success / fail / complete 之一时，返回 requestTask 对象
       fields.length && resolve(requestTask)
