@@ -60,12 +60,8 @@ export default class Ajax {
     return new Request(async (resolve, reject) => {
       // 统一处理请求错误
       try {
-        // 请求拦截后的配置和回调
+        // 请求拦截后的配置
         var config = await handleRequest.call(this, params)
-        // 接口调用结束的回调函数
-        var complete = handleResponse.call(this, config, callback, resolve, reject)
-        // 判断是否被取消请求
-        if (aborted) return complete({ errMsg: 'request:fail abort' })
       } catch (error) {
         // 如果有回调参数 异步执行 fail / complete
         if (fields.includes('fail')) (async () => callback.fail(error))()
@@ -73,6 +69,11 @@ export default class Ajax {
         // 没有回调参数时抛出请求错误
         return !fields.length && reject(error)
       }
+
+      // 接口调用结束的回调函数
+      const complete = handleResponse.call(this, config, callback, resolve, reject)
+      // 判断是否被取消请求
+      if (aborted) return complete({ errMsg: 'request:fail abort' })
 
       // 发起请求
       requestTask = uni.request({ ...config, complete })
