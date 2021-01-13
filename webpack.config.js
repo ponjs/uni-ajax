@@ -9,7 +9,8 @@ module.exports = {
     filename: 'index.js',
     sourceMapFilename: 'index.map',
     library: 'ajax',
-    libraryTarget: 'umd'
+    libraryTarget: 'umd',
+    libraryExport: 'default'
   },
   devtool: 'source-map',
   module: {
