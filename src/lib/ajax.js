@@ -82,8 +82,8 @@ export default class Ajax {
       fields.length && resolve(requestTask)
 
       // 判断是否执行监听 HTTP Response Header 事件
-      onHeadRcvd && requestTask?.onHeadersReceived(onHeadRcvd)
-      offHeadRcvd && requestTask?.offHeadersReceived(offHeadRcvd)
+      onHeadRcvd && requestTask.onHeadersReceived?.(onHeadRcvd)
+      offHeadRcvd && requestTask.offHeadersReceived?.(offHeadRcvd)
     })
   }
 }
