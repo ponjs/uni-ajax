@@ -5,11 +5,13 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 module.exports = {
   entry: './src/index.js',
   output: {
-    filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
+    filename: 'index.js',
+    sourceMapFilename: 'index.map',
     library: 'ajax',
     libraryTarget: 'umd'
   },
+  devtool: 'source-map',
   module: {
     rules: [
       {
@@ -21,6 +23,8 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new CopyPlugin({ patterns: [path.resolve(__dirname, 'src', 'index.d.ts')] })
+    new CopyPlugin({
+      patterns: [path.resolve(__dirname, 'src', 'index.d.ts')]
+    })
   ]
 }
