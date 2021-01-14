@@ -1,7 +1,7 @@
 export default class Interceptor {
   constructor() {
-    this.fulfilled = async res => res
-    this.rejected = async err => err
+    this.fulfilled = res => res
+    this.rejected = err => err
   }
   /**
    * 拦截器
