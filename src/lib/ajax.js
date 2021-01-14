@@ -18,14 +18,12 @@ export default class Ajax {
     this.request.origin = originURL(this.config.baseURL)
 
     // 挂载对应的 method 方法
-    forEach(
-      METHOD,
-      method =>
-        (this.request[method] = (url, data, config) =>
-          this.request(
-            ...(typeof url === 'string' ? [url, data, { ...config, method }] : [{ ...url, method }])
-          ))
-    )
+    forEach(METHOD, method => {
+      this.request[method] = (url, data, config) =>
+        this.request(
+          ...(typeof url === 'string' ? [url, data, { ...config, method }] : [{ ...url, method }])
+        )
+    })
   }
   request = (...args) => {
     // 分类请求参数
