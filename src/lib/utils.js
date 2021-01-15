@@ -4,7 +4,7 @@
  * @param {function} fn 为每个项调用的回调
  */
 export function forEach(obj, fn) {
-  if (obj === null || typeof obj === 'undefined') return
+  if (obj === null || obj === undefined) return
   if (typeof obj !== 'object') obj = [obj]
   if (Object.prototype.toString.call(obj) === '[object Array]') {
     for (let i = 0, l = obj.length; i < l; i++) {
@@ -20,21 +20,21 @@ export function forEach(obj, fn) {
 }
 
 /**
- * 对象深合并
+ * 对象深合并（不合并undefined值）
  * @param  {...object} args 对象
  * @returns {object} 合并后的对象
  */
 export function merge(...args) {
   let result = {}
   for (let i = 0, l = args.length; i < l; i++) {
-    forEach(
-      args[i] || {},
-      (val, key) =>
-        (result[key] =
-          typeof result[key] === 'object' && typeof val === 'object'
-            ? merge(result[key], val)
-            : val)
-    )
+    forEach(args[i] || {}, (val, key) => {
+      result[key] =
+        typeof result[key] === 'object' && typeof val === 'object'
+          ? merge(result[key], val)
+          : val === undefined
+          ? result[key]
+          : val
+    })
   }
   return result
 }
