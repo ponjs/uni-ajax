@@ -1,10 +1,11 @@
 {
   "name": "uni-ajax",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "description": "Lightweight HTTP client for the uni-app",
   "main": "dist",
   "scripts": {
-    "build": "webpack --progress"
+    "build": "webpack --progress",
+    "prepublishOnly": "webpack --progress"
   },
   "files": [
     "dist",
