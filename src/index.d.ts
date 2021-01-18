@@ -49,7 +49,7 @@ export interface AjaxRequestTask<T = void> {
 
 export interface AjaxPromise<T = any> extends Promise<T>, AjaxRequestTask<AjaxPromise<T>> {}
 
-export interface AjaxContext {
+export interface AjaxExecutor {
   <T = any, R = AjaxResponse<T>>(config?: AjaxRequestConfig): AjaxPromise<R>
   <T = any, R = AjaxResponse<T>>(config?: AjaxCallbackConfig<R>): Promise<AjaxRequestTask>
   <T = any, R = AjaxResponse<T>>(
@@ -59,17 +59,17 @@ export interface AjaxContext {
   ): AjaxPromise<R>
 }
 
-export interface AjaxInstance extends AjaxContext {
+export interface AjaxInstance extends AjaxExecutor {
   readonly baseURL: string
   readonly origin: string
-  get: AjaxContext
-  post: AjaxContext
-  put: AjaxContext
-  delete: AjaxContext
-  connect: AjaxContext
-  head: AjaxContext
-  options: AjaxContext
-  trace: AjaxContext
+  get: AjaxExecutor
+  post: AjaxExecutor
+  put: AjaxExecutor
+  delete: AjaxExecutor
+  connect: AjaxExecutor
+  head: AjaxExecutor
+  options: AjaxExecutor
+  trace: AjaxExecutor
   interceptors: {
     request: AjaxInterceptorManager<AjaxRequestConfig>
     response: AjaxInterceptorManager<AjaxResponse>
