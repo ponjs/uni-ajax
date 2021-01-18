@@ -1,6 +1,10 @@
-export const METHOD = ['get', 'post', 'put', 'delete', 'connect', 'head', 'options', 'trace']
+import { forEach } from './utils'
 
-export default {
+export const METHOD = ['get', 'post', 'put', 'delete', 'connect', 'head', 'options', 'trace']
+export const HEADER = [...METHOD, 'common']
+
+var defaults = {
+  header: {},
   method: 'GET',
   timeout: 30000,
   dataType: 'json',
@@ -10,3 +14,7 @@ export default {
   firstIpv4: false,
   validateStatus: statusCode => statusCode >= 200 && statusCode < 300
 }
+
+forEach(HEADER, header => (defaults.header[header] = {}))
+
+export default defaults
