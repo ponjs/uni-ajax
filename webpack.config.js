@@ -13,6 +13,7 @@ module.exports = {
     libraryExport: 'default'
   },
   devtool: 'source-map',
+  mode: 'production',
   module: {
     rules: [
       {
