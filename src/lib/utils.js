@@ -1,4 +1,27 @@
 /**
+ * 获取值的原始类型字符串，例如 [object Object]
+ */
+const _toString = Object.prototype.toString
+
+/**
+ * 判断是否为数组
+ * @param {object} val 要判断的值
+ * @returns {boolean} 返回判断结果
+ */
+export function isArray(val) {
+  return _toString.call(val) === '[object Array]'
+}
+
+/**
+ * 判断是否为普通对象
+ * @param {object} val 要判断的值
+ * @returns {boolean} 返回判断结果
+ */
+export function isObject(val) {
+  return _toString.call(val) === '[object Object]'
+}
+
+/**
  * 遍历
  * @param {object|array} obj 要迭代的对象
  * @param {function} fn 为每个项调用的回调
@@ -6,7 +29,7 @@
 export function forEach(obj, fn) {
   if (obj === null || obj === undefined) return
   if (typeof obj !== 'object') obj = [obj]
-  if (Object.prototype.toString.call(obj) === '[object Array]') {
+  if (isArray(obj)) {
     for (let i = 0, l = obj.length; i < l; i++) {
       fn.call(null, obj[i], i, obj)
     }
@@ -27,13 +50,15 @@ export function forEach(obj, fn) {
 export function merge(...args) {
   let result = {}
   for (let i = 0, l = args.length; i < l; i++) {
-    forEach(args[i] || {}, (val, key) => {
-      result[key] =
-        typeof result[key] === 'object' && typeof val === 'object'
-          ? merge(result[key], val)
-          : val === undefined
-          ? result[key]
-          : val
+    const obj = typeof args[i] === 'object' ? args[i] : null
+    forEach(obj, (val, key) => {
+      if (isObject(result[key]) && isObject(val)) {
+        result[key] = merge(result[key], val)
+      } else if (isObject(val)) {
+        result[key] = merge({}, val)
+      } else if (val !== undefined) {
+        result[key] = val
+      }
     })
   }
   return result
