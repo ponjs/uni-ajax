@@ -1,3 +1,5 @@
+import { assign, forEach } from './utils'
+
 /**
  * 分离请求对象
  * @param {string|object} url 请求地址 / 请求配置
@@ -5,33 +7,44 @@
  * @param {object} [config] 请求配置
  * @returns {object} 回调函数对象 去除回调的请求参数
  */
-export function detachRequest(url, data, config) {
+export function detachConfig(url, data, config) {
   // 回调函数对象
   let callback = {}
   // 去除回调的请求参数对象
   let params = {}
 
-  // 判断第一个参数是字符串还是对象
-  if (typeof url === 'string') {
-    params.url = url
+  // 请求参数对象
+  const value = typeof url === 'string' ? { ...config, url, data } : url
 
-    // 约束 data 数据类型
-    ;['object', 'string'].includes(typeof data) && (params.data = data)
-
-    // 分离参数
-    for (const k in config) {
-      if (isCallback(k)) callback[k] = config[k]
-      else if (!params.hasOwnProperty(k)) params[k] = config[k]
-    }
-  } else {
-    // 分离参数
-    for (const k in url) {
-      if (isCallback(k)) callback[k] = url[k]
-      else params[k] = url[k]
-    }
+  // 分离参数
+  for (const k in value) {
+    if (isCallback(k)) callback[k] = value[k]
+    else params[k] = value[k]
   }
 
   return { callback, params }
+}
+
+/**
+ * 合并请求配置（深度合并，且不合并 undefined 值）
+ * @param {object} config1 请求配置 1
+ * @param {object} config2 请求配置 2
+ * @returns {object} 合并后的请求配置
+ */
+export function mergeConfig(config1, config2 = {}) {
+  let config = {}
+
+  const configKeys = Object.keys({ ...config1, ...config2 })
+
+  forEach(configKeys, prop => {
+    if (config2[prop] !== undefined) {
+      config[prop] = assign(config1[prop], config2[prop])
+    } else if (config1[prop] !== undefined) {
+      config[prop] = assign(undefined, config1[prop])
+    }
+  })
+
+  return config
 }
 
 /**

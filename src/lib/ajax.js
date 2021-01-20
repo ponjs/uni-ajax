@@ -1,12 +1,12 @@
 import Interceptor from './interceptor'
 import defaults, { METHOD } from './defaults'
-import { detachRequest, originURL } from './helpers'
-import { forEach, merge } from './utils'
+import { detachConfig, mergeConfig, originURL } from './helpers'
+import { forEach } from './utils'
 import { handleRequest, handleResponse } from './handle'
 
 export default class Ajax {
   constructor(config) {
-    this.config = merge(defaults, config)
+    this.config = mergeConfig(defaults, config)
 
     // 挂载拦截器
     this.request.interceptors = { request: new Interceptor(), response: new Interceptor() }
@@ -27,7 +27,7 @@ export default class Ajax {
   }
   request = (...args) => {
     // 分类请求参数
-    const { callback, params } = detachRequest(...args)
+    const { callback, params } = detachConfig(...args)
     // 回调函数字段
     const fields = Object.keys(callback)
     // 定义 RequestTask 所需字段
@@ -70,6 +70,7 @@ export default class Ajax {
 
       // 接口调用结束的回调函数
       const complete = handleResponse.call(this, config, callback, resolve, reject)
+
       // 判断是否被取消请求
       if (aborted) return complete({ errMsg: 'request:fail abort' })
 

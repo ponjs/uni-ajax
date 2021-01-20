@@ -1,5 +1,5 @@
 import { HEADER } from './defaults'
-import { combineURL, isCallback } from './helpers'
+import { combineURL, mergeConfig, isCallback } from './helpers'
 import { forEach, isObject, merge } from './utils'
 
 /**
@@ -8,7 +8,8 @@ import { forEach, isObject, merge } from './utils'
  * @returns {object} 处理后的请求参数对象
  */
 export async function handleRequest(request) {
-  let params = merge(this.config, request)
+  let params = mergeConfig(this.config, request)
+
   // 这里转大写是方便拦截器的相应操作
   params.method = params.method.toUpperCase()
 

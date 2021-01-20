@@ -43,23 +43,32 @@ export function forEach(obj, fn) {
 }
 
 /**
- * 对象深合并（不合并undefined值）
+ * 对象深合并
  * @param  {...object} args 对象
  * @returns {object} 合并后的对象
  */
 export function merge(...args) {
   let result = {}
   for (let i = 0, l = args.length; i < l; i++) {
-    const obj = typeof args[i] === 'object' ? args[i] : null
-    forEach(obj, (val, key) => {
-      if (isObject(result[key]) && isObject(val)) {
-        result[key] = merge(result[key], val)
-      } else if (isObject(val)) {
-        result[key] = merge({}, val)
-      } else if (val !== undefined) {
-        result[key] = val
-      }
-    })
+    if (!isObject(args[i])) continue
+    forEach(args[i], (val, key) => (result[key] = assign(result[key], val)))
   }
   return result
+}
+
+/**
+ * 合并分配值
+ * @param {any} target 分配的前值
+ * @param {any} source 分配的后值
+ * @returns {any} 最终分配值
+ */
+export function assign(target, source) {
+  if (isObject(target) && isObject(source)) {
+    return merge(target, source)
+  } else if (isObject(source)) {
+    return merge({}, source)
+  } else if (isArray(source)) {
+    return source.slice()
+  }
+  return source
 }
