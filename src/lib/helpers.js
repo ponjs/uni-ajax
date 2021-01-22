@@ -17,9 +17,9 @@ export function detachConfig(url, data, config) {
   const value = typeof url === 'string' ? { ...config, url, data } : url
 
   // 分离请求参数
-  forEach(value, key => {
-    if (isCallback(key)) callback[key] = value[key]
-    else params[key] = value[key]
+  forEach(value, (val, key) => {
+    if (isCallback(key)) callback[key] = val
+    else params[key] = val
   })
 
   return { callback, params }
