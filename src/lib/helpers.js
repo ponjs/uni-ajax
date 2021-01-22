@@ -16,11 +16,11 @@ export function detachConfig(url, data, config) {
   // 请求参数对象
   const value = typeof url === 'string' ? { ...config, url, data } : url
 
-  // 分离参数
-  for (const k in value) {
-    if (isCallback(k)) callback[k] = value[k]
-    else params[k] = value[k]
-  }
+  // 分离请求参数
+  forEach(value, key => {
+    if (isCallback(key)) callback[key] = value[key]
+    else params[key] = value[key]
+  })
 
   return { callback, params }
 }
