@@ -15,6 +15,6 @@ var defaults = {
   validateStatus: statusCode => statusCode >= 200 && statusCode < 300
 }
 
-forEach(HEADER, header => (defaults.header[header] = {}))
+forEach(HEADER, h => (defaults.header[h] = {}))
 
 export default defaults
