@@ -50,8 +50,7 @@ export function forEach(obj, fn) {
 export function merge(...args) {
   let result = {}
   for (let i = 0, l = args.length; i < l; i++) {
-    if (!isObject(args[i])) continue
-    forEach(args[i], (val, key) => (result[key] = assign(result[key], val)))
+    isObject(args[i]) && forEach(args[i], (val, key) => (result[key] = assign(result[key], val)))
   }
   return result
 }
