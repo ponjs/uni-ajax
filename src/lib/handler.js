@@ -73,7 +73,7 @@ export function handleResponse(config, callback, resolve, reject) {
     // 请求参数没有回调函数
     if (!fields.length) return field === 'success' ? resolve(result) : reject(result)
     // 异步执行回调函数
-    if (fields.includes(field)) (async () => callback[field](result))()
-    if (fields.includes('complete')) (async () => callback.complete(result))()
+    fields.includes(field) && (async () => callback[field](result))()
+    fields.includes('complete') && (async () => callback.complete(result))()
   }
 }
