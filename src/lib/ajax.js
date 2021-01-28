@@ -2,7 +2,7 @@ import Interceptor from './interceptor'
 import defaults, { METHOD } from './defaults'
 import { detachConfig, mergeConfig, originURL } from './helpers'
 import { forEach } from './utils'
-import { handleRequest, handleResponse } from './handle'
+import { handleRequest, handleResponse } from './handler'
 
 export default class Ajax {
   constructor(config) {
@@ -24,6 +24,9 @@ export default class Ajax {
           ...(typeof url === 'string' ? [url, data, { ...config, method }] : [{ ...url, method }])
         )
     })
+
+    // 挂载修改 config 方法
+    this.request.config = fn => (this.config = fn(this.config))
   }
   request = (...args) => {
     // 分类请求参数
@@ -31,7 +34,7 @@ export default class Ajax {
     // 回调函数字段
     const fields = Object.keys(callback)
     // 定义 RequestTask 所需字段
-    let aborted, requestTask, onHeadRcvd, offHeadRcvd
+    let requestTask, aborted, onHeadRcvd, offHeadRcvd
 
     // 继承 Promise 封装 RequestTask 的一些方法
     class Request extends Promise {
@@ -62,8 +65,8 @@ export default class Ajax {
         var config = await handleRequest.call(this, params)
       } catch (error) {
         // 如果有回调参数 异步执行 fail / complete
-        if (fields.includes('fail')) (async () => callback.fail(error))()
-        if (fields.includes('complete')) (async () => callback.complete(error))()
+        fields.includes('fail') && (async () => callback.fail(error))()
+        fields.includes('complete') && (async () => callback.complete(error))()
         // 没有回调参数时抛出请求错误
         return !fields.length && reject(error)
       }
@@ -76,6 +79,9 @@ export default class Ajax {
 
       // 发起请求
       requestTask = uni.request({ ...config, complete })
+
+      // 根据配置的 xhr 属性执行获取 requestTask
+      typeof config.xhr === 'function' && config.xhr(requestTask, config)
 
       // 当传入 success / fail / complete 之一时，返回 requestTask 对象
       fields.length && resolve(requestTask)

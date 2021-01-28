@@ -19,6 +19,7 @@ export interface AjaxRequestConfig {
   sslVerify?: boolean
   withCredentials?: boolean
   firstIpv4?: boolean
+  xhr?: (requestTask: AjaxRequestTask, config: AjaxRequestConfig) => void
   validateStatus?: ((statusCode?: number) => boolean) | null
 }
 
@@ -70,6 +71,7 @@ export interface AjaxInstance extends AjaxExecutor {
   head: AjaxExecutor
   options: AjaxExecutor
   trace: AjaxExecutor
+  config(executor: (config: AjaxRequestConfig) => AjaxRequestConfig): void
   interceptors: {
     request: AjaxInterceptorManager<AjaxRequestConfig>
     response: AjaxInterceptorManager<AjaxResponse>
