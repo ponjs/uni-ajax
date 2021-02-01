@@ -1,0 +1,17 @@
+[
+  "/",
+  "/installation",
+  "/quickstart",
+  {
+    "title": "使用",
+    "collapsable": false,
+    "children": ["/usage/api", "/usage/request", "/usage/request-task"]
+  },
+  {
+    "title": "请求实例",
+    "collapsable": false,
+    "children": ["/instance/create", "/instance/interceptor"]
+  },
+  "/typescript",
+  "/question"
+]

@@ -1,0 +1,19 @@
+th
+  white-space nowrap
+
+{$contentClass}:not(.custom) 
+  max-width 768px
+
+{$contentClass}:not(.custom)>h1:first-child
+  position relative
+  &:before
+    content ""
+    position absolute
+    width 3.5em
+    height 9px
+    background-color rgba($accentColor, .7)
+    bottom 0
+    left 0
+
+.theme-container .navbar .site-name
+  font-weight bold
