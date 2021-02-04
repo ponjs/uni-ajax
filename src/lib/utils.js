@@ -5,7 +5,7 @@ const _toString = Object.prototype.toString
 
 /**
  * 判断是否为数组
- * @param {object} val 要判断的值
+ * @param {*} val 要判断的值
  * @returns {boolean} 返回判断结果
  */
 export function isArray(val) {
@@ -14,7 +14,7 @@ export function isArray(val) {
 
 /**
  * 判断是否为普通对象
- * @param {object} val 要判断的值
+ * @param {*} val 要判断的值
  * @returns {boolean} 返回判断结果
  */
 export function isObject(val) {
@@ -56,10 +56,10 @@ export function merge(...args) {
 }
 
 /**
- * 合并分配值
- * @param {any} target 分配的前值
- * @param {any} source 分配的后值
- * @returns {any} 最终分配值
+ * 合并分配到目标对象
+ * @param {*} target 目标对象
+ * @param {*} source 源对象
+ * @returns {*} 目标对象
  */
 export function assign(target, source) {
   if (isObject(target) && isObject(source)) {

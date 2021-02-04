@@ -2,7 +2,7 @@ import { assign, forEach } from './utils'
 
 /**
  * 分离请求对象
- * @param {string|object} url 请求地址 / 请求配置
+ * @param {string|object} [url] 请求地址 / 请求配置
  * @param {string|object} [data] 请求参数
  * @param {object} [config] 请求配置
  * @returns {object} 回调函数对象 去除回调的请求参数
@@ -27,8 +27,8 @@ export function detachConfig(url, data, config) {
 
 /**
  * 合并请求配置（深度合并，且不合并 undefined 值）
- * @param {object} config1 请求配置 1
- * @param {object} config2 请求配置 2
+ * @param {object} config1 前请求配置
+ * @param {object} [config2] 后请求配置
  * @returns {object} 合并后的请求配置
  */
 export function mergeConfig(config1, config2 = {}) {
