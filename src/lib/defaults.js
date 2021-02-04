@@ -1,7 +1,7 @@
 import { forEach } from './utils'
 
 export const METHOD = ['get', 'post', 'put', 'delete', 'connect', 'head', 'options', 'trace']
-export const HEADER = [...METHOD, 'common']
+export const HEADER = ['common', ...METHOD]
 
 var defaults = {
   header: {},
