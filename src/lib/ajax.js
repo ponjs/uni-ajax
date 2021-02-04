@@ -6,6 +6,7 @@ import { handleRequest, handleResponse } from './handler'
 
 export default class Ajax {
   constructor(config) {
+    // 合并请求配置赋值到实例配置
     this.config = mergeConfig(defaults, config)
 
     // 挂载拦截器
@@ -17,6 +18,9 @@ export default class Ajax {
     // 挂载接口根地址的源地址 origin
     this.request.origin = originURL(this.config.baseURL)
 
+    // 挂载修改 config 方法
+    this.request.config = fn => (this.config = fn(this.config))
+
     // 挂载对应的 method 方法
     forEach(METHOD, method => {
       this.request[method] = (url, data, config) =>
@@ -24,9 +28,6 @@ export default class Ajax {
           ...(typeof url === 'string' ? [url, data, { ...config, method }] : [{ ...url, method }])
         )
     })
-
-    // 挂载修改 config 方法
-    this.request.config = fn => (this.config = fn(this.config))
   }
   request = (...args) => {
     // 分类请求参数
@@ -47,13 +48,13 @@ export default class Ajax {
       // 监听 HTTP Response Header 事件
       onHeadersReceived(fn) {
         onHeadRcvd = fn
-        requestTask?.onHeadersReceived(fn)
+        requestTask?.onHeadersReceived?.(fn)
         return this
       }
       // 取消监听 HTTP Response Header 事件
       offHeadersReceived(fn) {
         offHeadRcvd = fn
-        requestTask?.offHeadersReceived(fn)
+        requestTask?.offHeadersReceived?.(fn)
         return this
       }
     }
@@ -64,15 +65,15 @@ export default class Ajax {
         // 请求拦截后的配置
         var config = await handleRequest.call(this, params)
       } catch (error) {
-        // 如果有回调参数 异步执行 fail / complete
-        fields.includes('fail') && (async () => callback.fail(error))()
-        fields.includes('complete') && (async () => callback.complete(error))()
+        // 如果有回调参数 执行 fail / complete
+        callback.fail?.(error)
+        callback.complete?.(error)
         // 没有回调参数时抛出请求错误
         return !fields.length && reject(error)
       }
 
       // 接口调用结束的回调函数
-      const complete = handleResponse.call(this, config, callback, resolve, reject)
+      const complete = handleResponse.call(this, { config, callback, resolve, reject })
 
       // 判断是否被取消请求
       if (aborted) return complete({ errMsg: 'request:fail abort' })

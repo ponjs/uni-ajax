@@ -49,13 +49,14 @@ export async function handleRequest(request) {
 
 /**
  * 处理响应后
- * @param {object} config 请求配置
- * @param {object} callback 回调函数对象
- * @param {function} resolve Promise 的 resolve 方法
- * @param {function} reject Promise 的 reject 方法
+ * @param {Object} response 处理响应参数
+ * @param {object} response.config 请求配置
+ * @param {object} response.callback 回调函数对象
+ * @param {function} response.resolve Promise 的 resolve 方法
+ * @param {function} response.reject Promise 的 reject 方法
  * @returns {function} 处理后的 complete 方法
  */
-export function handleResponse(config, callback, resolve, reject) {
+export function handleResponse({ config, callback, ...promise }) {
   return async res => {
     try {
       // 根据状态码判断要执行的回调和拦截器
@@ -69,11 +70,13 @@ export function handleResponse(config, callback, resolve, reject) {
       field = 'fail'
     }
 
-    const fields = Object.keys(callback)
     // 请求参数没有回调函数
-    if (!fields.length) return field === 'success' ? resolve(result) : reject(result)
-    // 异步执行回调函数
-    fields.includes(field) && (async () => callback[field](result))()
-    fields.includes('complete') && (async () => callback.complete(result))()
+    if (!Object.keys(callback).length) {
+      return promise[field === 'success' ? 'resolve' : 'reject'](result)
+    }
+
+    // 执行回调函数
+    callback[field]?.(result)
+    callback.complete?.(result)
   }
 }
