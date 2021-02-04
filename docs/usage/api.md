@@ -39,6 +39,16 @@ request.onHeadersReceived(callback)     // 监听 HTTP Response Header 事件
 request.offHeadersReceived(callback)    // 取消监听 HTTP Response Header 事件
 ```
 
+## 其他方法
+
+```JavaScript
+// 修改请求配置
+ajax.config(config => {
+  // ...
+  return config
+})
+```
+
 ## 其他属性
 
 ```JavaScript
