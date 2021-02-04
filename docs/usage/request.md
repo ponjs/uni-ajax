@@ -33,6 +33,7 @@
 | withCredentials | Boolean  | 跨域请求时是否携带凭证（cookies）                                               |
 | firstIpv4       | Boolean  | DNS 解析时优先使用 ipv4                                                         |
 | validateStatus  | Function | 定义对于给定的 HTTP 状态码返回拦截状态                                          |
+| xhr             | Function | 获取当前请求的 RequestTask 对象                                                 |
 | ...             | Any      | 传递给拦截器的值                                                                |
 
 ### `[config]`

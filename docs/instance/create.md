@@ -38,7 +38,8 @@ export default instance
 | withCredentials     | Boolean  | false                                              | 跨域请求时是否携带凭证（cookies）                   | 仅 H5 支持（HBuilderX 2.6.15+）                  |
 | firstIpv4           | Boolean  | false                                              | DNS 解析时优先使用 ipv4                             | 仅 App-Android 支持 (HBuilderX 2.8.0+)           |
 | [validateStatus][5] | Function | <span style="white-space:nowrap">[200, 300)</span> | 定义对于给定的 HTTP 状态码返回拦截状态              |                                                  |
-| [...][6]            | Any      |                                                    | 传递给拦截器的值                                    |                                                  |
+| [xhr][6]            | Function |                                                    | 获取每次请求的 RequestTask 对象                     |                                                  |
+| [...][7]            | Any      |                                                    | 传递给拦截器的值                                    |                                                  |
 
 ### `baseURL`
 
@@ -157,9 +158,18 @@ const instance = ajax.create({
 })
 ```
 
+### `xhr`
+
+获取每次请求的 `RequestTask` 对象。
+
+```Typescript
+xhr?: (requestTask: AjaxRequestTask, config: AjaxRequestConfig) => void
+```
+
 [1]: /instance/create.html#baseurl
 [2]: /instance/create.html#data
 [3]: /instance/create.html#header
 [4]: /instance/create.html#method
 [5]: /instance/create.html#validatestatus
-[6]: /instance/interceptor.html#传值给拦截器
+[6]: /instance/interceptor.html#xhr
+[7]: /instance/interceptor.html#传值给拦截器
