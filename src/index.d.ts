@@ -71,7 +71,7 @@ export interface AjaxInstance extends AjaxExecutor {
   head: AjaxExecutor
   options: AjaxExecutor
   trace: AjaxExecutor
-  config(executor: (config: AjaxRequestConfig) => AjaxRequestConfig): void
+  config(iterable: (config: AjaxRequestConfig) => AjaxRequestConfig): void
   interceptors: {
     request: AjaxInterceptorManager<AjaxRequestConfig>
     response: AjaxInterceptorManager<AjaxResponse>
