@@ -171,5 +171,5 @@ xhr?: (requestTask: AjaxRequestTask, config: AjaxRequestConfig) => void
 [3]: /instance/create.html#header
 [4]: /instance/create.html#method
 [5]: /instance/create.html#validatestatus
-[6]: /instance/interceptor.html#xhr
+[6]: /instance/create.html#xhr
 [7]: /instance/interceptor.html#传值给拦截器
