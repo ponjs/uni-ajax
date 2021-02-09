@@ -33,7 +33,7 @@
     "@babel/plugin-proposal-class-properties": "^7.12.13",
     "@babel/plugin-proposal-optional-chaining": "^7.12.13",
     "@rollup/plugin-babel": "^5.2.3",
-    "rollup": "^2.38.4",
+    "rollup": "^2.38.5",
     "rollup-plugin-copy": "^3.3.0",
     "vuepress": "^1.8.0"
   }
