@@ -23,7 +23,7 @@ export default {
     file: path.resolve(target, 'index.js'),
     format: 'umd',
     name: 'ajax',
-    sourcemap: true,
+    sourcemap: process.env.TARGET === 'npm',
     banner
   },
   plugins: [
