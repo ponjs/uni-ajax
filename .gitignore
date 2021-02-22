@@ -2,6 +2,8 @@
 node_modules
 dist
 unpackage
+u-ajax
+!u-ajax/package.json
 
 # local env files
 .env.local
