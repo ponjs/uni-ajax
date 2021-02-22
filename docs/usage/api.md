@@ -42,7 +42,7 @@ request.offHeadersReceived(callback)    // 取消监听 HTTP Response Header 事
 ## 其他方法
 
 ```JavaScript
-// 修改请求配置
+// 修改实例配置
 ajax.config(config => {
   // ...
   return config
