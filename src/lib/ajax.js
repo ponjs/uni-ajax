@@ -79,14 +79,7 @@ export default class Ajax {
       if (aborted) return complete({ errMsg: 'request:fail abort' })
 
       // 发起请求
-      try {
-        requestTask = uni.request({ ...config, complete })
-      } catch (error) {
-        const result = await this.request.interceptors.request
-          .rejected({ config, ...error })
-          ?.catch(err => err)
-        return complete(result)
-      }
+      requestTask = uni.request({ ...config, complete })
 
       // 根据配置的 xhr 属性执行获取 requestTask
       typeof config.xhr === 'function' && config.xhr(requestTask, config)
