@@ -14,7 +14,7 @@ export function detachConfig(url, data, config) {
   let params = {}
 
   // 请求参数对象
-  const value = typeof url === 'string' ? { ...config, url, data } : url
+  const value = typeof url === 'object' ? url : { ...config, url, data }
 
   // 分离请求参数
   forEach(value, (val, key) => {
