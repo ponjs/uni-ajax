@@ -5,11 +5,12 @@
   "main": "dist",
   "scripts": {
     "dev": "rollup -w -c --environment TARGET:uni",
-    "build": "rollup -c --environment TARGET:npm",
+    "build": "npm run build:npm && npm run build:uni",
+    "build:npm": "rollup -c --environment TARGET:npm",
     "build:uni": "rollup -c --environment TARGET:uni --environment BUILD:release",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build:npm"
   },
   "files": [
     "dist",
