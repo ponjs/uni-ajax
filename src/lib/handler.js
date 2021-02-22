@@ -26,7 +26,7 @@ export async function handleRequest(request) {
   config.url = combineURL(config.baseURL, config.url)
 
   // 请求方法转大写
-  config.method = config.method.toUpperCase()
+  config.method = (config.method || 'GET').toUpperCase()
 
   // 调整 header 优先级
   config.header = merge(
