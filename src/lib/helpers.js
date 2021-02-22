@@ -44,6 +44,8 @@ export function mergeConfig(config1, config2 = {}) {
     }
   })
 
+  config.method = config.method.toUpperCase()
+
   return config
 }
 
