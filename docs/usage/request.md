@@ -26,6 +26,7 @@
 | :-------------- | :------- | :------------------------------------------------------------------------------ |
 | header          | Object   | 设置请求的 header，header 中不能设置 Referer                                    |
 | method          | String   | 请求协议（如果是请求方式使用，method 设置是无效的，只有在 ajax() 使用时才生效） |
+| params          | Object   | URL 参数                                                                        |
 | timeout         | Number   | 超时时间，单位 ms                                                               |
 | dataType        | String   | 如果设为 json，会尝试对返回的数据做一次 JSON.parse                              |
 | responseType    | String   | 设置响应的数据类型。合法值：text、arraybuffer                                   |
