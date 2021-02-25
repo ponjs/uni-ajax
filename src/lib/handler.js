@@ -1,5 +1,5 @@
 import { HEADER } from './defaults'
-import { combineURL, mergeConfig, isCallback } from './helpers'
+import { buildURL, combineURL, mergeConfig, isCallback } from './helpers'
 import { forEach, isObject, merge } from './utils'
 
 /**
@@ -23,7 +23,7 @@ export async function handleRequest(request) {
   }
 
   // 拼接 url
-  config.url = combineURL(config.baseURL, config.url)
+  config.url = buildURL(combineURL(config.baseURL, config.url), config.params)
 
   // 请求方法转大写
   config.method = (config.method || 'GET').toUpperCase()

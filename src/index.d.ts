@@ -11,6 +11,7 @@ export interface AjaxRequestConfig {
   baseURL?: string
   url?: string
   data?: Data
+  params?: AnyObject
   header?: any
   method?: Method
   timeout?: number
