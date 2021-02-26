@@ -1,5 +1,3 @@
-const sidebar = require('./sidebar')
-
 module.exports = {
   title: 'UNI AJAX',
   description: 'Lightweight HTTP client for the uni-app',
@@ -16,6 +14,23 @@ module.exports = {
         target: '_blank'
       }
     ],
-    sidebar
+    sidebar: [
+      '/',
+      '/installation',
+      '/quickstart',
+      {
+        title: '使用',
+        collapsable: false,
+        children: ['/usage/api', '/usage/request', '/usage/request-task']
+      },
+      {
+        title: '请求实例',
+        collapsable: false,
+        children: ['/instance/create', '/instance/interceptor']
+      },
+      '/typescript',
+      '/question',
+      '/migration'
+    ]
   }
 }
