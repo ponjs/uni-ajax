@@ -1,4 +1,4 @@
-# Typescript
+# Typescript <Badge text="2.2.0"/>
 
 ::: tip 提示
 在 `2.2.0` 以上版本已支持使用 `TypeScript` 开发。

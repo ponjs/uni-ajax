@@ -34,7 +34,7 @@ instance.interceptors.request.use(
 )
 ```
 
-### 拒绝发送请求
+### 拒绝发送请求 <Badge text="2.1.3"/>
 
 如果你想在请求拦截器中中断请求，则只返回`Promise.reject`即可。中断请求后会触发请求错误事件，即会触发`fail / catch`。
 
@@ -90,7 +90,7 @@ instance.interceptors.response.use(
 )
 ```
 
-### 拒绝响应成功
+### 拒绝响应成功 <Badge text="2.0.2"/>
 
 如果你在响应成功方法里返回`Promise.reject`，请求接口时则会执行`fail / catch`。
 
@@ -118,7 +118,7 @@ ajax()
   })
 ```
 
-### 传值给拦截器
+### 传值给拦截器 <Badge text="2.1.0"/>
 
 你也可以[传值](/usage/request.html)到拦截器，在拦截器中通过`config`接收，又或者可以请求拦截器传值到响应拦截器。
 

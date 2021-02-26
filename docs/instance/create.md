@@ -25,22 +25,22 @@ export default instance
 
 `config`是一个对象，该对象的参数如下。
 
-| 参数                | 类型     | 默认值                                             | 说明                                                | 平台差异说明                                     |
-| :------------------ | :------- | :------------------------------------------------- | :-------------------------------------------------- | :----------------------------------------------- |
-| [baseURL][1]        | String   |                                                    | 请求根地址                                          |                                                  |
-| [data][2]           | Object   |                                                    | 请求的参数，当类型为 object 时会合并在请求时的 data | App（自定义组件编译模式）不支持 ArrayBuffer 类型 |
-| [header][3]         | Object   |                                                    | 请求头，支持配置不同请求方式的请求头                | H5 端会自动带上 cookie 不可手动覆盖              |
-| [method][4]         | String   | GET                                                | ajax() 默认的请求方式                               |
-| params              | Object   |                                                    | URL 参数                                            |                                                  |
-| timeout             | Number   | 30000                                              | 超时时间，单位 ms                                   | 微信小程序（2.10.0）、支付宝小程序               |
-| dataType            | String   | json                                               | 如果设为 json，会尝试对返回的数据做一次 JSON.parse  |
-| responseType        | String   | text                                               | 设置响应的数据类型。合法值：text、arraybuffer       | App 和支付宝小程序不支持                         |
-| sslVerify           | Boolean  | true                                               | 验证 ssl 证书                                       | 仅 App 安卓端支持（HBuilderX 2.3.3+）            |
-| withCredentials     | Boolean  | false                                              | 跨域请求时是否携带凭证（cookies）                   | 仅 H5 支持（HBuilderX 2.6.15+）                  |
-| firstIpv4           | Boolean  | false                                              | DNS 解析时优先使用 ipv4                             | 仅 App-Android 支持 (HBuilderX 2.8.0+)           |
-| [validateStatus][5] | Function | <span style="white-space:nowrap">[200, 300)</span> | 定义对于给定的 HTTP 状态码返回拦截状态              |                                                  |
-| [xhr][6]            | Function |                                                    | 获取每次请求的 RequestTask 对象                     |                                                  |
-| [...][7]            | Any      |                                                    | 传递给拦截器的值                                    |                                                  |
+| 参数                                               | 类型     | 默认值                       | 说明                                                | 平台差异说明                                     |
+| :------------------------------------------------- | :------- | :--------------------------- | :-------------------------------------------------- | :----------------------------------------------- |
+| [baseURL][1]                                       | String   |                              | 请求根地址                                          |                                                  |
+| [data][2]                                          | Object   |                              | 请求的参数，当类型为 object 时会合并在请求时的 data | App（自定义组件编译模式）不支持 ArrayBuffer 类型 |
+| [header][3]                                        | Object   |                              | 请求头，支持配置不同请求方式的请求头                | H5 端会自动带上 cookie 不可手动覆盖              |
+| [method][4]                                        | String   | GET                          | ajax() 默认的请求方式                               |
+| params <Badge text="2.2.5"/>                       | Object   |                              | URL 参数                                            |                                                  |
+| timeout                                            | Number   | 30000                        | 超时时间，单位 ms                                   | 微信小程序（2.10.0）、支付宝小程序               |
+| dataType                                           | String   | json                         | 如果设为 json，会尝试对返回的数据做一次 JSON.parse  |
+| responseType                                       | String   | text                         | 设置响应的数据类型。合法值：text、arraybuffer       | App 和支付宝小程序不支持                         |
+| sslVerify                                          | Boolean  | true                         | 验证 ssl 证书                                       | 仅 App 安卓端支持（HBuilderX 2.3.3+）            |
+| withCredentials                                    | Boolean  | false                        | 跨域请求时是否携带凭证（cookies）                   | 仅 H5 支持（HBuilderX 2.6.15+）                  |
+| firstIpv4                                          | Boolean  | false                        | DNS 解析时优先使用 ipv4                             | 仅 App-Android 支持 (HBuilderX 2.8.0+)           |
+| <nowrap badge="2.2.2">[validateStatus][5]</nowrap> | Function | <Nowrap text="[200, 300)" /> | 定义对于给定的 HTTP 状态码返回拦截状态              |                                                  |
+| [xhr][6] <Badge text="2.2.4"/>                     | Function |                              | 获取每次请求的 RequestTask 对象                     |                                                  |
+| [...][7] <Badge text="2.1.0"/>                     | Any      |                              | 传递给拦截器的值                                    |                                                  |
 
 ### `baseURL`
 
@@ -77,7 +77,7 @@ instance('api', { ajax: 'ajax' })
 
 ### `header`
 
-这里的`header`也可以为不同请求方式添加对应的请求头（注意这里的请求方式属性要小写），以及`common`公共请求头属性。`header`不仅可以在创建实例配置中，也可以在请求拦截器中配置，一般来说固定的请求头放在创建实例配置中，动态请求头放在请求拦截器中。
+这里的`header`也可以为不同请求方式添加对应的请求头（注意这里的请求方式属性要小写），以及<nowrap badge="2.2.3">`common`</nowrap>公共请求头属性。`header`不仅可以在创建实例配置中，也可以在请求拦截器中配置，一般来说固定的请求头放在创建实例配置中，动态请求头放在请求拦截器中。
 
 ```JavaScript
 // 创建实例
@@ -146,7 +146,7 @@ const instance = ajax.create({ method: 'post' })
 instance()    // 这里没有传入指定的 method，则以默认配置的 method，这里即 POST
 ```
 
-### `validateStatus`
+### `validateStatus` <Badge text="2.2.2"/>
 
 定义对于给定的 HTTP 状态码返回拦截状态。如果`validateStatus`返回`true`（或者设置为`null`），响应数据会进到[响应拦截器](/instance/interceptor.html#响应拦截器)的`onFulfilled`，否则进到`onRejected`。
 
@@ -159,7 +159,7 @@ const instance = ajax.create({
 })
 ```
 
-### `xhr`
+### `xhr` <Badge text="2.2.4"/>
 
 获取每次请求的 `RequestTask` 对象。
 

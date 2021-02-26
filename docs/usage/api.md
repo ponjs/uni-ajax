@@ -39,7 +39,7 @@ request.onHeadersReceived(callback)     // 监听 HTTP Response Header 事件
 request.offHeadersReceived(callback)    // 取消监听 HTTP Response Header 事件
 ```
 
-## 其他方法
+## 其他方法 <Badge text="2.2.4"/>
 
 ```JavaScript
 // 修改实例配置

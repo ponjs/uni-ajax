@@ -22,20 +22,20 @@
 `data` \<Object / String / ArrayBuffer\> 请求参数  
 `config` \<Object\> 其他选项
 
-| 参数            | 类型     | 说明                                                                            |
-| :-------------- | :------- | :------------------------------------------------------------------------------ |
-| header          | Object   | 设置请求的 header，header 中不能设置 Referer                                    |
-| method          | String   | 请求协议（如果是请求方式使用，method 设置是无效的，只有在 ajax() 使用时才生效） |
-| params          | Object   | URL 参数                                                                        |
-| timeout         | Number   | 超时时间，单位 ms                                                               |
-| dataType        | String   | 如果设为 json，会尝试对返回的数据做一次 JSON.parse                              |
-| responseType    | String   | 设置响应的数据类型。合法值：text、arraybuffer                                   |
-| sslVerify       | Boolean  | 验证 ssl 证书                                                                   |
-| withCredentials | Boolean  | 跨域请求时是否携带凭证（cookies）                                               |
-| firstIpv4       | Boolean  | DNS 解析时优先使用 ipv4                                                         |
-| validateStatus  | Function | 定义对于给定的 HTTP 状态码返回拦截状态                                          |
-| xhr             | Function | 获取当前请求的 RequestTask 对象                                                 |
-| ...             | Any      | 传递给拦截器的值                                                                |
+| 参数                                          | 类型     | 说明                                                                            |
+| :-------------------------------------------- | :------- | :------------------------------------------------------------------------------ |
+| header                                        | Object   | 设置请求的 header，header 中不能设置 Referer                                    |
+| method                                        | String   | 请求协议（如果是请求方式使用，method 设置是无效的，只有在 ajax() 使用时才生效） |
+| params <Badge text="2.2.5"/>                  | Object   | URL 参数                                                                        |
+| timeout                                       | Number   | 超时时间，单位 ms                                                               |
+| dataType                                      | String   | 如果设为 json，会尝试对返回的数据做一次 JSON.parse                              |
+| responseType                                  | String   | 设置响应的数据类型。合法值：text、arraybuffer                                   |
+| sslVerify                                     | Boolean  | 验证 ssl 证书                                                                   |
+| withCredentials                               | Boolean  | 跨域请求时是否携带凭证（cookies）                                               |
+| firstIpv4                                     | Boolean  | DNS 解析时优先使用 ipv4                                                         |
+| <Nowrap text="validateStatus" badge="2.2.2"/> | Function | 定义对于给定的 HTTP 状态码返回拦截状态                                          |
+| xhr <Badge text="2.2.4"/>                     | Function | 获取当前请求的 RequestTask 对象                                                 |
+| ... <Badge text="2.1.0"/>                     | Any      | 传递给拦截器的值                                                                |
 
 ### `[config]`
 
@@ -55,13 +55,13 @@
 
 请求的响应包含以下信息。
 
-| 参数       | 类型                          | 说明                                   |
-| :--------- | :---------------------------- | :------------------------------------- |
-| data       | Object / String / ArrayBuffer | 服务器返回的数据                       |
-| statusCode | Number                        | 服务器响应的 HTTP 状态码               |
-| header     | Object                        | 服务器响应的头                         |
-| config     | Object                        | 请求提供的配置信息                     |
-| cookies    | Array\<string\>               | 服务器返回的 cookies，格式为字符串数组 |
+| 参数                         | 类型                          | 说明                                   |
+| :--------------------------- | :---------------------------- | :------------------------------------- |
+| data                         | Object / String / ArrayBuffer | 服务器返回的数据                       |
+| statusCode                   | Number                        | 服务器响应的 HTTP 状态码               |
+| header                       | Object                        | 服务器响应的头                         |
+| config <Badge text="2.1.0"/> | Object                        | 请求提供的配置信息                     |
+| cookies                      | Array\<string\>               | 服务器返回的 cookies，格式为字符串数组 |
 
 [1]: /usage/api.html#请求方法
 [2]: https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise

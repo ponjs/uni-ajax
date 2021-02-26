@@ -10,7 +10,7 @@
 
 如果您想使用`RequestTask`上的方法，有下面三种方式：
 
-- **直接调用**
+- **直接调用 <Badge text="2.1.0"/>**
 
 这里`request`接收的是封装后的`Promise`，并支持`RequestTask`的以上方法。但实际并非真正的`RequestTask`对象。只是封装继承`Promise`并挂载`RequestTask`的同名方法。
 
@@ -33,7 +33,7 @@ const requestTask = await ajax({
 requestTask.abort()
 ```
 
-- **获取`RequestTask`对象调用 ②**
+- **获取`RequestTask`对象调用 ② <Badge text="2.2.4"/>**
 
 通过参数请求选项的`xhr`属性也可以获取`RequestTask`对象。
 
