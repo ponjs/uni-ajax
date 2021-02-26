@@ -23,12 +23,11 @@
 
 ### 备注
 
-**当前版本 `2.2.5`**
-
-如果您在实际项目中使用上跟当前文档的不一致，请更新至最新版本！
+本文档是`2.x`版本，如果您当前使用的是`1.x`版本，请更新至最新版本！可查看 [V2 迁移指南][6]。
 
 [1]: https://uniapp.dcloud.io/api/request/request
 [2]: https://github.com/axios/axios
 [3]: https://ext.dcloud.net.cn/plugin?id=2351
 [4]: https://github.com/ponjs/uni-ajax
 [5]: https://www.npmjs.com/package/uni-ajax
+[6]: /migration.html
