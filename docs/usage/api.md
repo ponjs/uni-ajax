@@ -29,7 +29,7 @@ ajax.delete()
 // [config] 或 [url[, data[, config]]]
 ```
 
-## RequestTask
+## RequestTask <Badge text="2.1.0"/>
 
 ```JavaScript
 const request = ajax()                  // 请求方法每项皆可
