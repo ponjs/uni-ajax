@@ -1,7 +1,7 @@
 th
   white-space nowrap
 
-{$contentClass}:not(.custom) 
+{$contentClass}:not(.custom), .page .page-edit
   max-width 768px
 
 {$contentClass}:not(.custom)>h1:first-child
@@ -17,3 +17,9 @@ th
 
 .theme-container .navbar .site-name
   font-weight bold
+
+.page-edit .edit-link
+  &::before
+    content "发现错误？想参与编辑？ "
+  a
+    color $accentColor !important

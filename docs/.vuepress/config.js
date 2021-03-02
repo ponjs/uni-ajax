@@ -2,6 +2,11 @@ module.exports = {
   title: 'UNI AJAX',
   description: 'Lightweight HTTP client for the uni-app',
   themeConfig: {
+    docsRepo: 'ponjs/uni-ajax',
+    docsDir: 'docs',
+    docsBranch: 'dev',
+    editLinks: true,
+    editLinkText: '在 GitHub 上编辑此页！',
     nav: [
       {
         text: 'DCloud',
