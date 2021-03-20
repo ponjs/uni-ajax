@@ -46,7 +46,7 @@ instance.interceptors.response.use(
 // 如果您是像我下面这样挂载在 Vue 原型链上，则通过 this.$ajax 调用
 Vue.prototype.$ajax = instance
 // 如果你在项目中有用到 nvue 页面，是无法通过 this.$ajax 调用
-// 需要将实例挂载在 uni 对象上，然后通过 uni.$ajax 调用
+// 需要将实例添加到 uni 对象上，然后通过 uni.$ajax 调用
 uni.$ajax = instance
 
 // 导出 create 创建后的实例
