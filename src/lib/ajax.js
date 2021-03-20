@@ -9,6 +9,12 @@ export default class Ajax {
     // 合并请求配置赋值到实例配置
     this.config = mergeConfig(defaults, config)
 
+    // 请求前处理函数
+    this.handleRequest = handleRequest
+
+    // 响应后处理函数
+    this.handleResponse = handleResponse
+
     // 挂载拦截器
     this.request.interceptors = { request: new Interceptor(), response: new Interceptor() }
 
@@ -63,7 +69,7 @@ export default class Ajax {
       // 统一处理请求错误
       try {
         // 请求拦截后的配置
-        var config = await handleRequest.call(this, params)
+        var config = await this.handleRequest(params)
       } catch (error) {
         // 如果有回调参数 执行 fail / complete
         callback.fail?.(error)
@@ -73,7 +79,7 @@ export default class Ajax {
       }
 
       // 接口调用结束的回调函数
-      const complete = handleResponse.call(this, { config, callback, resolve, reject })
+      const complete = this.handleResponse({ config, callback, resolve, reject })
 
       // 判断是否被取消请求
       if (aborted) return complete({ errMsg: 'request:fail abort' })
