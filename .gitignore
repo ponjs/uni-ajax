@@ -2,8 +2,6 @@
 node_modules
 dist
 unpackage
-u-ajax
-!package.json
 
 yarn.lock
 package-lock.json
