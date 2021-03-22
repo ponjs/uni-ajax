@@ -1,4 +1,5 @@
 import Interceptor from './interceptor'
+import createRequest from './request'
 import defaults, { METHOD } from './defaults'
 import { detachConfig, mergeConfig, originURL } from './helpers'
 import { forEach } from './utils'
@@ -40,31 +41,10 @@ export default class Ajax {
     const { callback, params } = detachConfig(...args)
     // 回调函数字段
     const fields = Object.keys(callback)
-    // 定义 RequestTask 所需字段
-    let requestTask, aborted, onHeadRcvd, offHeadRcvd
+    // 创建请求类
+    const Request = createRequest()
 
-    // 继承 Promise 封装 RequestTask 的一些方法
-    class Request extends Promise {
-      // 中断请求任务
-      abort() {
-        aborted = true
-        requestTask?.abort()
-        return this
-      }
-      // 监听 HTTP Response Header 事件
-      onHeadersReceived(fn) {
-        onHeadRcvd = fn
-        requestTask?.onHeadersReceived?.(fn)
-        return this
-      }
-      // 取消监听 HTTP Response Header 事件
-      offHeadersReceived(fn) {
-        offHeadRcvd = fn
-        requestTask?.offHeadersReceived?.(fn)
-        return this
-      }
-    }
-
+    // 实例化请求类
     return new Request(async (resolve, reject) => {
       // 统一处理请求错误
       try {
@@ -82,20 +62,20 @@ export default class Ajax {
       const complete = this.handleResponse({ config, callback, resolve, reject })
 
       // 判断是否被取消请求
-      if (aborted) return complete({ errMsg: 'request:fail abort' })
+      if (Request.aborted) return complete({ errMsg: 'request:fail abort' })
 
       // 发起请求
-      requestTask = uni.request({ ...config, complete })
+      Request.requestTask = uni.request({ ...config, complete })
 
       // 根据配置的 xhr 属性执行获取 requestTask
-      typeof config.xhr === 'function' && config.xhr(requestTask, config)
+      typeof config.xhr === 'function' && config.xhr(Request.requestTask, config)
 
       // 当传入 success / fail / complete 之一时，返回 requestTask 对象
-      fields.length && resolve(requestTask)
+      fields.length && resolve(Request.requestTask)
 
-      // 判断是否执行监听 HTTP Response Header 事件
-      onHeadRcvd && requestTask.onHeadersReceived?.(onHeadRcvd)
-      offHeadRcvd && requestTask.offHeadersReceived?.(offHeadRcvd)
+      // class 内部判断是否执行监听 HTTP Response Header 事件
+      Request.onHeadersReceived()
+      Request.offHeadersReceived()
     })
   }
 }
