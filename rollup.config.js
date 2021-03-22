@@ -1,7 +1,8 @@
-import path from 'path'
-import fs from 'fs'
 import babel from '@rollup/plugin-babel'
+import cleanup from 'rollup-plugin-cleanup'
 import copy from 'rollup-plugin-copy'
+import fs from 'fs'
+import path from 'path'
 import { version } from './package.json'
 
 const banner =
@@ -42,6 +43,7 @@ export default {
         '@babel/plugin-proposal-optional-chaining'
       ]
     }),
+    cleanup(),
     copy({
       targets: copyTargets
     })
