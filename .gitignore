@@ -3,7 +3,10 @@ node_modules
 dist
 unpackage
 u-ajax
-!u-ajax/package.json
+!package.json
+
+yarn.lock
+package-lock.json
 
 # local env files
 .env.local
