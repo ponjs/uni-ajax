@@ -1,6 +1,11 @@
 module.exports = {
-  title: 'UNI AJAX',
-  description: 'Lightweight HTTP client for the uni-app',
+  locales: {
+    '/': {
+      lang: 'zh-CN',
+      title: 'UNI AJAX',
+      description: 'Lightweight HTTP client for the uni-app'
+    }
+  },
   themeConfig: {
     docsRepo: 'ponjs/uni-ajax',
     docsDir: 'docs',
