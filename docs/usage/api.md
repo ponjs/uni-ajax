@@ -46,8 +46,8 @@ request.offHeadersReceived(callback)    // 取消监听 HTTP Response Header 事
 
 /**
  * 在 2.2.6 版本起 ajax.config 为一个异步函数，需注意：
- * 如果创建实例是函数配置，则该 config 参数是一个异步函数；
- * 反之如果是对象配置，该 config 参数是一个配置对象。
+ * 如果创建实例是函数配置，则该 config 参数是一个异步函数，返回也要是一个函数；
+ * 反之如果是对象配置，该 config 参数是一个配置对象，然后也要是一个对象。
  */
 ajax.config(config => {
   // ...

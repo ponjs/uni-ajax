@@ -61,6 +61,8 @@ export interface AjaxExecutor {
   ): AjaxPromise<R>
 }
 
+type RequestFuncConfig = () => AjaxRequestConfig | Promise<AjaxRequestConfig>
+
 export interface AjaxInstance extends AjaxExecutor {
   readonly baseURL: string
   readonly origin: string
@@ -72,11 +74,16 @@ export interface AjaxInstance extends AjaxExecutor {
   head: AjaxExecutor
   options: AjaxExecutor
   trace: AjaxExecutor
-  config<F extends boolean>(
+  config<
+    F extends boolean,
+    T = F extends true ? () => Promise<AjaxRequestConfig> : AjaxRequestConfig
+  >(
     iterable: (
-      config: F extends true ? () => Promise<AjaxRequestConfig> : AjaxRequestConfig
-    ) => AjaxRequestConfig | Promise<AjaxRequestConfig>
-  ): void
+      config: T
+    ) => F extends true
+      ? RequestFuncConfig | Promise<RequestFuncConfig>
+      : AjaxRequestConfig | Promise<AjaxRequestConfig>
+  ): Promise<T>
   interceptors: {
     request: AjaxInterceptorManager<AjaxRequestConfig>
     response: AjaxInterceptorManager<AjaxResponse>
@@ -84,9 +91,7 @@ export interface AjaxInstance extends AjaxExecutor {
 }
 
 export interface AjaxStatic extends AjaxInstance {
-  create(
-    config?: AjaxRequestConfig | (() => AjaxRequestConfig | Promise<AjaxRequestConfig>)
-  ): AjaxInstance
+  create(config?: AjaxRequestConfig | RequestFuncConfig): AjaxInstance
 }
 
 declare const Ajax: AjaxStatic
