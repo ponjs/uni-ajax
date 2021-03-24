@@ -1,7 +1,7 @@
 {
 	"id": "u-ajax",
 	"displayName": "ajax request 请求",
-	"version": "2.2.5",
+	"version": "",
 	"description": "封装 uni.request，支持拦截器、接口根地址、默认配置、中断请求等功能",
 	"keywords": [
 		"ajax",
