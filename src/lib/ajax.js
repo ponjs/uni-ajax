@@ -7,8 +7,8 @@ import { handleRequest, handleResponse } from './handler'
 
 export default class Ajax {
   constructor(config) {
-    // 合并请求配置赋值到实例配置
-    this.config = mergeConfig(defaults, config)
+    // 赋值到实例配置
+    this.config = config
 
     // 请求前处理函数
     this.handleRequest = handleRequest
@@ -19,14 +19,17 @@ export default class Ajax {
     // 挂载拦截器
     this.request.interceptors = { request: new Interceptor(), response: new Interceptor() }
 
-    // 挂载接口根地址 baseURL
-    this.request.baseURL = this.config.baseURL || ''
+    // 因为 config 传入的可能是异步函数
+    ;(async () => {
+      // 挂载接口根地址 baseURL
+      this.request.baseURL = (await this.config).baseURL || ''
 
-    // 挂载接口根地址的源地址 origin
-    this.request.origin = originURL(this.config.baseURL)
+      // 挂载接口根地址的源地址 origin
+      this.request.origin = originURL(this.request.baseURL)
+    })()
 
     // 挂载修改 config 方法
-    this.request.config = fn => (this.config = fn(this.config))
+    this.request.config = async fn => (this.config = await fn(this._config))
 
     // 挂载对应的 method 方法
     forEach(METHOD, method => {
@@ -36,6 +39,17 @@ export default class Ajax {
         )
     })
   }
+
+  set config(config) {
+    this._config =
+      typeof config === 'function'
+        ? async () => mergeConfig(defaults, await config())
+        : mergeConfig(defaults, config)
+  }
+  get config() {
+    return typeof this._config === 'function' ? this._config() : this._config
+  }
+
   request = (...args) => {
     // 分类请求参数
     const { callback, params } = detachConfig(...args)

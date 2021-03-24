@@ -8,7 +8,7 @@ import { forEach, isObject, merge } from './utils'
  * @returns {object} 处理后的请求参数对象
  */
 export async function handleRequest(request) {
-  const params = mergeConfig(this.config, request)
+  const params = mergeConfig(await this.config, request)
 
   // 拦截后的请求参数
   let config = await this.request.interceptors.request.fulfilled(params)

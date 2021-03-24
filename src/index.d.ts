@@ -72,7 +72,11 @@ export interface AjaxInstance extends AjaxExecutor {
   head: AjaxExecutor
   options: AjaxExecutor
   trace: AjaxExecutor
-  config(iterable: (config: AjaxRequestConfig) => AjaxRequestConfig): void
+  config<F extends boolean>(
+    iterable: (
+      config: F extends true ? () => Promise<AjaxRequestConfig> : AjaxRequestConfig
+    ) => AjaxRequestConfig | Promise<AjaxRequestConfig>
+  ): void
   interceptors: {
     request: AjaxInterceptorManager<AjaxRequestConfig>
     response: AjaxInterceptorManager<AjaxResponse>
@@ -80,7 +84,9 @@ export interface AjaxInstance extends AjaxExecutor {
 }
 
 export interface AjaxStatic extends AjaxInstance {
-  create(config?: AjaxRequestConfig): AjaxInstance
+  create(
+    config?: AjaxRequestConfig | (() => AjaxRequestConfig | Promise<AjaxRequestConfig>)
+  ): AjaxInstance
 }
 
 declare const Ajax: AjaxStatic
