@@ -69,7 +69,7 @@ declare module 'uni-ajax' {
 }
 ```
 
-- 定义接口返回的数据类型，[请求方法](/usage/api.html#请求方法)都支持泛型，并有两个泛型参数`<T = any, R = AjaxResponse<T>>`
+- 定义接口返回的数据类型，[请求方法](/usage/api.html#请求方法)都支持泛型，并有两个泛型参数`<T = any, R = AjaxResponse<T>>`。
 
 ```Typescript
 // 定义接口返回的数据类型
@@ -78,7 +78,6 @@ interface ResponseData {
   data: any;
   msg: string;
 }
-
 
 // 通过泛型定义 res.data 的类型为 ResponseData
 ajax<ResponseData>().then(res => {
@@ -96,5 +95,19 @@ instance.interceptors.response.use(
 // 请求方法 通过泛型定义 res 的类型为 ResponseData
 ajax<unknown, ResponseData>().then(res => {
   console.log(res)    // 这里 res 的类型为 ResponseData
+})
+```
+
+- `ajax.config` 需通过泛型指出参数是否为函数类型。当泛型参数传入 `true` 时参数是函数类型，当传入 `false` 时参数是对象类型。这取决你创建实例时是函数配置还是对象配置。<Badge text="2.2.6"/>
+
+```Typescript
+// 函数配置
+ajax.config<true>(async config => {
+  return await config()
+})
+
+// 对象配置
+ajax.config<false>(config => {
+  return config
 })
 ```
