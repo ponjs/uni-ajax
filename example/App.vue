@@ -1,5 +1,6 @@
 <script>
 export default {
+  // #ifndef APP-PLUS
   onLaunch() {
     console.log(
       `%c DEVELOPED BY %c PONJS %c`,
@@ -8,5 +9,6 @@ export default {
       'background: transparent'
     )
   }
+  // #endif
 }
 </script>
