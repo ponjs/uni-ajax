@@ -39,11 +39,9 @@ request.onHeadersReceived(callback)     // 监听 HTTP Response Header 事件
 request.offHeadersReceived(callback)    // 取消监听 HTTP Response Header 事件
 ```
 
-## 其他方法 <Badge text="2.2.4"/>
+## 修改实例配置 <Badge text="2.2.4"/>
 
 ```JavaScript
-// 修改实例配置
-
 /**
  * 在 2.2.6 版本起 ajax.config 为一个异步函数，需注意：
  * 如果创建实例是函数配置，则该 config 参数是一个异步函数，返回也要是一个函数；
