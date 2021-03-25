@@ -82,9 +82,11 @@ export interface AjaxInstance extends AjaxExecutor {
   >(
     iterable: (
       config: T
-    ) => F extends true
-      ? AjaxFunctionConfig | Promise<AjaxFunctionConfig>
-      : AjaxRequestConfig | Promise<AjaxRequestConfig>
+    ) =>
+      | (F extends true
+          ? AjaxFunctionConfig | Promise<AjaxFunctionConfig>
+          : AjaxRequestConfig | Promise<AjaxRequestConfig>)
+      | Promise<T>
   ): Promise<T>
   interceptors: {
     request: AjaxInterceptorManager<AjaxRequestConfig>
