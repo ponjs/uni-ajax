@@ -30,6 +30,10 @@ export interface AjaxCallbackConfig<T = any> extends AjaxRequestConfig {
   complete?: (result: any) => void
 }
 
+export interface AjaxFunctionConfig {
+  (): AjaxRequestConfig | Promise<AjaxRequestConfig>
+}
+
 export interface AjaxResponse<T = any> {
   data: T
   statusCode: number
@@ -61,8 +65,6 @@ export interface AjaxExecutor {
   ): AjaxPromise<R>
 }
 
-type RequestFuncConfig = () => AjaxRequestConfig | Promise<AjaxRequestConfig>
-
 export interface AjaxInstance extends AjaxExecutor {
   readonly baseURL: string
   readonly origin: string
@@ -81,7 +83,7 @@ export interface AjaxInstance extends AjaxExecutor {
     iterable: (
       config: T
     ) => F extends true
-      ? RequestFuncConfig | Promise<RequestFuncConfig>
+      ? AjaxFunctionConfig | Promise<AjaxFunctionConfig>
       : AjaxRequestConfig | Promise<AjaxRequestConfig>
   ): Promise<T>
   interceptors: {
@@ -91,7 +93,7 @@ export interface AjaxInstance extends AjaxExecutor {
 }
 
 export interface AjaxStatic extends AjaxInstance {
-  create(config?: AjaxRequestConfig | RequestFuncConfig): AjaxInstance
+  create(config?: AjaxRequestConfig | AjaxFunctionConfig): AjaxInstance
 }
 
 declare const Ajax: AjaxStatic
