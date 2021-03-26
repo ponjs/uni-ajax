@@ -98,7 +98,7 @@ ajax<unknown, ResponseData>().then(res => {
 })
 ```
 
-- `ajax.config` 需通过泛型指出参数是否为参数类型。当泛型参数传入 `Function` 时参数是函数类型，当传入 `Object` 时参数是对象类型。这取决你创建实例时是函数配置还是对象配置。<Badge text="2.2.6"/>
+- `ajax.config` 需通过泛型指出参数类型。当泛型参数传入 `Function` 时参数是函数类型，当传入 `Object` 时参数是对象类型。这取决你创建实例时是函数配置还是对象配置。<Badge text="2.2.6"/>
 
 ```Typescript
 ajax.config<Object>(config => {
