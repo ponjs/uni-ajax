@@ -1,7 +1,4 @@
-export interface AnyObject {
-  [key: string]: any
-}
-
+export type AnyObject = Record<string, any>
 export type Data = string | AnyObject | ArrayBuffer
 export type Method = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'HEAD' | 'OPTIONS' | 'TRACE'
 export type DataType = 'json' | 'text' | 'html'
@@ -77,13 +74,13 @@ export interface AjaxInstance extends AjaxExecutor {
   options: AjaxExecutor
   trace: AjaxExecutor
   config<
-    F extends boolean,
-    T = F extends true ? () => Promise<AjaxRequestConfig> : AjaxRequestConfig
+    F extends Function | AnyObject,
+    T = F extends Function ? () => Promise<AjaxRequestConfig> : AjaxRequestConfig
   >(
     iterable: (
       config: T
     ) =>
-      | (F extends true
+      | (F extends Function
           ? AjaxFunctionConfig | Promise<AjaxFunctionConfig>
           : AjaxRequestConfig | Promise<AjaxRequestConfig>)
       | Promise<T>
