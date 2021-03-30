@@ -3,7 +3,7 @@ import { forEach } from './utils'
 export const METHOD = ['get', 'post', 'put', 'delete', 'connect', 'head', 'options', 'trace']
 export const HEADER = ['common', ...METHOD]
 
-var defaults = {
+const defaults = {
   header: {},
   method: 'GET',
   timeout: 30000,

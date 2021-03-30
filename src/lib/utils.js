@@ -48,7 +48,7 @@ export function forEach(obj, fn) {
  * @returns {object} 合并后的对象
  */
 export function merge(...args) {
-  let result = {}
+  const result = {}
   for (let i = 0, l = args.length; i < l; i++) {
     isObject(args[i]) && forEach(args[i], (val, key) => (result[key] = assign(result[key], val)))
   }

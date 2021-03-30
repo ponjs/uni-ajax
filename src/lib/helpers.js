@@ -9,9 +9,9 @@ import { assign, forEach, isArray } from './utils'
  */
 export function detachConfig(url, data, config) {
   // 回调函数对象
-  let callback = {}
+  const callback = {}
   // 去除回调的请求参数对象
-  let params = {}
+  const params = {}
 
   // 请求参数对象
   const value = typeof url === 'object' ? url : { ...config, url, data }
@@ -32,7 +32,7 @@ export function detachConfig(url, data, config) {
  * @returns {object} 合并后的请求配置
  */
 export function mergeConfig(config1, config2 = {}) {
-  let config = {}
+  const config = {}
 
   const configKeys = Object.keys({ ...config1, ...config2 })
 
@@ -93,7 +93,7 @@ export function buildURL(url, params) {
 
   let query
 
-  let parts = []
+  const parts = []
   forEach(params, (val, key) => {
     if (val === null || typeof val === 'undefined') return
 

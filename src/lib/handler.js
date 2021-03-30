@@ -11,7 +11,7 @@ export async function handleRequest(request) {
   const params = mergeConfig(await this.config, request)
 
   // 拦截后的请求参数
-  let config = await this.request.interceptors.request.fulfilled(params)
+  const config = await this.request.interceptors.request.fulfilled(params)
 
   // 判断请求拦截返回是否为对象
   if (!isObject(config)) {
@@ -39,7 +39,7 @@ export async function handleRequest(request) {
   forEach(HEADER, h => isObject(config.header[h]) && delete config.header[h])
 
   // 清除回调函数
-  forEach(config, (fn, key) => isCallback(key) && delete config[key])
+  forEach(config, (val, key) => isCallback(key) && delete config[key])
 
   return config
 }
@@ -57,8 +57,7 @@ export function handleResponse({ config, callback, ...promise }) {
   return async res => {
     try {
       // 根据状态码判断要执行的回调和拦截器
-      const state =
-        !config.validateStatus || config.validateStatus(res.statusCode) ? 'fulfilled' : 'rejected'
+      const state = !config.validateStatus || config.validateStatus(res.statusCode) ? 'fulfilled' : 'rejected'
       var result = await this.request.interceptors.response[state]({ config, ...res })
       var field = state === 'fulfilled' ? 'success' : 'fail'
     } catch (error) {
