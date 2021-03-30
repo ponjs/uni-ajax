@@ -1,10 +1,10 @@
 {
-  "trailingComma": "none",
   "arrowParens": "avoid",
-  "bracketSpacing": true,
-  "jsxBracketSameLine": false,
+  "endOfLine": "lf",
+  "htmlWhitespaceSensitivity": "ignore",
+  "printWidth": 100,
   "semi": false,
   "singleQuote": true,
   "tabWidth": 2,
-  "printWidth": 100
+  "trailingComma": "none"
 }
