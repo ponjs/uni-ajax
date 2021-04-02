@@ -18,9 +18,9 @@
 export default {
   data() {
     return {
-      result: '', // 接口返回的结果
-      origin: '', // 根据配置的接口根地址获取源地址
       baseURL: '', // 配置的接口根地址
+      origin: '', // 根据配置的接口根地址获取源地址
+      result: '', // 接口返回的结果
       request: null // 发起请求对象
     }
   },
@@ -37,14 +37,17 @@ export default {
         this.result = res.data.data.t
       })
 
-      /** 上下两种写法都可以，但是是有一些差异的，具体可看文档
-      this.request = this.$ajax({
-        url: 'rest',
-        data: { api: 'mtop.common.getTimestamp' },
-        success: res => {
-          this.result = res.data.data.t
-        }
-      })
+      /**
+       * 上下两种写法都可以，但是是有一些差异的，具体可看文档
+       * 主要差异在于执行请求方法返回的 request 的 Promise.resolve 返回值
+       * 下面的 getRequestTask 函数中的方法一就是一个简单的例子
+        this.request = this.$ajax({
+          url: 'rest',
+          data: { api: 'mtop.common.getTimestamp' },
+          success: res => {
+            this.result = res.data.data.t
+          }
+        })
       */
     },
     // 中断请求
@@ -60,33 +63,64 @@ export default {
       this.request?.abort()
     },
     // 获取 RequestTask 对象
-    async getReqTask() {
+    async getRequestTask() {
+      // 定义接口所需参数（这里这么定义只是方法下面多个方法使用，您在实际使用中并非一定要求这么写）
+      const config = {
+        url: 'rest',
+        data: {
+          api: 'mtop.common.getTimestamp'
+        }
+      }
+
       /**
+       * 方法一
+       *
        * 如果希望返回一个真正的 RequestTask 对象，则传参为一个对象
        * 该对象至少传入 success / fail / complete 参数中的一个
        * 然后接收 Promise.resolve 的返回值
        */
-      const config = {
-        url: 'rest',
-        data: { api: 'mtop.common.getTimestamp' },
-        success: res => (this.result = res.data.data.t)
-      }
 
-      // await 需写在 async 函数里（看到 getReqTask 前那个 async 了吗）
-      const requestTask = await this.$ajax(config)
+      // await 需写在 async 函数里（看到 getRequestTask 前那个 async 了吗）
+      const requestTask = await this.$ajax({
+        ...config,
+        success: res => (this.result = res.data.data.t)
+      })
       console.log(requestTask)
 
-      /** 如果不想用 async await，则用 then 接收，则无需写 async await
-			this.$ajax(config).then(requestTask => {
-				console.log(requestTask)
-			})
-			*/
+      // 如果不想用 async await，则用 then 接收，则无需写 async await
+      this.$ajax({
+        ...config,
+        success: res => (this.result = res.data.data.t)
+      }).then(requestTask => {
+        console.log(requestTask)
+      })
+
+      /**
+       * 方法二
+       *
+       * 通过请求配置的 xhr 回调参数也可以获取 requestTask 对象
+       */
+
+      // 通过传参一个对象使用
+      this.$ajax({
+        ...config,
+        xhr: (requestTask, config) => {
+          console.log(requestTask)
+        }
+      })
+
+      // 通过传参多个参数使用
+      this.$ajax(config.url, conif.data, {
+        xhr: (requestTask, config) => {
+          console.log(requestTask)
+        }
+      })
     }
   },
   onLoad() {
-    const { origin, baseURL } = this.$ajax
-    this.origin = origin
+    const { baseURL, origin } = this.$ajax
     this.baseURL = baseURL
+    this.origin = origin
   }
 }
 </script>
