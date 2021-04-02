@@ -65,6 +65,6 @@
 
 [1]: /usage/api.html#请求方法
 [2]: https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise
-[3]: /usage/request-task
+[3]: /usage/request-task.html
 [4]: /usage/request.html#url-data-config
 [5]: /usage/request.html#config
