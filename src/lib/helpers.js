@@ -13,12 +13,15 @@ export function detachConfig(url, data, config) {
   // 去除回调的请求参数对象
   const params = {}
 
+  // 是否传入单个参数
+  const isSingle = typeof url === 'object'
+
   // 请求参数对象
-  const value = typeof url === 'object' ? url : { ...config, url, data }
+  const value = isSingle ? url : { ...config, url, data }
 
   // 分离请求参数
   forEach(value, (val, key) => {
-    if (isCallback(key)) callback[key] = val
+    if (isCallback(key) && isSingle) callback[key] = val
     else params[key] = val
   })
 
