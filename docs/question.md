@@ -184,9 +184,19 @@ import ajax from 'uni-ajax'
 ajax()
 ```
 
-拦截器支持`async / await`操作。
+拦截器和创建实例的函数配置都支持`async / await`操作。
 
 ```Javascript
+// 创建实例
+const instance = ajax.create(async () => {
+  return {
+    // 例如获取异步 token 生成请求头
+    header: {
+      Token: await getToken()
+    }
+  }
+})
+
 // 请求拦截器
 instance.interceptors.request.use(
   async config => {
