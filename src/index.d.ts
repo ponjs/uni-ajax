@@ -54,7 +54,7 @@ export interface AjaxPromise<T = any> extends Promise<T>, AjaxRequestTask<AjaxPr
 
 export interface AjaxExecutor {
   <T = any, R = AjaxResponse<T>>(config?: AjaxRequestConfig): AjaxPromise<R>
-  <T = any, R = AjaxResponse<T>>(config?: AjaxCallbackConfig<R>): Promise<AjaxRequestTask>
+  <T = any, R = AjaxResponse<T>>(config?: AjaxCallbackConfig<R>): AjaxPromise<AjaxRequestTask>
   <T = any, R = AjaxResponse<T>>(
     url?: string,
     data?: Data,
