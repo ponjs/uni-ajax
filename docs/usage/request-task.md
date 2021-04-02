@@ -35,7 +35,7 @@ requestTask.abort()
 
 - **获取`RequestTask`对象调用 ② <Badge text="2.2.4"/>**
 
-通过参数请求选项的`xhr`属性也可以获取`RequestTask`对象。
+通过参数请求选项的`xhr`回调参数也可以获取`RequestTask`对象。
 
 ```JavaScript
 ajax({
