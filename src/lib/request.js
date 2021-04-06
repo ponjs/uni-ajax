@@ -1,13 +1,13 @@
 export default function createRequest() {
   return class Request extends Promise {
     // RequestTask 对象
-    static requestTask
+    static requestTask = null
     // 请求任务是否被中断
-    static aborted
+    static aborted = false
     // 监听 HTTP Response Header 事件函数
-    static onHeadRcvd
+    static onHeadRcvd = null
     // 取消监听 HTTP Response Header 事件函数
-    static offHeadRcvd
+    static offHeadRcvd = null
 
     // 监听 HTTP Response Header 事件执行函数
     static onHeadersReceived(fn) {
