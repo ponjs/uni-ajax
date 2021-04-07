@@ -144,7 +144,7 @@ const instance = ajax.create({
 ```Javascript
 // ajax.js
 
-// 定义 pending 状态的 Promise，用于避免进入 then 回调
+// 定义 pending 状态的 Promise，用于避免进入 catch 回调
 const pending = new Promise(() => {})
 
 // 响应拦截器
@@ -158,17 +158,15 @@ instance.interceptors.response.use(
      *
      * 那如果想要在请求方法接收响应错误是怎么办呢？
      * 我们可以通过拦截器传值再做相应逻辑，
-     * 这里我用传值 catch 判断是否返回错误，如果是 true 返回错误信息，否则不返回。
+     * 这里我用传值 catch 判断是否需要返回错误，如果是 true 返回错误信息，否则不返回。
      */
     return error.config.catch ? error : pending
   }
 )
 
-// 有返回错误信息时并用 catch 捕捉
-instance({ catch: true }).catch(err => {
-  console.log(err)
-})
-// 不返回错误信息
+// 有发生错误信息时，并用 catch 捕捉
+instance({ catch: true }).catch(err => console.log(err))
+// 有发生错误信息时，不返回错误信息
 instance()
 ```
 
@@ -192,7 +190,7 @@ const instance = ajax.create(async () => {
   return {
     // 例如获取异步 token 生成请求头
     header: {
-      Token: await getToken()
+      Token: await generate()
     }
   }
 })
