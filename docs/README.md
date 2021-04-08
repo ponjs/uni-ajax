@@ -25,6 +25,22 @@
 
 本文档是`2.x`版本，如果您当前使用的是`1.x`版本，请更新至最新版本！可查看 [V2 迁移指南][6]。
 
+### 其他
+
+这里我搭建了一个`uni-app`的模板工程，主要有下面这些依赖。已配置好企业项目中常用功能，例如 API 集中管理、路由守卫、eslint 代码规范等等。
+
+👉&nbsp;&nbsp;[uni-app-boilerplate](https://github.com/ponjs/uni-app-boilerplate)
+
+- [uni-app](https://uniapp.dcloud.io/)
+- [typescript](https://www.typescriptlang.org/)
+- [eslint](https://eslint.bootcss.com/)
+- [prettier](https://prettier.io/docs/en/options.html)
+- [tailwindcss](http://tailwind.wyz.xyz/)
+- [uni-ajax](https://uniajax.ponjs.com/)
+- [uview-ui](https://uviewui.com/)
+- [uni-simple-router](https://hhyang.cn/v2/)
+- [vuex-module-decorators](https://github.com/championswimmer/vuex-module-decorators)
+
 [1]: https://uniapp.dcloud.io/api/request/request
 [2]: https://github.com/axios/axios
 [3]: https://ext.dcloud.net.cn/plugin?id=2351
