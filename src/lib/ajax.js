@@ -52,7 +52,7 @@ export default class Ajax {
 
   request = (...args) => {
     // 分类请求参数
-    const { callback, params } = detachConfig(...args)
+    const { callback, options } = detachConfig(...args)
     // 回调函数字段
     const fields = Object.keys(callback)
     // 创建请求类
@@ -63,7 +63,7 @@ export default class Ajax {
       // 统一处理请求错误
       try {
         // 请求拦截后的配置
-        var config = await this.handleRequest(params)
+        var config = await this.handleRequest(options)
       } catch (error) {
         // 如果有回调参数 执行 fail / complete
         callback.fail?.(error)

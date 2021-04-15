@@ -11,7 +11,7 @@ export function detachConfig(url, data, config) {
   // 回调函数对象
   const callback = {}
   // 去除回调的请求参数对象
-  const params = {}
+  const options = {}
 
   // 是否传入单个参数
   const isSingle = typeof url === 'object'
@@ -21,11 +21,11 @@ export function detachConfig(url, data, config) {
 
   // 分离请求参数
   forEach(value, (val, key) => {
-    if (isCallback(key) && isSingle) callback[key] = val
-    else params[key] = val
+    if (isSingle && isCallback(key)) callback[key] = val
+    else options[key] = val
   })
 
-  return { callback, params }
+  return { callback, options }
 }
 
 /**

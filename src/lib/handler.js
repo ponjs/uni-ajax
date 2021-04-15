@@ -4,11 +4,11 @@ import { forEach, isObject, merge } from './utils'
 
 /**
  * 处理请求前
- * @param {object} request 请求参数
+ * @param {object} options 请求参数
  * @returns {object} 处理后的请求参数对象
  */
-export async function handleRequest(request) {
-  const params = mergeConfig(await this.config, request)
+export async function handleRequest(options) {
+  const params = mergeConfig(await this.config, options)
 
   // 拦截后的请求参数
   const config = await this.request.interceptors.request.fulfilled(params)
