@@ -26,7 +26,7 @@ const instance = ajax.create(config)
 
 ```Javascript
 {
-  baseUrl: '',
+  baseUrl: '',    // 请求根地址（2.x 改为 baseURL 注意大小写）
   response: {}    // 传值给拦截器（2.x 已弃用该方式传值）
 }
 ```
@@ -41,7 +41,7 @@ const instance = ajax.create(config)
 
 ## 传值给拦截器
 
-V1 中我们通过`response`属性传值给拦截器，拦截器也通过`response`属性获取。而在 V2 中我们可以直接在请求配置上传值，然后拦截器通过`config`属性获取当前请求配置，进而获取该传送的值。
+V1 中我们通过`response`属性传值给拦截器，拦截器也通过`response`属性获取。而在 V2 中我们可以直接在请求配置上传值，然后拦截器通过`config`属性获取当前请求配置，进而获取该传送的值。如果你在 V1 过渡到 V2 可以通过`config.response`这么获取。
 
 - **1.x**
 
