@@ -21,7 +21,6 @@ const instance = ajax.create({
 export default instance
 ```
 
-
 ### 函数配置 <Badge text="2.2.6"/>
 
 当创建实例传入的是一个函数时，每次请求前都会执行该函数（在请求拦截器之前），然后将执行后返回值传递给请求拦截器。这里的函数参数支持 `async / await` 操作。但要注意的是，`ajax.baseURL` 和 `ajax.origin` 只根据初始化时的配置，即创建实例时会调用一次执行初始化操作。
@@ -54,7 +53,8 @@ const instance = ajax.create(() => {
 | firstIpv4                                          | Boolean  | false                        | DNS 解析时优先使用 ipv4                             | 仅 App-Android 支持 (HBuilderX 2.8.0+)           |
 | <nowrap badge="2.2.2">[validateStatus][5]</nowrap> | Function | <Nowrap text="[200, 300)" /> | 定义对于给定的 HTTP 状态码返回拦截状态              |                                                  |
 | [xhr][6] <Badge text="2.2.4"/>                     | Function |                              | 获取每次请求的 RequestTask 对象                     |                                                  |
-| [...][7] <Badge text="2.1.0"/>                     | Any      |                              | 传递给拦截器的值                                    |                                                  |
+| [adapter][7] <Badge text="2.3.0"/>                 | Function |                              | 自定义处理请求                                      |                                                  |
+| [...][8] <Badge text="2.1.0"/>                     | Any      |                              | 传递给拦截器的值                                    |                                                  |
 
 ### `baseURL`
 
@@ -181,10 +181,33 @@ const instance = ajax.create({
 xhr?: (requestTask: AjaxRequestTask, config: AjaxRequestConfig) => void
 ```
 
+### `adapter` <Badge text="2.3.0"/>
+
+通过该属性可自定义请求方法，有着较强的可扩展性，一旦修改则替换默认的请求方法。该属性类型为函数类型，函数参数 config 为请求配置，且该函数需返回一个 Promise（参见源码 `src/lib/adapters/http.js`）。参数有个 `__REQUEST__` 属性，该属性为请求方法的构造函数。
+
+```JavaScript
+// 创建实例
+const instance = ajax.create({
+  adapter(config) {
+    return new Promise((resolve, reject) => {
+      // 例如这里在请求方法的构造函数挂载 sayHi 这个实例方法
+      config.__REQUEST__.prototype.sayHi = function sayHi() {
+        console.log('hello ajax')
+      }
+      /* ... */
+    })
+  }
+})
+
+// 通过上面挂载的 sayHi 方法调用
+instance().sayHi()
+```
+
 [1]: /instance/create.html#baseurl
 [2]: /instance/create.html#data
 [3]: /instance/create.html#header
 [4]: /instance/create.html#method
 [5]: /instance/create.html#validatestatus
 [6]: /instance/create.html#xhr
-[7]: /instance/interceptor.html#传值给拦截器
+[7]: /instance/create.html#adapter
+[8]: /instance/interceptor.html#传值给拦截器

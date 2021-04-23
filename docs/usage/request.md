@@ -35,6 +35,7 @@
 | firstIpv4                                     | Boolean  | DNS 解析时优先使用 ipv4                                                         |
 | <Nowrap text="validateStatus" badge="2.2.2"/> | Function | 定义对于给定的 HTTP 状态码返回拦截状态                                          |
 | xhr <Badge text="2.2.4"/>                     | Function | 获取当前请求的 RequestTask 对象                                                 |
+| adapter <Badge text="2.3.0"/>                 | Function | 自定义处理请求                                                                  |
 | ... <Badge text="2.1.0"/>                     | Any      | 传递给拦截器的值                                                                |
 
 ### `[config]`

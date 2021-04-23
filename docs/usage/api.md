@@ -48,7 +48,7 @@ request.offHeadersReceived(callback)    // 取消监听 HTTP Response Header 事
  * 反之如果是对象配置，该 config 参数是一个配置对象，返回也要是一个对象。
  */
 ajax.config(config => {
-  // ...
+  /* ... */
   return config
 })
 ```
