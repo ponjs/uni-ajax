@@ -19,6 +19,7 @@ export interface AjaxRequestConfig {
   firstIpv4?: boolean
   xhr?: (requestTask: AjaxRequestTask, config: AjaxRequestConfig) => void
   validateStatus?: ((statusCode?: number) => boolean) | null
+  adapter?: <T = any, R = AjaxResponse<T>>(config: AjaxRequestConfig) => Promise<R>
 }
 
 export interface AjaxCallbackConfig<T = any> extends AjaxRequestConfig {
