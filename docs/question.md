@@ -113,7 +113,7 @@ instance.interceptors.response.use(
   },
   error => {
     queue.remove(error.config.url)
-    return error
+    return Promise.reject(error)
   }
 )
 ``` -->
@@ -160,7 +160,7 @@ instance.interceptors.response.use(
      * 我们可以通过拦截器传值再做相应逻辑，
      * 这里我用传值 catch 判断是否需要返回错误，如果是 true 返回错误信息，否则不返回。
      */
-    return error.config.catch ? error : pending
+    return error.config.catch ? Promise.reject(error) : pending
   }
 )
 

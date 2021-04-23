@@ -82,7 +82,7 @@ const requestTask = await ajax({
 
 ## 请求拦截器拒绝发送请求
 
-V1 请求拦截器中只需返回`false`，并会触发请求错误事件。虽然在 V2 中也可以这么做，但是不推荐。我们可以请求拦截器返回`Promise.reject`，这样不仅可以自定义错误信息，并且不会触发请求错误事件，而是在请求方法中抛出请求失败。
+V1 请求拦截器中只需返回`false`，并会触发请求错误事件。虽然在 V2 中也可以这么做，但是不推荐。我们可以请求拦截器返回`Promise.reject`，这样不仅可以自定义错误信息，并且不会触发当前请求错误事件，而是在请求方法中抛出请求失败。
 
 - **1.x**
 
@@ -103,7 +103,40 @@ instance.interceptors.request.use(
 ```JavaScript
 instance.interceptors.request.use(
   config => {
-    return Promise.reject()
+    return Promise.reject({
+      config,
+      errMsg: 'request:fail intercepted'
+    })
+  }
+)
+```
+
+## 错误拦截器触发事件
+
+在 V1 中在错误拦截器（请求和响应）里无论返回什么都是触发`fail / catch`。但在 V2 版本必须返回 `Promise.reject` 才会触发`fail / catch`，否则都是触发 `success / then`。
+
+- **1.x**
+
+```JavaScript
+instance.interceptors.request.use(
+  config => {
+    return false
+  },
+  error => {
+    return error
+  }
+)
+```
+
+- **2.x**
+
+```JavaScript
+instance.interceptors.request.use(
+  config => {
+    return false
+  },
+  error => {
+    return Promise.reject(error)
   }
 )
 ```

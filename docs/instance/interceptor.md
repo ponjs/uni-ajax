@@ -6,6 +6,10 @@
 
 `ajax.interceptors[state].use([onFulfilled[, onRejected]])`
 
+::: warning 注意
+在 `2.3.0` 起 `onRejected` 错误事件拦截器，必须返回 `Promise.reject`（或者函数发生错误）才能触发 `fail / catch`，否则都是触发 `success / then`。
+:::
+
 ## 请求拦截器
 
 ```JavaScript
@@ -17,7 +21,7 @@ instance.interceptors.request.use(
   },
   error => {
     // 对请求错误做些什么
-    return error
+    return Promise.reject(error)
   }
 )
 ```
@@ -51,8 +55,8 @@ instance.interceptors.request.use(
 )
 
 // 发起请求
-ajax().catch(err => {
-  console.log(err.config)
+instance().catch(err => {
+  console.log(err.errMsg)
 })
 ```
 
@@ -69,7 +73,7 @@ instance.interceptors.response.use(
   },
   error => {
     // 对响应错误做点什么
-    return error
+    return Promise.reject(error)
   }
 )
 ```
@@ -101,7 +105,7 @@ instance.interceptors.response.use(
 instance.interceptors.response.use(
   response => {
     if (response.data.code !== 1) {
-      // ...
+      /* ... */
       return Promise.reject(response)
     }
     return response
@@ -109,7 +113,7 @@ instance.interceptors.response.use(
 )
 
 // 请求
-ajax()
+instance()
   .then(res => {
     // 响应成功且code值为1
   })
@@ -124,7 +128,7 @@ ajax()
 
 ```JavaScript
 // 发起请求
-ajax({
+instance({
   url: 'https://www.example.com',
   ajax: 'hello ajax'    // 传递给拦截器的值
 })
