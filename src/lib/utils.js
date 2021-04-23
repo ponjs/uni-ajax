@@ -17,7 +17,7 @@ export function isArray(val) {
  * @param {*} val 要判断的值
  * @returns {boolean} 返回判断结果
  */
-export function isObject(val) {
+export function isPlainObject(val) {
   return _toString.call(val) === '[object Object]'
 }
 
@@ -50,7 +50,11 @@ export function forEach(obj, fn) {
 export function merge(...args) {
   const result = {}
   for (let i = 0, l = args.length; i < l; i++) {
-    isObject(args[i]) && forEach(args[i], (val, key) => (result[key] = assign(result[key], val)))
+    if (isPlainObject(args[i])) {
+      forEach(args[i], (val, key) => {
+        result[key] = assign(result[key], val)
+      })
+    }
   }
   return result
 }
@@ -62,9 +66,9 @@ export function merge(...args) {
  * @returns {*} 目标对象
  */
 export function assign(target, source) {
-  if (isObject(target) && isObject(source)) {
+  if (isPlainObject(target) && isPlainObject(source)) {
     return merge(target, source)
-  } else if (isObject(source)) {
+  } else if (isPlainObject(source)) {
     return merge({}, source)
   } else if (isArray(source)) {
     return source.slice()
