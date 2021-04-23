@@ -37,11 +37,7 @@ export default {
   },
   plugins: [
     babel({
-      babelHelpers: 'bundled',
-      plugins: [
-        '@babel/plugin-proposal-class-properties',
-        '@babel/plugin-proposal-optional-chaining'
-      ]
+      babelHelpers: 'bundled'
     }),
     cleanup(),
     copy({

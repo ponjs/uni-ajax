@@ -10,6 +10,7 @@
     "build:uni": "rollup -c --environment TARGET:uni --environment BUILD:release",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
+    "lint": "eslint --fix .",
     "prepublishOnly": "npm run build:npm"
   },
   "files": [
@@ -31,9 +32,14 @@
   "homepage": "https://github.com/ponjs/uni-ajax#readme",
   "devDependencies": {
     "@babel/core": "^7.12.13",
+    "@babel/eslint-parser": "^7.13.14",
     "@babel/plugin-proposal-class-properties": "^7.12.13",
     "@babel/plugin-proposal-optional-chaining": "^7.12.13",
     "@rollup/plugin-babel": "^5.2.3",
+    "eslint": "^7.24.0",
+    "eslint-config-prettier": "^8.2.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "prettier": "^2.2.1",
     "rollup": "^2.38.5",
     "rollup-plugin-cleanup": "^3.2.1",
     "rollup-plugin-copy": "^3.3.0",
