@@ -1,4 +1,4 @@
-import Ajax from './lib/ajax'
+import Ajax from './lib/core/Ajax'
 
 function createInstance(defaultConfig) {
   return new Ajax(defaultConfig).request
