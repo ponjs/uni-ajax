@@ -7,7 +7,7 @@ const instance = ajax.create({
   baseURL: 'https://api.m.taobao.com/'
 })
 
-// 注册请求拦截器
+// 添加请求拦截器
 instance.interceptors.request.use(
   config => {
     // 在发送请求前做些什么
@@ -21,7 +21,7 @@ instance.interceptors.request.use(
   }
 )
 
-// 注册响应拦截器
+// 添加响应拦截器
 instance.interceptors.response.use(
   response => {
     // 对响应数据做点什么

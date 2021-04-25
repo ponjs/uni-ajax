@@ -6,10 +6,10 @@
 // 创建实例
 const instance = ajax.create([config])
 
-// 注册请求拦截器
+// 添加请求拦截器
 instance.interceptors.request.use([onFulfilled[, onRejected]])
 
-// 注册响应拦截器
+// 添加响应拦截器
 instance.interceptors.response.use([onFulfilled[, onRejected]])
 ```
 
