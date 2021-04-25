@@ -1,5 +1,5 @@
 import InterceptorManager from './InterceptorManager'
-import createRequest from '../adapters/Request'
+import RequestConstructor from '../adapters/Request'
 import dispatchCancel from './dispatchCancel'
 import dispatchRequest from './dispatchRequest'
 import detachConfig from '../helpers/detachConfig'
@@ -55,7 +55,7 @@ export default class Ajax {
     const { callback, config } = detachConfig(...args)
 
     // 创建请求类
-    const Request = createRequest()
+    const Request = RequestConstructor()
 
     // 声明 Promise 链
     const chain = [dispatchRequest(Request), dispatchCancel]

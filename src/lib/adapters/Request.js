@@ -1,4 +1,4 @@
-export default function createRequest() {
+export default function RequestConstructor() {
   return class Request extends Promise {
     // RequestTask 对象
     static requestTask = null
