@@ -3,6 +3,20 @@ export type Data = string | AnyObject | ArrayBuffer
 export type Method = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'HEAD' | 'OPTIONS' | 'TRACE'
 export type DataType = 'json' | 'text' | 'html'
 export type ResponseType = 'text' | 'arraybuffer'
+export type Callback<T = any> = (result: T) => void
+
+export interface Request<T> extends Promise<T>, AjaxRequestTask<Request<T>> {}
+
+export interface RequestConstructor extends PromiseConstructor {
+  readonly prototype: Request<any>
+  new <T>(executor: (resolve: (value: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void): Request<T>
+  requestTask: AjaxRequestTask | null
+  aborted: boolean
+  onHeadersReceivedCallback: Callback | null
+  offHeadersReceivedCallback: Callback | null
+  onHeadersReceived(callback: Callback): void
+  offHeadersReceived(callback: Callback): void
+}
 
 export interface AjaxRequestConfig {
   baseURL?: string
@@ -19,13 +33,13 @@ export interface AjaxRequestConfig {
   firstIpv4?: boolean
   xhr?: (requestTask: AjaxRequestTask, config: AjaxRequestConfig) => void
   validateStatus?: ((statusCode?: number) => boolean) | null
-  adapter?: <T = any, R = AjaxResponse<T>>(config: AjaxRequestConfig) => Promise<R>
+  adapter?: (config: AjaxRequestConfig, Request: RequestConstructor) => Promise<any>
 }
 
 export interface AjaxCallbackConfig<T = any> extends AjaxRequestConfig {
-  success?: (result: T) => void
-  fail?: (result: any) => void
-  complete?: (result: any) => void
+  success?: Callback<T>
+  fail?: Callback
+  complete?: Callback
 }
 
 export interface AjaxFunctionConfig {
@@ -47,45 +61,39 @@ export interface AjaxInterceptorManager<T> {
 
 export interface AjaxRequestTask<T = void> {
   abort(): T
-  onHeadersReceived(callback: (result: any) => void): T
-  offHeadersReceived(callback: (result: any) => void): T
+  onHeadersReceived(callback: Callback): T
+  offHeadersReceived(callback: Callback): T
 }
 
-export interface AjaxPromise<T = any> extends Promise<T>, AjaxRequestTask<AjaxPromise<T>> {}
-
-export interface AjaxExecutor {
-  <T = any, R = AjaxResponse<T>>(config?: AjaxRequestConfig): AjaxPromise<R>
-  <T = any, R = AjaxResponse<T>>(config?: AjaxCallbackConfig<R>): AjaxPromise<AjaxRequestTask>
-  <T = any, R = AjaxResponse<T>>(
-    url?: string,
-    data?: Data,
-    config?: AjaxRequestConfig
-  ): AjaxPromise<R>
+export interface AjaxRequest {
+  <T = any, R = AjaxResponse<T>>(config?: AjaxRequestConfig): Request<R>
+  <T = any, R = AjaxResponse<T>>(config?: AjaxCallbackConfig<R>): Request<AjaxRequestTask>
+  <T = any, R = AjaxResponse<T>>(url?: string, data?: Data, config?: AjaxRequestConfig): Request<R>
 }
 
-export interface AjaxInstance extends AjaxExecutor {
+export interface AjaxInstance extends AjaxRequest {
   readonly baseURL: string
   readonly origin: string
-  get: AjaxExecutor
-  post: AjaxExecutor
-  put: AjaxExecutor
-  delete: AjaxExecutor
-  connect: AjaxExecutor
-  head: AjaxExecutor
-  options: AjaxExecutor
-  trace: AjaxExecutor
+  get: AjaxRequest
+  post: AjaxRequest
+  put: AjaxRequest
+  delete: AjaxRequest
+  connect: AjaxRequest
+  head: AjaxRequest
+  options: AjaxRequest
+  trace: AjaxRequest
   config<
-    F extends Function | AnyObject,
-    T = F extends Function ? () => Promise<AjaxRequestConfig> : AjaxRequestConfig
+    T extends Function | AnyObject,
+    R = T extends Function ? () => Promise<AjaxRequestConfig> : AjaxRequestConfig
   >(
     iterable: (
-      config: T
+      config: R
     ) =>
-      | (F extends Function
+      | (T extends Function
           ? AjaxFunctionConfig | Promise<AjaxFunctionConfig>
           : AjaxRequestConfig | Promise<AjaxRequestConfig>)
-      | Promise<T>
-  ): Promise<T>
+      | Promise<R>
+  ): Promise<R>
   interceptors: {
     request: AjaxInterceptorManager<AjaxRequestConfig>
     response: AjaxInterceptorManager<AjaxResponse>

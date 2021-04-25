@@ -1,4 +1,4 @@
-export default function adapter({ __REQUEST__: Request, ...config }) {
+export default function adapter(config, Request) {
   return new Promise((resolve, reject) => {
     // 判断是否被取消请求
     if (Request.aborted) {

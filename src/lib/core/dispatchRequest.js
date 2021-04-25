@@ -30,10 +30,7 @@ export default function dispatchRequest(Request) {
     // 清除回调函数
     forEach(config, (val, key) => isCallback(key) && delete config[key])
 
-    // 将请求类挂载在 config 上
-    Object.defineProperty(config, '__REQUEST__', { value: Request })
-
     // 执行请求方法
-    return config.adapter(config)
+    return config.adapter(config, Request)
   }
 }
