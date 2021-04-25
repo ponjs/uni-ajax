@@ -107,14 +107,14 @@ export default {
         xhr: (requestTask, config) => {
           console.log(requestTask)
         }
-      })
+      }).then(res => (this.result = res.data.data.t))
 
       // 通过传参多个参数使用
-      this.$ajax(config.url, conif.data, {
+      this.$ajax(config.url, config.data, {
         xhr: (requestTask, config) => {
           console.log(requestTask)
         }
-      })
+      }).then(res => (this.result = res.data.data.t))
     }
   },
   onLoad() {
