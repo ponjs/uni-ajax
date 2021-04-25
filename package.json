@@ -1,6 +1,6 @@
 {
   "name": "uni-ajax",
-  "version": "2.2.8",
+  "version": "2.3.0",
   "description": "Lightweight HTTP client for the uni-app",
   "main": "dist",
   "scripts": {
