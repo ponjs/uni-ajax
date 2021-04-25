@@ -183,15 +183,15 @@ xhr?: (requestTask: AjaxRequestTask, config: AjaxRequestConfig) => void
 
 ### `adapter` <Badge text="2.3.0"/>
 
-通过该属性可自定义请求方法，有着较强的可扩展性，一旦修改则替换默认的请求方法。该属性类型为函数类型，函数参数 config 为请求配置，且该函数需返回一个 Promise（参见源码 `src/lib/adapters/http.js`）。参数有个 `__REQUEST__` 属性，该属性为请求方法的构造函数。
+通过该属性可自定义请求方法，有着较强的可扩展性，一旦修改则替换默认的请求方法。该属性类型为函数类型，需返回一个 `Promise`（参见源码 `src/lib/adapters/http.js`）。且该函数有两个参数 `config` 和 `Request`，`config` 为每次请求的请求配置，`Request` 为请求方法的构造函数。
 
 ```JavaScript
 // 创建实例
 const instance = ajax.create({
-  adapter(config) {
+  adapter(config, Request) {
     return new Promise((resolve, reject) => {
       // 例如这里在请求方法的构造函数挂载 sayHi 这个实例方法
-      config.__REQUEST__.prototype.sayHi = function sayHi() {
+      Request.prototype.sayHi = function sayHi() {
         console.log('hello ajax')
       }
       /* ... */
@@ -199,7 +199,7 @@ const instance = ajax.create({
   }
 })
 
-// 通过上面挂载的 sayHi 方法调用
+// 发起请求并调用上面挂载的 sayHi 方法
 instance().sayHi()
 ```
 
