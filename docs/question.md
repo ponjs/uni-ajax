@@ -139,7 +139,7 @@ const instance = ajax.create({
 
 ### 响应失败不抛出错误
 
-我们知道`Promise`有三种状态`pending / fulfilled / rejected`。当状态为`fulfilled`会进到`then`回调，如果是`rejected`时会抛出“错误”，要用`catch`捕捉。这样那只有`pending`状态时不会进到回调。顺着这个思路，我们只要在响应错误时返回`pending`状态的`Promise`即可。
+我们知道`Promise`有三种状态`pending / fulfilled / rejected`。当状态为`fulfilled`会进到`then`接受状态回调，如果是`rejected`时会抛出“错误”，要用`catch`捕捉或`then`拒绝状态回调。这样那只有`pending`状态时不会进到任何回调。顺着这个思路，我们只要在响应错误时返回`pending`状态的`Promise`即可。
 
 ```Javascript
 // ajax.js
