@@ -162,7 +162,7 @@ instance()    // 这里没有传入指定的 method，则以默认配置的 meth
 
 ### `validateStatus` <Badge text="2.2.2"/>
 
-定义对于给定的 HTTP 状态码返回拦截状态。如果`validateStatus`返回`true`（或者设置为`null`），响应数据会进到[响应拦截器](/instance/interceptor.html#响应拦截器)的`onFulfilled`，否则进到`onRejected`。
+定义对于给定的 HTTP 状态码返回拦截状态。如果`validateStatus`返回`true`（或者设置为`null`），响应数据会进到[响应拦截器][9]的`onFulfilled`，否则进到`onRejected`。
 
 ```JavaScript
 // 创建实例
@@ -190,17 +190,10 @@ xhr?: (requestTask: AjaxRequestTask, config: AjaxRequestConfig) => void
 const instance = ajax.create({
   adapter(config, Request) {
     return new Promise((resolve, reject) => {
-      // 例如这里在请求方法的构造函数挂载 sayHi 这个实例方法
-      Request.prototype.sayHi = function sayHi() {
-        console.log('hello ajax')
-      }
       /* ... */
     })
   }
 })
-
-// 发起请求并调用上面挂载的 sayHi 方法
-instance().sayHi()
 ```
 
 [1]: /instance/create.html#baseurl
@@ -211,3 +204,4 @@ instance().sayHi()
 [6]: /instance/create.html#xhr
 [7]: /instance/create.html#adapter
 [8]: /instance/interceptor.html#传值给拦截器
+[9]: /instance/interceptor.html#响应拦截器
