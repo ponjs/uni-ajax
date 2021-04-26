@@ -89,13 +89,13 @@ export default class Ajax {
         if (!callback) return response
         setTimeout(() => callback?.success(response))
         setTimeout(() => callback?.complete(response))
-        return Request.requestTask
+        return Request.task
       },
       error => {
         if (!callback) return Promise.reject(error)
         setTimeout(() => callback?.fail(error))
         setTimeout(() => callback?.complete(error))
-        return Request.requestTask
+        return Request.task
       }
     )
 

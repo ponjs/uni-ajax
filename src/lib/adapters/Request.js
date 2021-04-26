@@ -1,7 +1,7 @@
 export default function RequestConstructor() {
   return class Request extends Promise {
     // RequestTask 对象
-    static requestTask = null
+    static task = null
     // 请求任务是否被中断
     static aborted = false
     // 监听 HTTP Response Header 事件回调函数
@@ -14,8 +14,8 @@ export default function RequestConstructor() {
       if (typeof fn === 'function') {
         Request.onHeadersReceivedCallback = fn
       }
-      if (Request.onHeadersReceivedCallback && Request.requestTask) {
-        Request.requestTask.onHeadersReceived?.(Request.onHeadersReceivedCallback)
+      if (Request.onHeadersReceivedCallback && Request.task) {
+        Request.task.onHeadersReceived?.(Request.onHeadersReceivedCallback)
       }
     }
     // 取消监听 HTTP Response Header 事件执行函数
@@ -23,15 +23,15 @@ export default function RequestConstructor() {
       if (typeof fn === 'function') {
         Request.offHeadersReceivedCallback = fn
       }
-      if (Request.offHeadersReceivedCallback && Request.requestTask) {
-        Request.requestTask.offHeadersReceived?.(Request.offHeadersReceivedCallback)
+      if (Request.offHeadersReceivedCallback && Request.task) {
+        Request.task.offHeadersReceived?.(Request.offHeadersReceivedCallback)
       }
     }
 
     // 中断请求任务
     abort() {
       Request.aborted = true
-      Request.requestTask?.abort()
+      Request.task?.abort()
       return this
     }
     // 监听 HTTP Response Header 事件

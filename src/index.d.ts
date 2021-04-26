@@ -10,7 +10,7 @@ export interface Request<T> extends Promise<T>, AjaxRequestTask<Request<T>> {}
 export interface RequestConstructor extends PromiseConstructor {
   readonly prototype: Request<any>
   new <T>(executor: (resolve: (value: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void): Request<T>
-  requestTask: AjaxRequestTask | null
+  task: AjaxRequestTask | null
   aborted: boolean
   onHeadersReceivedCallback: Callback | null
   offHeadersReceivedCallback: Callback | null
@@ -31,7 +31,7 @@ export interface AjaxRequestConfig {
   sslVerify?: boolean
   withCredentials?: boolean
   firstIpv4?: boolean
-  xhr?: (requestTask: AjaxRequestTask, config: AjaxRequestConfig) => void
+  xhr?: (task: AjaxRequestTask, config: AjaxRequestConfig) => void
   validateStatus?: ((statusCode?: number) => boolean) | null
   adapter?: (config: AjaxRequestConfig, Request: RequestConstructor) => Promise<any>
 }

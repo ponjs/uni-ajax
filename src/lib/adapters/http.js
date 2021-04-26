@@ -9,7 +9,7 @@ export default function adapter(config, Request) {
     }
 
     // 发起请求，并挂载 RequestTask
-    Request.requestTask = uni.request({
+    Request.task = uni.request({
       ...config,
       complete: result => {
         // 根据状态码判断要执行的触发的状态
@@ -20,8 +20,8 @@ export default function adapter(config, Request) {
       }
     })
 
-    // 根据配置的 xhr 属性执行获取 requestTask
-    config.xhr?.(Request.requestTask, config)
+    // 根据配置的 xhr 属性执行获取 RequestTask
+    config.xhr?.(Request.task, config)
 
     // 请求类内部判断是否执行监听 HTTP Response Header 事件
     Request.onHeadersReceived()
