@@ -51,73 +51,6 @@ export const request = uni.request
 
 ### 如何处理重复请求
 
-<!-- 将处于`pending`的请求用数组存储起来形成请求队列。每个请求发送之前判断当前请求是否已存在。如果存在，说明请求重复了，则中断这个请求。如果不存在，说明这个请求不是重复的，正常发送并且把这个请求添入队列中，等请求结束之后移除队列的该 API。这里只是提供思路，具体的实现方式请根据实际项目情况。<br />
-新建`queue.js`，用于处理请求 URL 队列，根据 URL 队列来处理重复请求。
-
-```Javascript
-// queue.js
-
-// 引入合并 URL 方法
-import { combineURL } from 'uni-ajax/src/lib/helpers'
-
-class QueueURL {
-  constructor() {
-    this.queue = []
-  }
-  // 判断队列是否存在该请求 URL
-  has({ baseURL, url }) {
-    const finalURL = combineURL(baseURL, url)
-    const has = this.queue.includes(finalURL)
-    !has && this.queue.push(finalURL)
-    return has
-  }
-  // 移除请求 URL
-  remove(url = '') {
-    const index = this.queue.indexOf(url)
-    index > -1 && this.queue.splice(index, 1)
-  }
-}
-
-const queueURL = new QueueURL()
-
-export default queueURL
-```
-
-然后在请求实例文件中，在拦截器上做相应处理。
-
-```Javascript
-// ajax.js
-
-import queue from './queue'
-
-// 请求拦截器
-// 如果重复请求则中断请求 直到该接口响应
-instance.interceptors.request.use(
-  config => {
-    if (queue.has(config)) {
-      return Promise.reject({
-        config,
-        errMsg: 'request:fail repeat'
-      })
-    }
-    return config
-  }
-)
-
-// 响应拦截器
-// 无论响应成功或失败都释放请求 URL
-instance.interceptors.response.use(
-  response => {
-    queue.remove(response.config.url)
-    return response
-  },
-  error => {
-    queue.remove(error.config.url)
-    return Promise.reject(error)
-  }
-)
-``` -->
-
 将处于`pending`状态的请求用数组存储起来形成请求队列。在请求时判断当前请求是否已存在。如果存在，说明请求重复了，则中断这个请求，并移除队列中的该请求。如果不存在，说明这个请求不是重复的，正常发送并把该请求添入队列中。这里只是提供思路，具体的实现方式请根据实际项目情况。
 
 ```Javascript
@@ -128,7 +61,7 @@ const queue = []
 
 // 创建实例
 const instance = ajax.create({
-  xhr: (task, config) => {
+  xhr(task, config) {
     task.url = config.url
     const index = queue.findIndex(ele => ele.url === task.url)
     index > -1 && queue.splice(index, 1)[0].abort()
