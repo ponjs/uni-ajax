@@ -20,11 +20,11 @@ export default function adapter(config, Request) {
       }
     })
 
-    // 根据配置的 xhr 属性执行获取 RequestTask
-    config.xhr?.(Request.task, config)
-
     // 请求类内部判断是否执行监听 HTTP Response Header 事件
     Request.onHeadersReceived()
     Request.offHeadersReceived()
+
+    // 根据配置的 xhr 属性执行获取 RequestTask
+    config.xhr?.(Request.task, config)
   })
 }
