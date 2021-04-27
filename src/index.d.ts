@@ -67,7 +67,7 @@ export interface AjaxRequestTask<T = void> {
 
 export interface AjaxRequest {
   <T = any, R = AjaxResponse<T>>(config?: AjaxRequestConfig): Request<R>
-  <T = any, R = AjaxResponse<T>>(config?: AjaxCallbackConfig<R>): Request<AjaxRequestTask>
+  <T = any, R = AjaxResponse<T>>(config?: AjaxCallbackConfig<R>): Request<void>
   <T = any, R = AjaxResponse<T>>(url?: string, data?: Data, config?: AjaxRequestConfig): Request<R>
 }
 
