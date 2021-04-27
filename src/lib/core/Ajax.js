@@ -87,14 +87,14 @@ export default class Ajax {
     chain.push(
       response => {
         if (!callback) return response
-        setTimeout(() => callback?.success(response))
-        setTimeout(() => callback?.complete(response))
+        setTimeout(() => callback.success?.(response))
+        setTimeout(() => callback.complete?.(response))
         return Request.task
       },
       error => {
         if (!callback) return Promise.reject(error)
-        setTimeout(() => callback?.fail(error))
-        setTimeout(() => callback?.complete(error))
+        setTimeout(() => callback.fail?.(error))
+        setTimeout(() => callback.complete?.(error))
         return Request.task
       }
     )
