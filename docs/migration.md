@@ -120,7 +120,7 @@ instance.interceptors.request.use(
 ```JavaScript
 instance.interceptors.request.use(
   config => {
-    return false
+    return config
   },
   error => {
     return error
@@ -133,7 +133,7 @@ instance.interceptors.request.use(
 ```JavaScript
 instance.interceptors.request.use(
   config => {
-    return false
+    return config
   },
   error => {
     return Promise.reject(error)
