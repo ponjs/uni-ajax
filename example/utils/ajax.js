@@ -4,7 +4,7 @@ import ajax from '@/uni_modules/u-ajax/js_sdk'
 // 创建请求实例
 const instance = ajax.create({
   // 默认配置
-  baseURL: 'https://api.m.taobao.com/'
+  baseURL: 'https://otheve.beacon.qq.com/analytics'
 })
 
 // 添加请求拦截器

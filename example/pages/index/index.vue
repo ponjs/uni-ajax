@@ -31,10 +31,8 @@ export default {
        * 执行方法返回的 request 是在继承 Promise 的基础上，挂载 RequestTask 的一些方法
        * 查看源码 uni-ajax/lib/ajax.js 有代码注释（您这么聪明肯定看得明白啦）
        */
-      this.request = this.$ajax('rest', {
-        api: 'mtop.common.getTimestamp'
-      }).then(res => {
-        this.result = res.data.data.t
+      this.request = this.$ajax('upload', { tp: 'json' }).then(res => {
+        this.result = res.data.serverTime
       })
 
       /**
@@ -42,10 +40,10 @@ export default {
        * 主要差异在于执行请求方法返回的 request 的 Promise.resolve 返回值
        * 下面的 getRequestTask 函数中的方法一就是一个简单的例子
         this.request = this.$ajax({
-          url: 'rest',
-          data: { api: 'mtop.common.getTimestamp' },
+          url: 'upload',
+          data: { tp: 'json' },
           success: res => {
-            this.result = res.data.data.t
+            this.result = res.data.serverTime
           }
         })
       */
@@ -66,10 +64,9 @@ export default {
     async getRequestTask() {
       // 定义接口所需参数（这里这么定义只是方法下面多个方法使用，您在实际使用中并非一定要求这么写）
       const config = {
-        url: 'rest',
-        data: {
-          api: 'mtop.common.getTimestamp'
-        }
+        url: 'upload',
+        data: { tp: 'json' },
+        success: res => (this.result = res.data.serverTime)
       }
 
       /**
@@ -81,17 +78,11 @@ export default {
        */
 
       // await 需写在 async 函数里（看到 getRequestTask 前那个 async 了吗）
-      const requestTask = await this.$ajax({
-        ...config,
-        success: res => (this.result = res.data.data.t)
-      })
+      const requestTask = await this.$ajax(config)
       console.log(requestTask)
 
       // 如果不想用 async await，则用 then 接收，则无需写 async await
-      this.$ajax({
-        ...config,
-        success: res => (this.result = res.data.data.t)
-      }).then(requestTask => {
+      this.$ajax(config).then(requestTask => {
         console.log(requestTask)
       })
 
@@ -103,18 +94,19 @@ export default {
 
       // 通过传参一个对象使用
       this.$ajax({
-        ...config,
+        url: config.url,
+        data: config.data,
         xhr: (requestTask, config) => {
           console.log(requestTask)
         }
-      }).then(res => (this.result = res.data.data.t))
+      }).then(config.success)
 
       // 通过传参多个参数使用
       this.$ajax(config.url, config.data, {
         xhr: (requestTask, config) => {
           console.log(requestTask)
         }
-      }).then(res => (this.result = res.data.data.t))
+      }).then(config.success)
     }
   },
   onLoad() {
