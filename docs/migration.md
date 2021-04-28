@@ -61,7 +61,9 @@ ajax({
 
 ## RequestTask
 
-在 V1 中如果要获取`RequestTask`对象需传参为`config`一个对象，然后接收`Promise.resolve`的返回值。而在 V2 中，该参数至少传入`success / fail / complete`参数中的一个，这点是为了契合`uni.request`获取`RequestTask`方式一致。但是在`2.1.0`版本中加入了[直接调用](/usage/request-task.html)的方法，使其使用`RequestTask`上的方法更加方便。
+<!-- 在 V1 中如果要获取`RequestTask`对象需传参为`config`一个对象，然后接收`Promise.resolve`的返回值。而在 V2 中，该参数至少传入`success / fail / complete`参数中的一个，这点是为了契合`uni.request`获取`RequestTask`方式一致。但是在`2.1.0`版本中加入了[直接调用](/usage/request-task.html)的方法，使其使用`RequestTask`上的方法更加方便。 -->
+
+在 V1 中如果要获取`RequestTask`对象需传参为`config`一个对象，然后接收`Promise.resolve`的返回值。而在 V2 中，该方式已废弃，但可以[直接调用](/usage/request-task.html)的方法，使其使用`RequestTask`上的方法更加方便，又或者想获取`RequestTask`对象则通过`xhr`回调属性获取。
 
 - **1.x**
 
@@ -69,15 +71,21 @@ ajax({
 const requestTask = await ajax({
   url: 'https://www.example.com'
 })
+requestTask.abort()
 ```
 
 - **2.x**
 
 ```JavaScript
-const requestTask = await ajax({
+ajax({
   url: 'https://www.example.com',
-  complete: () => {}
+  xhr: (requestTask, config) => {
+    requestTask.abort()
+  }
 })
+
+const request = ajax('https://www.example.com')
+request.abort()
 ```
 
 ## 请求拦截器拒绝发送请求
