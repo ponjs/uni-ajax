@@ -75,3 +75,18 @@ export function assign(target, source) {
   }
   return source
 }
+
+/**
+ * trycatch 封装函数
+ * @param {function} fn 函数
+ * @returns {function} 封装 trycatch 后的函数
+ */
+export function tryCatch(fn) {
+  return function () {
+    try {
+      return fn.apply(fn, arguments)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}

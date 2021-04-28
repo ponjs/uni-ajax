@@ -1,5 +1,5 @@
 import isCallback from './isCallback'
-import { forEach } from '../utils'
+import { forEach, tryCatch } from '../utils'
 
 /**
  * 分离请求对象
@@ -23,7 +23,7 @@ export default function detachConfig(url, data, config) {
   // 分离请求参数
   forEach(value, (val, key) => {
     if (isSingle && isCallback(key)) {
-      ;(callback || (callback = {}))[key] = val
+      ;(callback || (callback = {}))[key] = tryCatch(val)
     } else {
       options[key] = val
     }
