@@ -63,7 +63,7 @@ export default {
       this.request?.abort()
     },
     // 获取 RequestTask 对象
-    async getRequestTask() {
+    getRequestTask() {
       /**
        * 通过请求配置的 xhr 回调参数可以获取 RequestTask 对象
        *
