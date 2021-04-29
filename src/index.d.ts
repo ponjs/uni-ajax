@@ -18,6 +18,12 @@ export interface RequestConstructor extends PromiseConstructor {
   offHeadersReceived(callback: Callback): void
 }
 
+export interface AjaxRequestTask<T = void> {
+  abort(): T
+  onHeadersReceived(callback: Callback): T
+  offHeadersReceived(callback: Callback): T
+}
+
 export interface AjaxRequestConfig {
   baseURL?: string
   url?: string
@@ -57,12 +63,6 @@ export interface AjaxResponse<T = any> {
 
 export interface AjaxInterceptorManager<T> {
   use(onFulfilled?: (value: T) => T | Promise<T>, onRejected?: (error: any) => any): void
-}
-
-export interface AjaxRequestTask<T = void> {
-  abort(): T
-  onHeadersReceived(callback: Callback): T
-  offHeadersReceived(callback: Callback): T
 }
 
 export interface AjaxRequest {
