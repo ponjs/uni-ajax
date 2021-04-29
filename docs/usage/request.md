@@ -11,7 +11,7 @@
   - reject: &nbsp;&nbsp;&nbsp;请求或响应失败对象
 
 * [[config]][5]
-  - resolve: &nbsp;响应成功对象 / RequestTask 对象
+  - resolve: &nbsp;响应成功对象 / `undefined` / [RequestTask 对象][3]
   - reject: &nbsp;&nbsp;&nbsp;请求或响应失败对象 / 无
 
 :::
