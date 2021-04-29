@@ -36,6 +36,7 @@
     "@babel/plugin-proposal-class-properties": "^7.12.13",
     "@babel/plugin-proposal-optional-chaining": "^7.12.13",
     "@rollup/plugin-babel": "^5.2.3",
+    "@rollup/plugin-eslint": "^8.0.1",
     "eslint": "^7.25.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",

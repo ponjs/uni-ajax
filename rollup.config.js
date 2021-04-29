@@ -1,3 +1,4 @@
+import eslint from '@rollup/plugin-eslint'
 import babel from '@rollup/plugin-babel'
 import cleanup from 'rollup-plugin-cleanup'
 import copy from 'rollup-plugin-copy'
@@ -36,6 +37,9 @@ export default {
     banner
   },
   plugins: [
+    eslint({
+      throwOnError: true
+    }),
     babel({
       babelHelpers: 'bundled'
     }),
