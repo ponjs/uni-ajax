@@ -29,7 +29,8 @@ export default {
     initiate() {
       /**
        * 执行方法返回的 request 是在继承 Promise 的基础上，挂载 RequestTask 的一些方法
-       * 查看源码 uni-ajax/lib/ajax.js 有代码注释（您这么聪明肯定看得明白啦）
+       * 所以可以下面的 abort() 这样直接调用中断请求
+       * 参见源码 /src/lib/adapters/Request.js
        */
       this.request = this.$ajax('upload', { tp: 'json' }).then(res => {
         this.result = res.data.serverTime
@@ -38,7 +39,8 @@ export default {
       /**
        * 上下两种写法都可以，但是是有一些差异的，具体可看文档
        * 主要差异在于执行请求方法返回的 request 的 Promise.resolve 返回值
-       * 下面的 getRequestTask 函数中的方法一就是一个简单的例子
+       * 这里的 Promise.resolve 返回值为 undefined，仅表示所有回调参数执行完成，且不会发生 rejected 状态
+       * 上面的 Promise.resolve 返回值为请求成功对象，表示发起请求成功后返回服务端数据
         this.request = this.$ajax({
           url: 'upload',
           data: { tp: 'json' },
@@ -70,29 +72,32 @@ export default {
        * 所以有直接中断请求这种操作推荐上面那样直接调用。
        */
 
-      // 通过传参一个对象使用
+      // 通过传参一个对象参数使用
       this.$ajax({
         url: 'upload',
         data: { tp: 'json' },
         xhr: (requestTask, config) => {
           console.log(requestTask)
+        },
+        success: res => {
+          this.result = res.data.serverTime
         }
-      }).then(res => {
-        this.result = res.data.serverTime
       })
 
-      // 通过传参多个参数使用
-      this.$ajax(
-        'upload',
-        { tp: 'json' },
-        {
-          xhr: (requestTask, config) => {
-            console.log(requestTask)
+      /**
+       * 通过传参多个参数使用
+        this.$ajax(
+          'upload',
+          { tp: 'json' },
+          {
+            xhr: (requestTask, config) => {
+              console.log(requestTask)
+            }
           }
-        }
-      ).then(res => {
-        this.result = res.data.serverTime
-      })
+        ).then(res => {
+          this.result = res.data.serverTime
+        })
+       */
     }
   },
   onLoad() {
