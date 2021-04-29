@@ -62,51 +62,37 @@ export default {
     },
     // 获取 RequestTask 对象
     async getRequestTask() {
-      // 定义接口所需参数（这里这么定义只是方法下面多个方法使用，您在实际使用中并非一定要求这么写）
-      const config = {
-        url: 'upload',
-        data: { tp: 'json' },
-        success: res => (this.result = res.data.serverTime)
-      }
-
       /**
-       * 方法一
+       * 通过请求配置的 xhr 回调参数可以获取 RequestTask 对象
        *
-       * 如果希望返回一个真正的 RequestTask 对象，则传参为一个对象
-       * 该对象至少传入 success / fail / complete 参数中的一个
-       * 然后接收 Promise.resolve 的返回值
-       */
-
-      // await 需写在 async 函数里（看到 getRequestTask 前那个 async 了吗）
-      const requestTask = await this.$ajax(config)
-      console.log(requestTask)
-
-      // 如果不想用 async await，则用 then 接收，则无需写 async await
-      this.$ajax(config).then(requestTask => {
-        console.log(requestTask)
-      })
-
-      /**
-       * 方法二
-       *
-       * 通过请求配置的 xhr 回调参数也可以获取 requestTask 对象
+       * 虽然有提供获取 RequestTask 对象属性方法 xhr，
+       * 但没有上面 abort() 那样直接调用 RequestTask 上的方法来的方便，
+       * 所以有直接中断请求这种操作推荐上面那样直接调用。
        */
 
       // 通过传参一个对象使用
       this.$ajax({
-        url: config.url,
-        data: config.data,
+        url: 'upload',
+        data: { tp: 'json' },
         xhr: (requestTask, config) => {
           console.log(requestTask)
         }
-      }).then(config.success)
+      }).then(res => {
+        this.result = res.data.serverTime
+      })
 
       // 通过传参多个参数使用
-      this.$ajax(config.url, config.data, {
-        xhr: (requestTask, config) => {
-          console.log(requestTask)
+      this.$ajax(
+        'upload',
+        { tp: 'json' },
+        {
+          xhr: (requestTask, config) => {
+            console.log(requestTask)
+          }
         }
-      }).then(config.success)
+      ).then(res => {
+        this.result = res.data.serverTime
+      })
     }
   },
   onLoad() {
