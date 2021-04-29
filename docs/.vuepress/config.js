@@ -14,7 +14,12 @@ module.exports = {
     editLinkText: '在 GitHub 上编辑此页！',
     nav: [
       {
-        text: 'DCloud',
+        text: '更新日志',
+        link: 'https://ext.dcloud.net.cn/plugin?id=2351&update_log',
+        target: '_blank'
+      },
+      {
+        text: '插件市场',
         link: 'https://ext.dcloud.net.cn/plugin?id=2351',
         target: '_blank'
       },
