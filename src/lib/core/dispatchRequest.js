@@ -15,7 +15,7 @@ export default function dispatchRequest(Request) {
     config.url = buildURL(combineURL(config.baseURL, config.url), config.params)
 
     // 请求方法转大写
-    config.method = (config.method || 'GET').toUpperCase()
+    config.method = (config.method || 'get').toUpperCase()
 
     // 调整 header 优先级
     config.header = merge(
