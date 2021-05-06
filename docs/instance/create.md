@@ -44,7 +44,7 @@ const instance = ajax.create(() => {
 | [data][2]                                          | Object   |                              | 请求的参数，当类型为 object 时会合并在请求时的 data | App（自定义组件编译模式）不支持 ArrayBuffer 类型 |
 | [header][3]                                        | Object   |                              | 请求头，支持配置不同请求方式的请求头                | H5 端会自动带上 cookie 不可手动覆盖              |
 | [method][4]                                        | String   | GET                          | ajax() 默认的请求方式                               |
-| params <Badge text="2.2.5"/>                       | Object   |                              | URL 参数                                            |                                                  |
+| params <Badge text="2.2.5"/>                       | Object   |                              | URL 参数，会将数据转换为 query string 拼接在 URL 上 |                                                  |
 | timeout                                            | Number   | 30000                        | 超时时间，单位 ms                                   | 微信小程序（2.10.0）、支付宝小程序               |
 | dataType                                           | String   | json                         | 如果设为 json，会尝试对返回的数据做一次 JSON.parse  |
 | responseType                                       | String   | text                         | 设置响应的数据类型。合法值：text、arraybuffer       | App 和支付宝小程序不支持                         |
