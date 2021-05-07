@@ -72,3 +72,5 @@ this.$ajax({ url: 'api' })
 this.$ajax.post('api')
 this.$ajax.post({ url: 'api' })
 ```
+
+如果有API集中管理的需求，可参考这个模板项目[uni-app-boilerplate](https://github.com/ponjs/uni-app-boilerplate)。
