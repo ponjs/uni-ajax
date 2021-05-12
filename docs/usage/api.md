@@ -3,14 +3,13 @@
 ## 实例方法
 
 ```Javascript
-// 创建实例
-const instance = ajax.create([config])
+const instance = ajax.create([config])    // 创建实例
 
-// 添加请求拦截器
-instance.interceptors.request.use([onFulfilled[, onRejected]])
+instance.interceptors.request.use([onFulfilled[, onRejected]])     // 添加请求拦截器
+instance.interceptors.response.use([onFulfilled[, onRejected]])    // 添加响应拦截器
 
-// 添加响应拦截器
-instance.interceptors.response.use([onFulfilled[, onRejected]])
+instance.interceptors.request.eject(id)     // 移除请求拦截器
+instance.interceptors.response.eject(id)    // 移除响应拦截器
 ```
 
 ## 请求方法

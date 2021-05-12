@@ -10,6 +10,17 @@
 在 `2.3.0` 起 `onRejected` 错误事件拦截器，必须返回 `Promise.reject`（或者函数发生错误）才能触发 `fail / catch`，否则都是触发 `success / then`。
 :::
 
+## 移除拦截器 <Badge text="2.3.0"/>
+
+`ajax.interceptors[state].eject(id)`
+
+通过添加拦截器 use 方法返回的 id，然后将该 id 传递到 eject 方法可移除指定拦截器。
+
+```JavaScript
+const interceptor = ajax.interceptors[state].use([onFulfilled[, onRejected]])
+ajax.interceptors[state].eject(interceptor)
+```
+
 ## 请求拦截器
 
 ```JavaScript
