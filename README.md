@@ -52,7 +52,7 @@ export default instance                                        // 导出创建�
 ```JavaScript
 // main.js
 
-import ajax from './utils/ajax'    // 路径需根据项目实际情况
+import ajax from './common/ajax'   // 路径需根据项目实际情况
 Vue.prototype.$ajax = ajax         // 挂载在 Vue 原型链上（通过 this.$ajax 调用）
 ```
 

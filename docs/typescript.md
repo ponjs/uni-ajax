@@ -40,7 +40,7 @@ export default instance
 ### main.ts
 
 ```Typescript
-import './utils/ajax'
+import './common/ajax'
 ```
 
 ### sfc.d.ts

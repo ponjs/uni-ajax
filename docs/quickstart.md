@@ -58,7 +58,7 @@ export default instance
 ```JavaScript
 // main.js
 
-import './utils/ajax'    // 路径需根据项目实际情况
+import './common/ajax'    // 路径需根据项目实际情况
 ```
 
 在页面中[调用](/usage/api.html#请求方法)。
