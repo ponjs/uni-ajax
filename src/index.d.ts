@@ -62,7 +62,8 @@ export interface AjaxResponse<T = any> {
 }
 
 export interface AjaxInterceptorManager<T> {
-  use(onFulfilled?: (value: T) => T | Promise<T>, onRejected?: (error: any) => any): void
+  use(onFulfilled?: (value: T) => T | Promise<T>, onRejected?: (error: any) => any): number
+  eject(id: number): void
 }
 
 export interface AjaxRequest {
