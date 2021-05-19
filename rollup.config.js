@@ -13,13 +13,22 @@ const banner =
   ' * https://github.com/ponjs/uni-ajax\n' +
   ' */'
 
-const target = process.env.TARGET === 'uni' ? 'example/uni_modules/u-ajax/js_sdk' : 'dist'
+const targetPath = process.env.TARGET === 'uni' ? 'example/uni_modules/u-ajax/js_sdk' : 'dist'
 
-const copyTargets = [{ src: 'src/index.d.ts', dest: path.resolve(target) }]
+const copyTargets = [
+  {
+    src: `src/${process.env.TARGET === 'uni' ? '*' : 'index.d.ts'}`,
+    dest: path.resolve(targetPath)
+  }
+]
+
 if (process.env.TARGET === 'uni' && process.env.BUILD === 'release') {
-  copyTargets.push({ src: 'README.md', dest: path.resolve(target, '..') })
+  copyTargets.push({
+    src: 'README.md',
+    dest: path.resolve(targetPath, '..')
+  })
 
-  const filePath = path.resolve(target, '../package.json')
+  const filePath = path.resolve(targetPath, '../package.json')
   fs.readFile(filePath, (err, data) => {
     const json = JSON.parse(data.toString())
     json.version = version
@@ -30,10 +39,10 @@ if (process.env.TARGET === 'uni' && process.env.BUILD === 'release') {
 export default {
   input: 'src/index.js',
   output: {
-    file: path.resolve(target, 'index.js'),
+    file: 'dist/index.js',
     format: 'umd',
     name: 'ajax',
-    sourcemap: process.env.TARGET === 'npm',
+    sourcemap: true,
     banner
   },
   plugins: [
