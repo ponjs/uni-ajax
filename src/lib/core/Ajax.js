@@ -61,12 +61,12 @@ export default class Ajax {
     const chain = [dispatchRequest(Request), dispatchCancel]
 
     // 将请求拦截遍历添加到链前面
-    this.request.interceptors.request.forEach(({ fulfilled, rejected }) =>
+    this.request.interceptors.request.forEach.desc(({ fulfilled, rejected }) =>
       chain.unshift(fulfilled, rejected)
     )
 
     // 将响应拦截遍历添加到链后面
-    this.request.interceptors.response.forEach(({ fulfilled, rejected }) =>
+    this.request.interceptors.response.forEach.asc(({ fulfilled, rejected }) =>
       chain.push(
         fulfilled,
         // 判断发起请求前是否发生错误，如果发生错误则不执行后面的响应错误拦截器
