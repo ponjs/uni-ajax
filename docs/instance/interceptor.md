@@ -156,7 +156,7 @@ instance.interceptors.response.use(
 
 `ajax.interceptors[state].eject(id)`
 
-通过添加拦截器 use 方法返回的 id，然后将该 id 传递到 eject 方法可移除指定拦截器。衍生的说支持添加多个拦截器，每调用一次 use 方法表示添加一对拦截器，且有顺序之分。
+通过添加拦截器 use 方法返回的 id，然后将该 id 传递到 eject 方法可移除指定拦截器。衍生的说支持添加多个拦截器，每调用一次 use 方法表示添加一对拦截器，且根据添加的顺序执行。
 
 ```JavaScript
 const interceptor = ajax.interceptors[state].use([onFulfilled[, onRejected]])
