@@ -6,12 +6,12 @@
 
 ::: tip PROMISE
 
-- [[url[, data[, config]]]][4]
+- [[url[, data[, config]]]][3]
   - resolve: &nbsp;响应成功对象
   - reject: &nbsp;&nbsp;&nbsp;请求或响应失败对象
 
-* [[config]][5]
-  - resolve: &nbsp;响应成功对象 / `undefined` / [RequestTask 对象][3]
+* [[config]][4]
+  - resolve: &nbsp;响应成功对象 / `undefined`
   - reject: &nbsp;&nbsp;&nbsp;请求或响应失败对象 / 无
 
 :::
@@ -66,6 +66,5 @@
 
 [1]: /usage/api.html#请求方法
 [2]: https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise
-[3]: /usage/request-task.html
-[4]: /usage/request.html#url-data-config
-[5]: /usage/request.html#config
+[3]: /usage/request.html#url-data-config
+[4]: /usage/request.html#config
