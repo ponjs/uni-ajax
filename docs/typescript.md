@@ -57,7 +57,7 @@ declare module 'vue/types/vue' {
 
 ### 注意
 
-- 我们在请求时或在请求拦截器中是可以[传值](instance/interceptor.html#传值给拦截器)到拦截器，但是在 TypeScript 中需要定义属性类型。
+- 我们在请求时或在请求拦截器中是可以[传值](instance/interceptor.html#拦截器传值)到拦截器，但是在 TypeScript 中需要定义属性类型。
 
 ```Typescript
 // sfc.d.ts

@@ -203,5 +203,5 @@ const instance = ajax.create({
 [5]: /instance/create.html#validatestatus
 [6]: /instance/create.html#xhr
 [7]: /instance/create.html#adapter
-[8]: /instance/interceptor.html#传值给拦截器
+[8]: /instance/interceptor.html#拦截器传值
 [9]: /instance/interceptor.html#响应拦截器
