@@ -33,7 +33,7 @@ this.$ajax.upload(filePath)
 
 ### **H5 打包出现 `API request is not yet implemented`**
 
-如果您是通过`npm`安装`uni-ajax`，又在项目中没用到`uni.request`，并且 H5 配置中开启了 [摇树优化][1]，则会出现这问题。解决该问题有两种方法。
+如果您是通过`npm`安装`uni-ajax`，又在项目中没用到`uni.request`，并且 H5 配置中开启了 [摇树优化][1]，则会出现这问题。解决该问题有三种方法。
 
 1、关闭摇树优化<br />
 2、使用`uni.request`
@@ -47,6 +47,20 @@ this.$ajax.upload(filePath)
 // #ifdef H5
 export const request = uni.request
 // #endif
+```
+
+3、通过项目`Babel`显式转译
+
+首先我们不再引入编译后的包，而是引入源码。然后配置`vue.config.js`，没有的话则在项目根目录创建该文件。
+
+```Javascript
+// ajax.js
+import ajax from 'uni-ajax/src'
+
+// vue.config.js
+module.exports = {
+  transpileDependencies: ['uni-ajax']
+}
 ```
 
 ### 如何处理重复请求
