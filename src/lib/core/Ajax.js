@@ -19,15 +19,6 @@ export default class Ajax {
       response: new InterceptorManager()
     }
 
-    // 因为 config 传入的可能是异步函数
-    ;(async () => {
-      // 挂载接口根地址 baseURL
-      this.request.baseURL = (await this.config).baseURL || ''
-
-      // 挂载接口根地址的源地址 origin
-      this.request.origin = originURL(this.request.baseURL)
-    })()
-
     // 挂载修改 config 方法
     this.request.config = async fn => (this.config = await fn(this._config))
 
@@ -37,6 +28,12 @@ export default class Ajax {
         this.request(
           ...(typeof url === 'string' ? [url, data, { ...config, method }] : [{ ...url, method }])
         )
+    })
+
+    // 挂载实例接口地址
+    setTimeout(async () => {
+      this.request.baseURL = (await this.config).baseURL || ''
+      this.request.origin = originURL(this.request.baseURL)
     })
   }
 
