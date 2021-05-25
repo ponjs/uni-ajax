@@ -1,10 +1,10 @@
 import InterceptorManager from './InterceptorManager'
 import RequestConstructor from '../adapters/Request'
-import dispatchCancel from './dispatchCancel'
-import dispatchRequest from './dispatchRequest'
 import detachConfig from '../helpers/detachConfig'
 import mergeConfig from '../helpers/mergeConfig'
 import originURL from '../helpers/originURL'
+import dispatchRequest from './dispatchRequest'
+import { detachCancel, dispatchCancel, interceptCancel } from './handleCancel'
 import defaults, { METHOD } from '../defaults'
 import { forEach } from '../utils'
 
@@ -64,21 +64,14 @@ export default class Ajax {
 
     // 将响应拦截遍历添加到链后面
     this.request.interceptors.response.forEach.asc(({ fulfilled, rejected }) =>
-      chain.push(
-        fulfilled,
-        // 判断发起请求前是否发生错误，如果发生错误则不执行后面的响应错误拦截器
-        rejected &&
-          (response => (response.__CANCEL__ ? Promise.reject(response) : rejected(response)))
-      )
+      chain.push(fulfilled, interceptCancel(rejected))
     )
 
     // 先执行获取 config 请求配置
     chain.unshift(async config => mergeConfig(await this.config, config), undefined)
 
     // 处理发起请求前的错误数据
-    chain.push(undefined, ({ __CANCEL__, ...error }) =>
-      Promise.reject(__CANCEL__ ? error.reason : error)
-    )
+    chain.push(undefined, detachCancel)
 
     // 调用请求方法后，且拦截器触发完成后，判断回调参数的执行
     chain.push(
