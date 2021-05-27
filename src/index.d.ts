@@ -66,23 +66,23 @@ export interface AjaxInterceptorManager<T> {
   eject(id: number): void
 }
 
-export interface AjaxRequest {
+export interface AjaxInvoke {
   <T = any, R = AjaxResponse<T>>(config?: AjaxRequestConfig): Request<R>
   <T = any, R = AjaxResponse<T>>(config?: AjaxCallbackConfig<R>): Request<void>
   <T = any, R = AjaxResponse<T>>(url?: string, data?: Data, config?: AjaxRequestConfig): Request<R>
 }
 
-export interface AjaxInstance extends AjaxRequest {
+export interface AjaxInstance extends AjaxInvoke {
   readonly baseURL: string
   readonly origin: string
-  get: AjaxRequest
-  post: AjaxRequest
-  put: AjaxRequest
-  delete: AjaxRequest
-  connect: AjaxRequest
-  head: AjaxRequest
-  options: AjaxRequest
-  trace: AjaxRequest
+  get: AjaxInvoke
+  post: AjaxInvoke
+  put: AjaxInvoke
+  delete: AjaxInvoke
+  connect: AjaxInvoke
+  head: AjaxInvoke
+  options: AjaxInvoke
+  trace: AjaxInvoke
   config<
     T extends Function | AnyObject,
     R = T extends Function ? () => Promise<AjaxRequestConfig> : AjaxRequestConfig
