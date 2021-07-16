@@ -1,4 +1,7 @@
-export type AnyObject = Record<string, any>
+export interface AnyObject {
+  [x: string]: any
+}
+
 export type Data = string | AnyObject | ArrayBuffer
 export type Method = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'HEAD' | 'OPTIONS' | 'TRACE'
 export type DataType = 'json' | 'text' | 'html'
