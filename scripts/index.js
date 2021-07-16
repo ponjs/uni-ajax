@@ -27,9 +27,7 @@ async function lint(patterns) {
   const formatMsg = formatter.format(lintList)
   formatMsg && console.log(formatMsg)
 
-  lintList.forEach(({ errorCount }) => {
-    if (errorCount) throw new Error(formatMsg)
-  })
+  return ESLint.getErrorResults(lintList).length ? Promise.reject(lintList) : lintList
 }
 
 async function run(path = include) {
@@ -40,31 +38,40 @@ async function run(path = include) {
 async function build() {
   const start = Date.now()
 
-  logWithSpinner(dim('Code compiling...'))
+  logWithSpinner(dim('Code compiling...\n'))
 
-  await run().catch(() => {
-    console.log(`💢  ${red(bold('Build failed with errors.'))}`)
-    process.exit(1)
-  })
-
+  await run()
   await copy({ files: ['README.md'] })
 
-  const target = resolve(exclude, 'package.json')
-  const json = fs.readJSONSync(target)
+  const file = resolve(exclude, 'package.json')
+  const json = await fs.readJSON(file).catch(error => {
+    console.log(`\n${bold(red(error.message))}\n`)
+    return Promise.reject(error)
+  })
   json.version = require('../package.json').version
-  await fs.outputJSON(target, json, { spaces: 2 })
+  await fs.outputJSON(file, json, { spaces: 2 })
 
   stopSpinner(false)
+
   const time = ((Date.now() - start) / 1000).toFixed(2)
   console.log(`🎉  ${green(`Build complete in ${time}s.`)}`)
 }
 
-function watch() {
-  chokidar.watch(include).on('all', (_, path) => {
+async function watch() {
+  const listener = path => {
     console.clear()
     console.log(`🚀  ${dim('Waiting for changes...')}`)
-    run(path).catch(() => {})
-  })
+    return run(path).catch(() => {})
+  }
+
+  let readied = false
+  chokidar
+    .watch(include)
+    .on('all', (_, path) => readied && listener(path))
+    .on('ready', async () => {
+      await listener()
+      readied = true
+    })
 }
 
 function main() {
@@ -72,7 +79,7 @@ function main() {
   const isBuild = process.argv.includes('--build')
 
   if (isWatch) return watch()
-  else if (isBuild) return build()
+  else if (isBuild) return build().catch(() => process.exit(1))
 
   run()
 }
