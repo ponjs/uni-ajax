@@ -71,9 +71,10 @@ function main() {
   const isWatch = process.argv.includes('--watch')
   const isBuild = process.argv.includes('--build')
 
-  if (isWatch) watch()
-  else if (isBuild) build()
-  else run()
+  if (isWatch) return watch()
+  else if (isBuild) return build()
+
+  run()
 }
 
 main()
