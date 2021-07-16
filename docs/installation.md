@@ -31,3 +31,12 @@ import ajax from 'uni-ajax'
 ```bash
 npm init -y
 ```
+
+项目根目录下创建`vue.config.js`文件。 <Badge text="3.0.0"/>
+
+```JavaScript
+// vue.config.js
+module.exports = {
+  transpileDependencies: ['uni-ajax']
+}
+```

@@ -33,7 +33,7 @@ this.$ajax.upload(filePath)
 
 ### **H5 打包出现 `API request is not yet implemented`**
 
-如果您是通过`npm`安装`uni-ajax`，又在项目中没用到`uni.request`，并且 H5 配置中开启了 [摇树优化][1]，则会出现这问题。解决该问题有三种方法。
+如果您是通过`npm`安装`uni-ajax` 2.x 以下的版本，又在项目中没用到`uni.request`，并且 H5 配置中开启了 [摇树优化][1]，则会出现这问题。解决该问题有三种方法。
 
 1、关闭摇树优化<br />
 2、使用`uni.request`
