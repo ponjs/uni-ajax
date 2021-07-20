@@ -74,14 +74,14 @@ async function watch() {
     })
 }
 
-function main() {
-  const isWatch = process.argv.includes('--watch')
-  const isBuild = process.argv.includes('--build')
+function main(argv) {
+  const isWatch = argv.includes('--watch')
+  const isBuild = argv.includes('--build')
 
   if (isWatch) return watch()
   else if (isBuild) return build().catch(() => process.exit(1))
 
-  run()
+  return run()
 }
 
-main()
+main(process.argv.slice(2))
