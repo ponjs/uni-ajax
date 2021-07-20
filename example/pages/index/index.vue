@@ -30,7 +30,7 @@ export default {
       /**
        * 执行方法返回的 request 是在继承 Promise 的基础上，挂载 RequestTask 的一些方法
        * 所以可以下面的 abort() 这样直接调用中断请求
-       * 参见源码 /src/lib/adapters/Request.js
+       * 参见源码 /lib/adapters/Request.js
        */
       this.request = this.$ajax('upload', { tp: 'json' }).then(res => {
         this.result = res.data.serverTime

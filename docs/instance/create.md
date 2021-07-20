@@ -183,7 +183,7 @@ xhr?: (requestTask: AjaxRequestTask, config: AjaxRequestConfig) => void
 
 ### `adapter` <Badge text="2.3.0"/>
 
-通过该属性可自定义请求方法，有着较强的可扩展性，一旦修改则替换默认的请求方法。该属性类型为函数类型，需返回一个 `Promise`（参见源码 `src/lib/adapters/http.js`）。且该函数有两个参数 `config` 和 `Request`，`config` 为每次请求的请求配置，`Request` 为请求方法的构造函数。
+通过该属性可自定义请求方法，有着较强的可扩展性，一旦修改则替换默认的请求方法。该属性类型为函数类型，需返回一个 `Promise`（参见源码 `/lib/adapters/http.js`）。且该函数有两个参数 `config` 和 `Request`，`config` 为每次请求的请求配置，`Request` 为请求方法的构造函数。
 
 ```JavaScript
 // 创建实例
