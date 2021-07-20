@@ -34,7 +34,7 @@
     "@babel/plugin-proposal-optional-chaining": "^7.14.5",
     "@vue/cli-shared-utils": "^4.5.13",
     "colorette": "^1.2.2",
-    "eslint": "^7.30.0",
+    "eslint": "^7.31.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
     "prettier": "^2.3.2",
