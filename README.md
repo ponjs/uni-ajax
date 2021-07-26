@@ -81,11 +81,12 @@ request.onHeadersReceived(callback)     // 监听 HTTP Response Header 事件
 request.offHeadersReceived(callback)    // 取消监听 HTTP Response Header 事件
 ```
 
-**其他属性**
+**其他属性方法**
 
 ```JavaScript
-ajax.baseURL    // 获取配置的接口根地址 baseURL
-ajax.origin     // 根据配置的接口根地址获取源地址 origin
+ajax.defaults            // 全局默认配置
+ajax.config              // 当前实例配置
+ajax.getURL([config])    // 获取实例请求地址
 ```
 
 [1]: https://uniajax.ponjs.com
