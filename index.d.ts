@@ -45,14 +45,14 @@ export interface AjaxRequestConfig {
   adapter?: (config: AjaxRequestConfig, Request: RequestConstructor) => Promise<any>
 }
 
+export interface AjaxFunctionConfig {
+  (): AjaxRequestConfig | Promise<AjaxRequestConfig>
+}
+
 export interface AjaxCallbackConfig<T = any> extends AjaxRequestConfig {
   success?: Callback<T>
   fail?: Callback
   complete?: Callback
-}
-
-export interface AjaxFunctionConfig {
-  (): AjaxRequestConfig | Promise<AjaxRequestConfig>
 }
 
 export interface AjaxResponse<T = any> {
@@ -76,8 +76,7 @@ export interface AjaxInvoke {
 }
 
 export interface AjaxInstance extends AjaxInvoke {
-  readonly baseURL: string
-  readonly origin: string
+  request: AjaxInvoke
   get: AjaxInvoke
   post: AjaxInvoke
   put: AjaxInvoke
@@ -86,18 +85,9 @@ export interface AjaxInstance extends AjaxInvoke {
   head: AjaxInvoke
   options: AjaxInvoke
   trace: AjaxInvoke
-  config<
-    T extends Function | AnyObject,
-    R = T extends Function ? () => Promise<AjaxRequestConfig> : AjaxRequestConfig
-  >(
-    iterable: (
-      config: R
-    ) =>
-      | (T extends Function
-          ? AjaxFunctionConfig | Promise<AjaxFunctionConfig>
-          : AjaxRequestConfig | Promise<AjaxRequestConfig>)
-      | Promise<R>
-  ): Promise<R>
+  getURL(config?: AjaxRequestConfig | AjaxFunctionConfig): Promise<string>
+  defaults: AjaxRequestConfig
+  config?: AjaxRequestConfig | AjaxFunctionConfig
   interceptors: {
     request: AjaxInterceptorManager<AjaxRequestConfig>
     response: AjaxInterceptorManager<AjaxResponse>

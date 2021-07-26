@@ -1,7 +1,12 @@
 import Ajax from './lib/core/Ajax'
+import { bind, extend } from './lib/utils'
 
 function createInstance(defaultConfig) {
-  return new Ajax(defaultConfig).request
+  const context = new Ajax(defaultConfig)
+  const instance = bind(Ajax.prototype.request, context)
+  extend(instance, Ajax.prototype, context)
+  extend(instance, context)
+  return instance
 }
 
 const ajax = createInstance()

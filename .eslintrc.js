@@ -5,10 +5,15 @@ module.exports = {
     es6: true
   },
   globals: {
-    uni: true
+    uni: 'readonly'
   },
-  parser: '@babel/eslint-parser',
   extends: ['eslint:recommended', 'plugin:prettier/recommended'],
+  parser: '@babel/eslint-parser',
+  parserOptions: {
+    ecmaVersion: 2020,
+    requireConfigFile: false,
+    sourceType: 'module'
+  },
   rules: {
     'prettier/prettier': 'error'
   },
