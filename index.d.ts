@@ -76,7 +76,6 @@ export interface AjaxInvoke {
 }
 
 export interface AjaxInstance extends AjaxInvoke {
-  request: AjaxInvoke
   get: AjaxInvoke
   post: AjaxInvoke
   put: AjaxInvoke
