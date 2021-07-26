@@ -85,7 +85,7 @@ export interface AjaxInstance extends AjaxInvoke {
   options: AjaxInvoke
   trace: AjaxInvoke
   getURL(config?: AjaxRequestConfig | AjaxFunctionConfig): Promise<string>
-  defaults: AjaxRequestConfig
+  readonly defaults: AjaxRequestConfig
   config?: AjaxRequestConfig | AjaxFunctionConfig
   interceptors: {
     request: AjaxInterceptorManager<AjaxRequestConfig>
