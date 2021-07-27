@@ -1,8 +1,4 @@
-import Ajax from './lib/core/Ajax'
-
-function createInstance(defaultConfig) {
-  return Ajax(defaultConfig)
-}
+import createInstance from './lib/core/Ajax'
 
 const ajax = createInstance()
 
