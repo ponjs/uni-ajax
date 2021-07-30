@@ -1,13 +1,18 @@
 {
   "pages": [
     {
-      "path": "pages/index/index"
+      "path": "pages/index/index",
+			"style": {
+				"app-plus": {
+					"bounce": "none"
+				}
+			}
     }
   ],
   "globalStyle": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "uni-ajax",
-    "navigationBarBackgroundColor": "#F8F8F8",
-    "backgroundColor": "#F8F8F8"
+    "navigationBarTitleText": "UNI AJAX",
+    "navigationBarBackgroundColor": "#f2f2f2",
+    "backgroundColor": "#f2f2f2"
   }
 }
