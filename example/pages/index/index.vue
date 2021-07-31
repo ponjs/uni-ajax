@@ -2,7 +2,7 @@
   <view class="page">
     <view id="guide-2" class="preview" data-guide-text="请求结果">{{ result }}</view>
 
-    <popup arrow drag-area-placeholder :stowed-height="350">
+    <popup arrow drag-placeholder :stowed-height="350">
       <view id="guide-0" class="button" data-guide-text="点击请求服务端数据" @tap="initiate">
         发起请求
       </view>

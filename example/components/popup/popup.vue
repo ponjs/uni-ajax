@@ -12,16 +12,20 @@
     ></view>
     <view class="popup-drawer" :style="[drawerStyle]" @touchmove.stop.prevent @tap.stop.prevent>
       <view
-        class="popup-draggable"
+        class="popup-drag"
         :class="{ 'popup-arrow': arrow }"
-        :hover-class="arrow ? 'popup-draggable__active' : 'none'"
-        :style="[dragAreaStyle]"
+        :hover-class="arrow ? 'popup-arrow__active' : 'none'"
+        :style="[dragStyle]"
         @touchstart.stop.prevent="touchstart"
         @touchmove.stop.prevent="touchmove"
         @touchend.stop.prevent="touchend"
       ></view>
       <scroll-view :scroll-y="!dragging" style="height: 100%">
-        <view v-if="dragAreaPlaceholder" :style="{ height: `${dragAreaHeight}rpx` }"></view>
+        <view
+          v-if="dragPlaceholder"
+          class="popup-drag__placeholder"
+          :style="{ height: `${dragHeight}rpx` }"
+        ></view>
         <slot></slot>
         <view :style="{ height: `${bounceHeight}rpx` }"></view>
       </scroll-view>
@@ -58,7 +62,7 @@ export default {
       default: 800
     },
     // 顶部可拖动的区域高度，单位rpx
-    dragAreaHeight: {
+    dragHeight: {
       type: Number,
       default: 80
     },
@@ -67,7 +71,7 @@ export default {
       type: Number,
       default: 100
     },
-    // 收起时的高度，单位rpx，包含dragAreaHeight
+    // 收起时的高度，单位rpx，包含dragHeight
     stowedHeight: {
       type: Number,
       default: 300
@@ -107,13 +111,13 @@ export default {
       type: String,
       default: '#ffffff'
     },
-    // 顶部可拖动的区域背景色，当传入dragAreaPlaceholder为true时有效
-    dragAreaBgColor: {
+    // 顶部可拖动的区域背景色，当传入dragPlaceholder为true时有效
+    dragBgColor: {
       type: String,
       default: 'inherit'
     },
     // 是否出现顶部可拖动的占位块
-    dragAreaPlaceholder: {
+    dragPlaceholder: {
       type: Boolean,
       default: false
     }
@@ -158,10 +162,10 @@ export default {
         zIndex: this.zIndex
       }
     },
-    dragAreaStyle() {
+    dragStyle() {
       return {
-        height: `${this.dragAreaHeight}rpx`,
-        backgroundColor: this.dragAreaPlaceholder ? this.dragAreaBgColor : 'transparent'
+        height: `${this.dragHeight}rpx`,
+        backgroundColor: this.dragPlaceholder ? this.dragBgColor : 'transparent'
       }
     }
   },
@@ -243,9 +247,10 @@ export default {
   bottom: 0;
   left: 0;
   width: 100%;
+  transform: translateZ(0); /** 采用 GPU 渲染 */
 }
 
-.popup .popup-draggable {
+.popup .popup-drag {
   position: absolute;
   top: 0;
   left: 0;
@@ -253,11 +258,6 @@ export default {
   height: 100rpx;
   z-index: 1;
   transform: translateZ(0); /** 解决 scroll-view 层级冲突问题 */
-}
-
-.popup .popup-draggable.popup-draggable__active,
-.popup .popup-draggable.popup-draggable__active {
-  opacity: 0.75;
 }
 
 .popup .popup-arrow {
@@ -276,6 +276,11 @@ export default {
   height: var(--arrow-height);
   background-color: #e5e5e5;
   transition: 0.3s transform ease-out;
+}
+
+.popup .popup-arrow__active.popup-arrow::before,
+.popup .popup-arrow__active.popup-arrow::after {
+  opacity: 0.75;
 }
 
 .popup .popup-arrow::before {
