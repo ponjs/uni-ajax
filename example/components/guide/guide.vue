@@ -108,10 +108,10 @@ export default {
   },
   methods: {
     start() {
-      const { windowHeight, windowTop, safeAreaInsets } = uni.getSystemInfoSync()
+      const { safeArea, screenHeight, windowHeight, windowTop } = uni.getSystemInfoSync()
       this.windowHeight = windowHeight
       this.windowTop = windowTop || 0
-      this.safeAreaHeight = safeAreaInsets?.bottom || 0
+      this.safeAreaHeight = screenHeight - (safeArea?.bottom || 0)
 
       this.handle()
     },
@@ -130,6 +130,8 @@ export default {
       borderRadius = borderRadius === '0px' ? `${this.borderRadius}rpx` : borderRadius
 
       this.text = dataset.guideText ?? ''
+
+      await this.$nextTick() // 等待信息文字渲染完成后，再获取高度
 
       // 获取信息文字按钮高度
       const { height: infoHeight = 0 } = await new Promise(resolve =>
@@ -160,8 +162,8 @@ export default {
 
       const offsetHeight = this.windowHeight + this.windowTop
 
-      // 如果内容靠底部，需将提示文字置于内容上方，+10是防止误差
-      if (offsetHeight < top + height + infoHeight + this.safeAreaHeight + 10) {
+      // 如果内容靠底部，需将提示文字置于内容上方
+      if (offsetHeight < top + height + infoHeight + this.safeAreaHeight) {
         this.infoStyle.top = `${top - infoHeight}px`
         this.infoStyle.flexDirection = 'column-reverse'
       }
