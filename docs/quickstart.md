@@ -7,8 +7,6 @@
 ```JavaScript
 // ajax.js
 
-// 引入 Vue 用于将请求实例挂载在 Vue 原型链上
-import Vue from 'vue'
 // 引入 uni-ajax 模块
 import ajax from 'uni-ajax'
 
@@ -43,22 +41,26 @@ instance.interceptors.response.use(
   }
 )
 
-// 如果您是像我下面这样挂载在 Vue 原型链上，则通过 this.$ajax 调用
-Vue.prototype.$ajax = instance
-// 如果您在项目中有用到 nvue 页面，是无法通过 this.$ajax 调用
-// 需要将实例添加到 uni 对象上，然后通过 uni.$ajax 调用
-uni.$ajax = instance
-
 // 导出 create 创建后的实例
 export default instance
 ```
 
-然后在`main.js`引入该`ajax.js`。
+然后在`main.js`引入该`ajax.js`，并挂载在`Vue`实例全局属性上。
 
 ```JavaScript
 // main.js
 
-import './common/ajax'    // 路径需根据项目实际情况
+import ajax './common/ajax'    // 路径需根据项目实际情况
+
+// 如果您是像我下面这样挂载在 Vue 原型链上（Vue2），则通过 this.$ajax 调用
+Vue.prototype.$ajax = ajax
+
+// 如果您使用最新的 Vue3，则需要这样挂载（app 为 createApp 后的实例），也是通过 this.$ajax 调用
+app.config.globalProperties.$ajax = ajax
+
+// 如果您在项目中有用到 nvue 页面，是无法通过 this.$ajax 调用
+// 需要将请求方法添加到 uni 对象上，然后通过 uni.$ajax 调用
+uni.$ajax = instance
 ```
 
 在页面中[调用](/usage/api.html#请求方法)。

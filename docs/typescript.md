@@ -7,7 +7,6 @@
 ### ajax.ts
 
 ```Typescript
-import Vue from 'vue'
 import ajax from 'uni-ajax'
 
 const instance = ajax.create({
@@ -32,7 +31,6 @@ instance.interceptors.response.use(
   }
 )
 
-Vue.prototype.$ajax = instance
 
 export default instance
 ```
@@ -40,7 +38,11 @@ export default instance
 ### main.ts
 
 ```Typescript
-import './common/ajax'
+import ajax './common/ajax'
+
+uni.$ajax = ajax // nvue
+Vue.prototype.$ajax = ajax // Vue2
+app.config.globalProperties.$ajax = ajax // Vue3
 ```
 
 ### sfc.d.ts
@@ -48,8 +50,23 @@ import './common/ajax'
 ```Typescript
 import { AjaxInstance } from 'uni-ajax'
 
+// nvue
+declare namespace UniApp {
+	interface Uni {
+		$ajax: AjaxInstance
+	}
+}
+
+// Vue2
 declare module 'vue/types/vue' {
   interface Vue {
+    $ajax: AjaxInstance
+  }
+}
+
+// Vue3
+declare module '@vue/runtime-core' {
+interface ComponentCustomProperties {
     $ajax: AjaxInstance
   }
 }
