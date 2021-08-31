@@ -1,25 +1,158 @@
-th
-  white-space nowrap
+th {
+  white-space: nowrap;
+}
 
-{$contentClass}:not(.custom), .page .page-edit
-  max-width 768px
+div[class*="language-"] {
+  border-radius: 2px;
+}
 
-{$contentClass}:not(.custom)>h1:first-child
-  position relative
-  &:before
-    content ""
-    position absolute
-    width 3.5em
-    height 9px
-    background-color rgba($accentColor, .7)
-    bottom 0
-    left 0
+{$contentClass}:not(.custom), .page .page-edit {
+  max-width: 768px;
+}
 
-.theme-container .navbar .site-name
-  font-weight bold
+{$contentClass}:not(.custom)>h1:first-child {
+  position: relative;
 
-.page-edit .edit-link
-  &::before
-    content "发现错误？想参与编辑？ "
-  a
-    color $accentColor !important
+  &:before {
+    content: "";
+    position: absolute;
+    width: 3.5em;
+    height: 9px;
+    background-color: rgba($accentColor, .7);
+    bottom: 0;
+    left: 0;
+  }  
+}
+
+.theme-container .navbar .site-name {
+  font-weight: bold;
+}
+
+.page-edit .edit-link {
+  &::before {
+    content: "发现错误？想参与编辑？ "
+  }
+
+  a {
+    color: $accentColor !important
+  }
+}
+
+.custom-block {
+  padding: 0.1rem 1.5rem;
+  margin: 2em 0;
+  border-left-width: 0.5rem;
+  border-left-style: solid;
+  position: relative;
+  border-bottom-right-radius: 2px;
+  border-top-right-radius: 2px;
+  margin: 1rem 0;
+
+  &::before {
+    position: absolute;
+    top: 19px;
+    left: -14px;
+    color: #fff;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    text-align: center;
+    line-height: 20px;
+    font-weight: bold;
+    font-family: 'Dosis', 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 14px;
+  }
+
+  p {
+    color: #222;
+  }
+
+  .custom-block-title {
+    font-weight: 600;
+    margin-bottom: -0.4rem;
+  }
+
+  &.info {
+    border-color: #007bff;
+    background-color: #f8f8f8;
+
+    &::before {
+      content: url('/images/icons/info.svg');
+      width: 25px;
+      height: 25px;
+      left: -16px;
+      box-sizing: border-box;
+    }
+  }
+
+  &.tip {
+    border-color: #42b983;
+    background-color: #f8f8f8;
+
+    &::before {
+      content: url('/images/icons/bulb.svg');
+      width: 25px;
+      height: 25px;
+      left: -16px;
+    }
+  }
+
+  &.warning {
+    border-color: #f4cd00;
+    background-color: #f8f8f8;
+
+    .custom-block-title {
+      color: #222;
+    }
+
+    &::before {
+      content: url('/images/icons/danger.svg');
+      width: 25px;
+      height: 25px;
+      left: -16px;
+      box-sizing: border-box;
+    }
+  }
+
+  &.danger {
+    border-color: #f66;
+    background-color: #f8f8f8;
+
+    .custom-block-title {
+      color: #222;
+    }
+
+    &::before {
+      content: url('/images/icons/stop.svg');
+      width: 25px;
+      height: 25px;
+      left: -16px;
+    }
+  }
+
+  &.details {
+    display: block;
+    position: relative;
+    border-radius: 2px;
+    margin: 1.6em 0;
+    padding: 1.6em;
+    background-color: #eee;
+
+    h4 {
+      margin-top: 0;
+    }
+
+    figure,
+    p {
+      &:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+    }
+
+    summary {
+      outline: none;
+      cursor: pointer;
+    }
+  }
+}

@@ -24,7 +24,7 @@ module.exports = {
         target: '_blank'
       },
       {
-        text: 'Github',
+        text: 'GitHub',
         link: 'https://github.com/ponjs/uni-ajax',
         target: '_blank'
       }
