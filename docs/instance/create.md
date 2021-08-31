@@ -4,7 +4,7 @@
 
 ## 创建实例
 
-首先我们先新建`ajax.js`文件，用于配置项及拦截器。
+首先我们先新建 `ajax.js` 文件，用于配置项及拦截器。
 
 `ajax.create([config])`
 
@@ -58,7 +58,7 @@ const instance = ajax.create(() => {
 
 ### `baseURL`
 
-请求根地址`baseURL`将自动加在`url`前面，除非`url`是一个绝对 URL (http 或 https 开头)。
+请求根地址 `baseURL` 将自动加在 `url` 前面，除非 `url` 是一个绝对 URL (http 或 https 开头)。
 
 ```JavaScript
 // 创建实例
@@ -70,7 +70,7 @@ instance('api')
 
 ### `data`
 
-请求的参数如果是 `object` 类型会合并在请求时的 `data`。
+请求的参数如果是 `object` 类型会合并在请求时的 `data` 。
 
 ```JavaScript
 // 创建实例
@@ -91,7 +91,7 @@ instance('api', { ajax: 'ajax' })
 
 ### `header`
 
-这里的`header`也可以为不同请求方式添加对应的请求头（注意这里的请求方式属性要小写），以及<nowrap badge="2.2.3">`common`</nowrap>公共请求头属性。`header`不仅可以在创建实例配置中，也可以在请求拦截器中配置，一般来说固定的请求头放在创建实例配置中，动态请求头放在请求拦截器中。
+这里的 `header` 也可以为不同请求方式添加对应的请求头（注意这里的请求方式属性要小写），以及<nowrap badge="2.2.3">`common`</nowrap>公共请求头属性。`header` 不仅可以在创建实例配置中，也可以在请求拦截器中配置，一般来说固定的请求头放在创建实例配置中，动态请求头放在请求拦截器中。
 
 ```JavaScript
 // 创建实例
@@ -110,7 +110,7 @@ instance.interceptors.request.use(
 )
 ```
 
-关于`header`的优先级，在下面的例子中，假如请求头为`prior`，数值越大表示优先级越高。
+关于 `header` 的优先级，在下面的例子中，假如请求头为 `prior` ，数值越大表示优先级越高。
 
 ::: tip
 拦截器 > 请求方法 > 实例配置  
@@ -150,7 +150,7 @@ instance({
 
 ### `method`
 
-当请求方法为`ajax()`常规方法时，如果没有传入指定的`method`，这时的请求方式为默认配置的`method`或`GET`，并且无论是在配置中还是请求中大小写都不受限。
+当请求方法为 `ajax()` 常规方法时，如果没有传入指定的 `method` ，这时的请求方式为默认配置的 `method` 或 `GET` ，并且无论是在配置中还是请求中大小写都不受限。
 
 ```JavaScript
 // 创建实例
@@ -162,7 +162,7 @@ instance()    // 这里没有传入指定的 method，则以默认配置的 meth
 
 ### `validateStatus` <Badge text="2.2.2"/>
 
-定义对于给定的 HTTP 状态码返回拦截状态。如果`validateStatus`返回`true`（或者设置为`null`），响应数据会进到[响应拦截器][9]的`onFulfilled`，否则进到`onRejected`。
+定义对于给定的 HTTP 状态码返回拦截状态。如果 `validateStatus` 返回 `true`（或者设置为 `null` ），响应数据会进到 [响应拦截器][9] 的 `onFulfilled` ，否则进到 `onRejected` 。
 
 ```JavaScript
 // 创建实例
@@ -183,7 +183,7 @@ xhr?: (requestTask: AjaxRequestTask, config: AjaxRequestConfig) => void
 
 ### `adapter` <Badge text="2.3.0"/>
 
-通过该属性可自定义请求方法，有着较强的可扩展性，一旦修改则替换默认的请求方法。该属性类型为函数类型，需返回一个 `Promise`（参见源码 `/lib/adapters/http.js`）。且该函数有两个参数 `config` 和 `Request`，`config` 为每次请求的请求配置，`Request` 为请求方法的构造函数。
+通过该属性可自定义请求方法，有着较强的可扩展性，一旦修改则替换默认的请求方法。该属性类型为函数类型，需返回一个 `Promise`（参见源码 `/lib/adapters/http.js` ）。且该函数有两个参数 `config` 和 `Request` ，`config` 为每次请求的请求配置，`Request` 为请求方法的构造函数。
 
 ```JavaScript
 // 创建实例

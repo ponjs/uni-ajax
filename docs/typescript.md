@@ -66,7 +66,7 @@ declare module 'vue/types/vue' {
 
 // Vue3
 declare module '@vue/runtime-core' {
-interface ComponentCustomProperties {
+  interface ComponentCustomProperties {
     $ajax: AjaxInstance
   }
 }
@@ -86,7 +86,7 @@ declare module 'uni-ajax' {
 }
 ```
 
-- 定义接口返回的数据类型，[请求方法](/usage/api.html#请求方法)都支持泛型，并有两个泛型参数`<T = any, R = AjaxResponse<T>>`。
+- 定义返回的数据类型，[请求方法](/usage/api.html#请求方法)都支持泛型，并有两个泛型参数 `<T = any, R = AjaxResponse<T>>` 。
 
 ```Typescript
 // 定义接口返回的数据类型

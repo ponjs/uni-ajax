@@ -5,14 +5,14 @@
 | 方法               | 说明                                                                            |
 | :----------------- | :------------------------------------------------------------------------------ |
 | abort              | 中断请求任务                                                                    |
-| onHeadersReceived  | 监听 HTTP Response Header 事件。会比请求完成事件更早，仅[微信小程序平台][1]支持 |
-| offHeadersReceived | 取消监听 HTTP Response Header 事件，仅[微信小程序平台][2]支持                   |
+| onHeadersReceived  | 监听 HTTP Response Header 事件。会比请求完成事件更早，仅 [微信小程序平台][1] 支持 |
+| offHeadersReceived | 取消监听 HTTP Response Header 事件，仅 [微信小程序平台][2] 支持                   |
 
-如果您想使用`RequestTask`上的方法，有下面三种方式：
+如果您想使用 `RequestTask` 上的方法，有下面三种方式：
 
 - **直接调用 <Badge text="2.1.0"/>**
 
-这里`request`接收的是封装后的`Promise`，并支持`RequestTask`的以上方法。但实际并非真正的`RequestTask`对象。只是封装继承`Promise`并挂载`RequestTask`的同名方法。
+这里 `request` 接收的是封装后的 `Promise` ，并支持 `RequestTask` 的以上方法。但实际并非真正的 `RequestTask` 对象。只是封装继承 `Promise` 并挂载 `RequestTask` 的同名方法。
 
 ```JavaScript
 const request = ajax('https://www.example.com')
@@ -20,9 +20,9 @@ const request = ajax('https://www.example.com')
 request.abort()
 ```
 
-- **获取`RequestTask`对象调用 ①**
+- **获取 `RequestTask` 对象调用 ①**
 
-获取`RequestTask`对象，需传参为`config`一个对象，且`config`至少传入`success / fail / complete`参数中的一个，然后接收`Promise.resolve`的返回值。
+获取 `RequestTask` 对象，需传参为 `config` 一个对象，且 `config` 至少传入 `success / fail / complete` 参数中的一个，然后接收 `Promise.resolve` 的返回值。
 
 ::: warning 注意
 在 `2.3.0` 起该方式已废弃，请使用上面的直接调用或下面通过xhr回调参数获取。
@@ -37,9 +37,9 @@ const requestTask = await ajax({
 requestTask.abort()
 ```
 
-- **获取`RequestTask`对象调用 ② <Badge text="2.2.4"/>**
+- **获取 `RequestTask` 对象调用 ② <Badge text="2.2.4"/>**
 
-通过参数请求选项的`xhr`回调参数也可以获取`RequestTask`对象。
+通过参数请求选项的 `xhr` 回调参数也可以获取 `RequestTask` 对象。
 
 ```JavaScript
 ajax({

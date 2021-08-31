@@ -15,7 +15,7 @@
 
 **插件市场**
 
-在插件市场右上角选择`使用HBuilder X 导入插件`或者`下载插件ZIP`。
+在插件市场右上角选择 `使用HBuilder X 导入插件` 或者 `下载插件ZIP`
 
 **NPM**
 
@@ -32,7 +32,7 @@ npm update uni-ajax
 
 ## 🥐 实例
 
-新建`ajax.js`文件（文件名可自定义）用于处理拦截器、接口根地址、默认配置等，详细配置请[查看文档][2]
+新建 `ajax.js` 文件（文件名可自定义）用于处理拦截器、接口根地址、默认配置等，详细配置请[查看文档][2]
 
 ```JavaScript
 // ajax.js
@@ -47,7 +47,7 @@ instance.interceptors.response.use(onFulfilled, onRejected)    // 添加响应�
 export default instance                                        // 导出创建后的实例
 ```
 
-然后在`main.js`引入该`ajax.js`
+然后在 `main.js` 引入该 `ajax.js`
 
 ```JavaScript
 // main.js

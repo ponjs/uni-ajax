@@ -1,6 +1,6 @@
 # 快速上手
 
-新建`ajax.js`文件（文件名可自定义）用于处理拦截器、接口根地址、默认配置等。
+新建 `ajax.js` 文件（文件名可自定义）用于处理拦截器、接口根地址、默认配置等。
 
 更多实例配置文档见[实例](/instance/create.html)。
 
@@ -45,7 +45,7 @@ instance.interceptors.response.use(
 export default instance
 ```
 
-然后在`main.js`引入该`ajax.js`，并挂载在`Vue`实例全局属性上。
+然后在 `main.js` 引入该 `ajax.js` ，并挂载在 `Vue` 实例全局属性上。
 
 ```JavaScript
 // main.js
@@ -75,4 +75,4 @@ this.$ajax.post('api')
 this.$ajax.post({ url: 'api' })
 ```
 
-如果有API集中管理的需求，可参考这个模板项目[uni-app-boilerplate](https://github.com/ponjs/uni-app-boilerplate)。
+如果有API集中管理的需求，可参考这个模板项目 [uni-app-boilerplate](https://github.com/ponjs/uni-app-boilerplate) 。

@@ -2,7 +2,7 @@
 
 ### **如何上传和下载**
 
-`uni-ajax`暂时只支持发起网络请求，如果您想要上传或下载，您可以使用 [uni.uploadFile][2]和 [uni.downloadFile][3]。这里我们可以使用`ajax.baseURL`或`ajax.origin`来获取相关地址，对上传或下载的`url`进行所需的拼接处理。
+`uni-ajax` 暂时只支持发起网络请求，如果您想要上传或下载，您可以使用 [uni.uploadFile][2] 和 [uni.downloadFile][3] 。这里我们可以使用 `ajax.baseURL` 或 `ajax.origin` 来获取相关地址，对上传或下载的 `url` 进行所需的拼接处理。
 
 > 这里我只是举例，您可根据项目实际情况处理
 
@@ -33,12 +33,12 @@ this.$ajax.upload(filePath)
 
 ### **H5 打包出现 `API request is not yet implemented`**
 
-如果您是通过`npm`安装`uni-ajax` 2.x 以下的版本，又在项目中没用到`uni.request`，并且 H5 配置中开启了 [摇树优化][1]，则会出现这问题。解决该问题有三种方法。
+如果您是通过 `npm` 安装 `uni-ajax` 2.x 以下的版本，又在项目中没用到 `uni.request` ，并且 H5 配置中开启了 [摇树优化][1]，则会出现这问题。解决该问题有三种方法。
 
 1、关闭摇树优化<br />
-2、使用`uni.request`
+2、使用 `uni.request`
 
-第一种解决方法似乎不太合理，那我们使用第二种方法。摇树优化简单点说就是没有用到的组件或 API 会被去除，虽然`uni-ajax`是封装`uni.request`，但是`node_modules`是被摇树优化忽略的，所以当有用到`uni.request`时，才不会被去掉。
+第一种解决方法似乎不太合理，那我们使用第二种方法。摇树优化简单点说就是没有用到的组件或 API 会被去除，虽然 `uni-ajax` 是封装 `uni.request` ，但是 `node_modules` 是被摇树优化忽略的，所以当有用到 `uni.request` 时，才不会被去掉。
 
 > 这里我们在[创建实例](/instance/create.html)的文件中加入下面代码即可<br />
 > 我这里做 export，即使不会用到 request，但必须要有 uni.request 代码片段
@@ -49,9 +49,9 @@ export const request = uni.request
 // #endif
 ```
 
-3、通过项目`Babel`显式转译
+3、通过项目 `Babel` 显式转译
 
-首先我们不再引入编译后的包，而是引入源码。然后配置`vue.config.js`，没有的话则在项目根目录创建该文件。
+首先我们不再引入编译后的包，而是引入源码。然后配置 `vue.config.js` ，没有的话则在项目根目录创建该文件。
 
 ```Javascript
 // ajax.js
@@ -65,7 +65,7 @@ module.exports = {
 
 ### 如何处理重复请求
 
-将处于`pending`状态的请求用数组存储起来形成请求队列。在请求时判断当前请求是否已存在。如果存在，说明请求重复了，则中断这个请求，并移除队列中的该请求。如果不存在，说明这个请求不是重复的，正常发送并把该请求添入队列中。这里只是提供思路，具体的实现方式请根据实际项目情况。
+将处于 `pending` 状态的请求用数组存储起来形成请求队列。在请求时判断当前请求是否已存在。如果存在，说明请求重复了，则中断这个请求，并移除队列中的该请求。如果不存在，说明这个请求不是重复的，正常发送并把该请求添入队列中。这里只是提供思路，具体的实现方式请根据实际项目情况。
 
 ```Javascript
 // ajax.js
@@ -86,7 +86,7 @@ const instance = ajax.create({
 
 ### 响应失败不抛出错误
 
-我们知道`Promise`有三种状态`pending / fulfilled / rejected`。当状态为`fulfilled`会进到`then`接受状态回调，如果是`rejected`时会抛出“错误”，要用`catch`捕捉或`then`拒绝状态回调。这样那只有`pending`状态时不会进到任何回调。顺着这个思路，我们只要在响应错误时返回`pending`状态的`Promise`即可。
+我们知道 Promise 有三种状态 `pending / fulfilled / rejected` 。当状态为 `fulfilled` 会进到 `then` 接受状态回调，如果是 `rejected` 时会抛出“错误”，要用 `catch` 捕捉或 `then` 拒绝状态回调。这样那只有 `pending` 状态时不会进到任何回调。顺着这个思路，我们只要在响应错误时返回 `pending` 状态的 Promise 即可。
 
 ```Javascript
 // ajax.js
@@ -129,7 +129,7 @@ import ajax from 'uni-ajax'
 ajax()
 ```
 
-拦截器和创建实例的函数配置都支持`async / await`操作。
+拦截器和创建实例的函数配置都支持 `async / await` 操作。
 
 ```Javascript
 // 创建实例

@@ -2,7 +2,7 @@
 
 ## 插件市场
 
-在[插件市场](https://ext.dcloud.net.cn/plugin?id=2351)右上角选择`使用HBuilder X 导入插件`或者`下载插件ZIP`。
+在 [插件市场](https://ext.dcloud.net.cn/plugin?id=2351) 右上角选择 `使用HBuilder X 导入插件` 或者 `下载插件ZIP` 。
 
 ```Javascript
 // 引入
@@ -26,13 +26,13 @@ npm update uni-ajax
 import ajax from 'uni-ajax'
 ```
 
-如果您的项目是`HBuilder X`创建的，根目录又没有`package.json`文件的话，请先执行如下命令再安装：
+如果您的项目是 `HBuilder X` 创建，根目录又没有 `package.json` 文件的话，请先执行如下命令再安装：
 
 ```bash
 npm init -y
 ```
 
-项目根目录下创建`vue.config.js`文件。 <Badge text="3.0.0"/>
+项目根目录下创建 `vue.config.js` 文件。 <Badge text="3.0.0"/>
 
 ```JavaScript
 // vue.config.js

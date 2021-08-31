@@ -2,7 +2,7 @@
 
 ## 参数
 
-[请求方法][1]传参有`[url[, data[, config]]]`或`[config]`。直接返回都是封装后的[Promise 对象][2]，并支持[RequestTask 方法][3]。
+[请求方法][1]传参有 `[url[, data[, config]]]` 或 `[config]` 。直接返回都是封装后的 [Promise 对象][2] ，并支持 [RequestTask 方法][3] 。
 
 ::: tip PROMISE
 
