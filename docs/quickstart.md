@@ -13,8 +13,7 @@ import ajax from 'uni-ajax'
 // 创建请求实例
 const instance = ajax.create({
   // 初始配置
-  baseURL: 'https://www.example.com',
-  method: 'POST'
+  baseURL: 'https://www.example.com'
 })
 
 // 添加请求拦截器
@@ -60,19 +59,19 @@ app.config.globalProperties.$ajax = ajax
 
 // 如果您在项目中有用到 nvue 页面，是无法通过 this.$ajax 调用
 // 需要将请求方法添加到 uni 对象上，然后通过 uni.$ajax 调用
-uni.$ajax = instance
+uni.$ajax = ajax
 ```
 
 在页面中[调用](/usage/api.html#请求方法)。
 
 ```JavaScript
-// POST 请求 https://www.example.com/api 接口
+// GET 请求 https://www.example.com/api 接口
 this.$ajax('api')
 
 // 您也可以下面这样使用
 this.$ajax({ url: 'api' })
-this.$ajax.post('api')
-this.$ajax.post({ url: 'api' })
+this.$ajax.get('api')
+this.$ajax.get({ url: 'api' })
 ```
 
 如果有API集中管理的需求，可参考这个模板项目 [uni-app-boilerplate](https://github.com/ponjs/uni-app-boilerplate) 。
