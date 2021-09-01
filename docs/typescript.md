@@ -52,9 +52,9 @@ import { AjaxInstance } from 'uni-ajax'
 
 // nvue
 declare namespace UniApp {
-	interface Uni {
-		$ajax: AjaxInstance
-	}
+  interface Uni {
+    $ajax: AjaxInstance
+  }
 }
 
 // Vue2

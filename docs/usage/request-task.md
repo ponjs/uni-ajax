@@ -20,13 +20,9 @@ const request = ajax('https://www.example.com')
 request.abort()
 ```
 
-- **获取 `RequestTask` 对象调用 ①**
+- **获取 `RequestTask` 对象调用 ①**  <Badge type="warning" text="2.3.0 移除" />
 
 获取 `RequestTask` 对象，需传参为 `config` 一个对象，且 `config` 至少传入 `success / fail / complete` 参数中的一个，然后接收 `Promise.resolve` 的返回值。
-
-::: warning 注意
-在 `2.3.0` 起该方式已废弃，请使用上面的直接调用或下面通过xhr回调参数获取。
-:::
 
 ```JavaScript
 const requestTask = await ajax({
