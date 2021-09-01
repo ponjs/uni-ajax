@@ -32,8 +32,13 @@ export default {
   methods: {
     // 获取接口根地址
     async getBaseURL() {
+      // 该方法可传入一个请求配置对象（baseURL、url、params），并返回最终的请求地址。
+      // 这里没有传入参数，且实例配置只配置了 baseURL，则返回实例的 baseURL
       const url = await this.$ajax.getURL()
       this.baseURL = url
+
+      // 也可以直接读取请求实例的 baseURL
+      // this.baseURL = this.$ajax.config.baseURL
     },
     // 发起请求
     initiate() {
