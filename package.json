@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "node scripts --watch",
     "build": "node scripts --build",
+    "docs:dev": "dumi dev",
+    "docs:build": "dumi build",
     "lint": "eslint --fix ."
   },
   "files": [
@@ -29,10 +31,12 @@
     "@babel/core": "^7.14.8",
     "@babel/eslint-parser": "^7.14.7",
     "@vue/cli-shared-utils": "^4.5.13",
-    "colorette": "^1.2.2",
-    "eslint": "^7.31.0",
+    "colorette": "^2.0.16",
+    "dumi": "^1.0.13",
+    "eslint": "^8.5.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "fs-extra": "^10.0.0",
     "prettier": "^2.3.2"
   }
 }

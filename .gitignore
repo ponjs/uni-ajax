@@ -5,9 +5,9 @@ unpackage
 u-ajax
 !u-ajax/package.json
 
-# package lock files
-yarn.lock
-package-lock.json
+# umi
+.umi
+.umi-production
 
 # local env files
 .env.local
