@@ -5,8 +5,6 @@
   "scripts": {
     "dev": "node scripts --watch",
     "build": "node scripts --build",
-    "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs",
     "lint": "eslint --fix ."
   },
   "files": [
@@ -35,7 +33,6 @@
     "eslint": "^7.31.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
-    "prettier": "^2.3.2",
-    "vuepress": "^1.8.0"
+    "prettier": "^2.3.2"
   }
 }
