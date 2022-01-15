@@ -1,0 +1,301 @@
+---
+title: Config
+order: 3
+toc: menu
+---
+
+
+## baseURL
+
+请求根地址。自动加在 url 前面，除非 url 是一个绝对地址 (http 或 https 开头)。
+
+- 类型：`String`
+
+- 示例：
+
+  ```js
+  // 创建实例
+  const instance = ajax.create({ baseURL: 'https://www.example.com/api' })
+
+  // 发起请求，最终发起请求的 url 为 https://www.example.com/api/demo
+  instance('demo')
+  ```
+
+## url
+
+开发者服务器接口地址。
+
+## data
+
+请求的参数。如果在创建实例时设定该属性，后面的实例请求方法会合并 data。
+
+- 类型：`Object`
+
+- 平台差异：App（自定义组件编译模式）不支持 ArrayBuffer 类型
+
+- 示例：
+
+  ```js
+  // 创建实例
+  const instance = ajax.create({
+    data: { hello: 'hello' }
+  })
+
+  // 发起请求
+  instance('demo', { ajax: 'ajax' })
+
+  // 最终发起请求的 data
+  // 如果发起请求时的字段是与默认配置的字段相同，则采用发起请求时的值
+  {
+    hello: 'hello',
+    ajax: 'ajax'
+  }
+  ```
+
+## header
+
+请求头。 header 中不能设置 Referer。这里的 header 也可以为不同请求方式添加对应的请求头（注意这里的请求方式属性要小写），以及common 公共请求头属性。header 不仅可以在创建实例配置中，也可以在请求拦截器中修改配置。
+
+- 类型：`Object`
+
+- 平台差异：App、H5端会自动带上cookie，且H5端不可手动修改
+
+- 示例：
+
+  ```js
+  /**
+   * 关于 header 的优先级，在下面的例子中，假如请求头为 prior ，这里数值越大表示优先级越高
+   *
+   * 拦截器 > 请求方法 > 实例配置
+   * 请求头属性 > 请求方式属性 > 公共属性
+   */
+
+  // 创建实例
+  const instance = ajax.create({
+    header: {
+      prior: 7,
+      get: { prior: 4 },
+      common: { prior: 1 }
+    }
+  })
+
+  // 请求拦截器
+  instance.interceptors.request.use(
+    config => {
+      config.header.common['prior'] = 3
+      config.header.get['prior'] = 6
+      config.header['prior'] = 9
+      return config
+    }
+  )
+
+  // 请求方法
+  instance({
+    method: 'GET',
+    header: {
+      prior: 8,
+      get: { prior: 5 },
+      common: { prior: 2 }
+    }
+  })
+  ```
+
+## method
+
+请求方式。在实例中配置可定义 `ajax()` 方法在没有传入指定的 method 的情况下的请求方式。
+
+- 类型：`String`
+
+- 默认值：GET
+
+- 示例：
+
+  ```js
+  // 创建实例
+  const instance = ajax.create({ method: 'post' })
+
+  // 发起请求
+  instance()    // 这里没有传入指定的 method，则以默认配置的 method，这里即 POST
+  ```
+
+## params
+
+URL 参数。会将数据转换为 query string 拼接在 URL 上。
+
+- 类型：`Object`
+
+- 示例：
+
+  ```js
+  // 最终发起请求的地址为 https://www.example.com/api/demo?type=text
+  ajax({
+    url: 'https://www.example.com/api/demo',
+    params: {
+      type: 'text'
+    }
+  })
+  ```
+
+## timeout
+
+超时时间。单位 ms。
+
+- 类型：`Number`
+
+- 默认值：30000
+
+- 平台差异：H5(HBuilderX 2.9.9+)、APP(HBuilderX 2.9.9+)、微信小程序(2.10.0)、支付宝小程序
+
+## dataType
+
+返回数据类型。如果设为 json，会尝试对返回的数据做一次 JSON.parse。
+
+- 类型：`String`
+
+- 默认值：json
+
+## responseType
+
+响应的数据类型。
+
+- 类型：`'text' ｜ 'arraybuffer'`
+
+- 默认值：text
+
+- 平台差异：支付宝小程序不支持
+
+## sslVerify
+
+是否验证 ssl 证书。
+
+- 类型：`Boolean`
+
+- 默认值：true
+
+- 平台差异：仅 App 安卓端支持（HBuilderX 2.3.3+）
+
+## withCredentials
+
+跨域请求时是否携带凭证（cookies）。
+
+- 类型：`Boolean`
+
+- 默认值：false
+
+- 平台差异：仅 H5 支持（HBuilderX 2.6.15+）
+
+## firstIpv4
+
+DNS解析时优先使用ipv4。
+
+- 类型：`Boolean`
+
+- 默认值：false
+
+- 平台差异：仅 App-Android 支持 (HBuilderX 2.8.0+)
+
+## validateStatus
+
+定义对于给定的 HTTP 状态码返回拦截状态。如果 validateStatus 返回 true（或者设置为 null），响应数据会进到响应拦截器的 onFulfilled ，否则进到 onRejected。
+
+- 类型：`Function`
+
+- 默认值：`statusCode => statusCode >= 200 && statusCode < 300`
+
+- 示例：
+
+  ```js
+  // 创建实例
+  const instance = ajax.create({
+    // statusCode 的值为 HTTP 状态码，类型为 number / undefined
+    // 当 statusCode 为 undefined 时可能为中断请求、无网络、等等其它服务端没响应的情况
+    validateStatus: statusCode => statusCode >= 200 && statusCode < 300    // 默认
+  })
+  ```
+
+## xhr
+
+获取每次请求的 RequestTask 对象。
+
+- 类型：`Function`
+
+- 示例：
+
+  ```js
+   // 通过 xhr 属性获取原生 RequestTask 对象调用
+  ajax({
+    url: 'https://www.example.com/api/demo',
+    xhr: (requestTask, config) => {
+      requestTask.abort()
+    },
+    fail: err => {
+      console.log(err)
+    }
+  })
+  ```
+
+## adapter
+
+自定义处理请求。通过该属性可自定义请求方法，有着较强的可扩展性，一旦修改则替换默认的请求方法。该属性类型为函数类型，需返回一个 Promise（参见源码 [`/lib/adapters/http.js`](https://github.com/ponjs/uni-ajax/blob/dev/lib/adapters/http.js) ）。且该函数有两个参数 config 和 Request ，config 为每次请求的请求配置，Request 为请求方法的构造函数。
+
+- 类型：`Function`
+
+- 默认值：`(config, Request) => new Promise(/*...*/)`
+
+## success
+
+收到开发者服务器成功返回的回调函数。**该属性无法在实例配置上定义，只能在请求方法上。**
+
+- 类型：`Function`
+
+- 参数：请求成功对象
+
+## fail
+
+接口调用失败的回调函数。**该属性无法在实例配置上定义，只能在请求方法上。**
+
+- 类型：`Function`
+
+- 参数：请求失败对象
+
+## complete
+
+接口调用结束的回调函数（调用成功、失败都会执行）。**该属性无法在实例配置上定义，只能在请求方法上。**
+
+- 类型：`Function`
+
+- 参数：请求成功/失败对象
+
+## ...
+
+传递给拦截器的值。除了上面那些属性外，你可以定义自己属性，用于在请求方法上传递给拦截器。
+
+- 类型：`Any`
+
+- 示例：
+
+  ```js
+  // 发起请求
+  ajax({
+    url: 'https://www.example.com/api/demo',
+    ajax: 'hello ajax'  // 传递给拦截器的值
+  })
+
+  // 请求拦截器
+  ajax.interceptors.request.use(
+    config => {
+      console.log(config.ajax)      // 'hello ajax' 请求时传递给拦截器的值
+      config.world = 'hello world'  // 请求拦截器传值到响应拦截器
+      return config
+    }
+  )
+
+  // 响应拦截器
+  ajax.interceptors.response.use(
+    response => {
+      console.log(response.config.ajax)   // 'hello ajax'  请求时传递给拦截器的值
+      console.log(response.config.world)  // 'hello world' 请求拦截器传到响应拦截器的值
+      return response
+    }
+  )
+  ```

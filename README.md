@@ -9,7 +9,7 @@
 
 ## 🍟 文档
 
-**[uniajax.ponjs.com][1]**
+**[uniajax.ponjs.com](https://uniajax.ponjs.com)**
 
 ## 🥗 安装
 
@@ -32,7 +32,7 @@ npm update uni-ajax
 
 ## 🥐 实例
 
-新建 `ajax.js` 文件（文件名可自定义）用于处理拦截器、接口根地址、默认配置等，详细配置请[查看文档][2]
+新建 `ajax.js` 文件（文件名可自定义）用于处理拦截器、接口根地址、默认配置等，详细配置请[查看文档](https://uniajax.ponjs.com/instance/create.html)
 
 ```JavaScript
 // ajax.js
@@ -45,15 +45,6 @@ instance.interceptors.request.use(onFulfilled, onRejected)     // 添加请求�
 instance.interceptors.response.use(onFulfilled, onRejected)    // 添加响应拦截器
 
 export default instance                                        // 导出创建后的实例
-```
-
-然后在 `main.js` 引入该 `ajax.js`
-
-```JavaScript
-// main.js
-
-import ajax from './common/ajax'   // 路径需根据项目实际情况
-Vue.prototype.$ajax = ajax         // 挂载在 Vue 原型链上（通过 this.$ajax 调用）
 ```
 
 ## 🥪 使用
@@ -84,10 +75,7 @@ request.offHeadersReceived(callback)    // 取消监听 HTTP Response Header 事
 **其他属性方法**
 
 ```JavaScript
-ajax.defaults            // 全局默认配置
-ajax.config              // 当前实例配置
-ajax.getURL([config])    // 获取实例请求地址
+ajax.defaults          // 全局默认配置
+ajax.config            // 当前实例配置
+ajax.getURL(config)    // 获取实例请求地址
 ```
-
-[1]: https://uniajax.ponjs.com
-[2]: https://uniajax.ponjs.com/instance/create.html

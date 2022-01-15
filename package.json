@@ -1,12 +1,13 @@
 {
   "name": "uni-ajax",
-  "version": "3.0.0",
+  "version": "2.4.0",
   "description": "Lightweight HTTP client for the uni-app",
   "scripts": {
     "dev": "node scripts --watch",
     "build": "node scripts --build",
     "docs:dev": "dumi dev",
     "docs:build": "dumi build",
+    "prettier": "prettier --write \"**/*.{js,ts,md,json}\"",
     "lint": "eslint --fix ."
   },
   "files": [

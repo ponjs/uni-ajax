@@ -1,0 +1,47 @@
+---
+title: 安装
+order: 2
+toc: menu
+---
+
+## 插件市场
+
+在 [插件市场](https://ext.dcloud.net.cn/plugin?id=2351) 右上角选择 `使用 HBuilderX 导入插件` 或者 `下载插件 ZIP` 。
+
+```js
+// 引入
+import ajax from '@/uni_modules/u-ajax/js_sdk'
+```
+
+## npm
+
+在项目开发中更推荐使用 npm 安装。
+
+```bash
+# 安装
+npm install uni-ajax
+
+# 更新
+npm update uni-ajax
+```
+
+```js
+// 引入
+import ajax from 'uni-ajax'
+```
+
+如果你的项目是 HBuilderX 创建，根目录又没有 package.json 文件的话，请先执行如下命令再安装：
+
+```bash
+npm init -y
+```
+
+项目根目录下创建 vue.config.js 文件。
+
+```js
+// vue.config.js
+
+module.exports = {
+  transpileDependencies: ['uni-ajax']
+}
+```
