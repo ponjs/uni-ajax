@@ -31,6 +31,7 @@ export interface AjaxRequestConfig {
   baseURL?: string
   url?: string
   data?: Data
+  query?: AnyObject
   params?: AnyObject
   header?: any
   method?: Method

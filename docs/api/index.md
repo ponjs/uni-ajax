@@ -171,7 +171,7 @@ nav:
 
 ## getURL
 
-根据当前实例获取请求地址。你可以传递一个带有 `baseURL`, `url`, `params` 这些属性的一个对象或返回该对象的函数，然后根据这些属性生成最终请求地址。
+根据当前实例获取请求地址。你可以传递一个带有 `baseURL`, `url`, `params`, `query` 这些属性的一个对象或返回该对象的函数，然后根据这些属性生成最终请求地址。
 
 - 类型：`Function`
 
@@ -187,12 +187,11 @@ nav:
   })
 
   instance.getURL({
-    url: 'demo',
-    params: {
-      type: 'text'
-    }
+    url: 'demo/:type',
+    params: { type: 'text' },
+    query: { timestamp: 1590832951672 }
   }).then(url => {
-    console.log(url)  // https://www.example.com/api/demo?type=text
+    console.log(url)  // https://www.example.com/api/demo/text?timestamp=1590832951672
   })
   ```
 

@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import ajax from '@/uni_modules/u-ajax/js_sdk'
 
 // 创建请求实例
@@ -35,7 +34,9 @@ instance.interceptors.response.use(
   }
 )
 
-// 如果您是像我下面这样挂载在 Vue 原型链上，则通过 this.$ajax 调用
-Vue.prototype.$ajax = instance
+export const install = Vue => {
+  // 如果您是像我下面这样挂载在 Vue 原型链上，则通过 this.$ajax 调用
+  Vue.prototype.$ajax = instance
+}
 
 export default instance

@@ -4,7 +4,6 @@ order: 3
 toc: menu
 ---
 
-
 ## baseURL
 
 请求根地址。自动加在 url 前面，除非 url 是一个绝对地址 (http 或 https 开头)。
@@ -54,11 +53,11 @@ toc: menu
 
 ## header
 
-请求头。 header 中不能设置 Referer。这里的 header 也可以为不同请求方式添加对应的请求头（注意这里的请求方式属性要小写），以及common 公共请求头属性。header 不仅可以在创建实例配置中，也可以在请求拦截器中修改配置。
+请求头。 header 中不能设置 Referer。这里的 header 也可以为不同请求方式添加对应的请求头（注意这里的请求方式属性要小写），以及 common 公共请求头属性。header 不仅可以在创建实例配置中，也可以在请求拦截器中修改配置。
 
 - 类型：`Object`
 
-- 平台差异：App、H5端会自动带上cookie，且H5端不可手动修改
+- 平台差异：App、H5 端会自动带上 cookie，且 H5 端不可手动修改
 
 - 示例：
 
@@ -80,14 +79,12 @@ toc: menu
   })
 
   // 请求拦截器
-  instance.interceptors.request.use(
-    config => {
-      config.header.common['prior'] = 3
-      config.header.get['prior'] = 6
-      config.header['prior'] = 9
-      return config
-    }
-  )
+  instance.interceptors.request.use(config => {
+    config.header.common['prior'] = 3
+    config.header.get['prior'] = 6
+    config.header['prior'] = 9
+    return config
+  })
 
   // 请求方法
   instance({
@@ -115,24 +112,38 @@ toc: menu
   const instance = ajax.create({ method: 'post' })
 
   // 发起请求
-  instance()    // 这里没有传入指定的 method，则以默认配置的 method，这里即 POST
+  instance()  // 这里没有传入指定的 method，则以默认配置的 method，这里即 POST
   ```
 
-## params
+## query
 
-URL 参数。会将数据转换为 query string 拼接在 URL 上。
+URL 的 query 参数。会将数据转换为 query string 拼接在 URL 上。
 
 - 类型：`Object`
 
 - 示例：
 
   ```js
-  // 最终发起请求的地址为 https://www.example.com/api/demo?type=text
+  // 最终发起请求的地址为 https://www.example.com/api/demo?timestamp=1590832951672
   ajax({
     url: 'https://www.example.com/api/demo',
-    params: {
-      type: 'text'
-    }
+    query: { timestamp: 1590832951672 }
+  })
+  ```
+
+## params
+
+URL 的 params 参数。会替换掉 URL 上的 params 字段。
+
+- 类型：`Object`
+
+- 示例：
+
+  ```js
+  // 最终发起请求的地址为 https://www.example.com/api/demo/text
+  ajax({
+    url: 'https://www.example.com/api/demo/:type',
+    params: { type: 'text' }
   })
   ```
 
@@ -186,7 +197,7 @@ URL 参数。会将数据转换为 query string 拼接在 URL 上。
 
 ## firstIpv4
 
-DNS解析时优先使用ipv4。
+DNS 解析时优先使用 ipv4。
 
 - 类型：`Boolean`
 
@@ -209,7 +220,7 @@ DNS解析时优先使用ipv4。
   const instance = ajax.create({
     // statusCode 的值为 HTTP 状态码，类型为 number / undefined
     // 当 statusCode 为 undefined 时可能为中断请求、无网络、等等其它服务端没响应的情况
-    validateStatus: statusCode => statusCode >= 200 && statusCode < 300    // 默认
+    validateStatus: statusCode => statusCode >= 200 && statusCode < 300  // 默认
   })
   ```
 
@@ -222,7 +233,7 @@ DNS解析时优先使用ipv4。
 - 示例：
 
   ```js
-   // 通过 xhr 属性获取原生 RequestTask 对象调用
+  // 通过 xhr 属性获取原生 RequestTask 对象调用
   ajax({
     url: 'https://www.example.com/api/demo',
     xhr: (requestTask, config) => {
@@ -236,7 +247,7 @@ DNS解析时优先使用ipv4。
 
 ## adapter
 
-自定义处理请求。通过该属性可自定义请求方法，有着较强的可扩展性，一旦修改则替换默认的请求方法。该属性类型为函数类型，需返回一个 Promise（参见源码 [`/lib/adapters/http.js`](https://github.com/ponjs/uni-ajax/blob/dev/lib/adapters/http.js) ）。且该函数有两个参数 config 和 Request ，config 为每次请求的请求配置，Request 为请求方法的构造函数。
+自定义处理请求。通过该属性可自定义请求方法，有着较强的可扩展性，一旦修改则替换默认的请求方法。该属性类型为函数类型，需返回一个 Promise（参见源码 [`/lib/adapters/http.js`](https://github.com/ponjs/uni-ajax/blob/dev/lib/adapters/http.js) ）。且该函数有两个参数 config 和 Request，config 为每次请求的请求配置，Request 为请求方法的构造函数。
 
 - 类型：`Function`
 
@@ -282,20 +293,16 @@ DNS解析时优先使用ipv4。
   })
 
   // 请求拦截器
-  ajax.interceptors.request.use(
-    config => {
-      console.log(config.ajax)      // 'hello ajax' 请求时传递给拦截器的值
-      config.world = 'hello world'  // 请求拦截器传值到响应拦截器
-      return config
-    }
-  )
+  ajax.interceptors.request.use(config => {
+    console.log(config.ajax)      // 'hello ajax' 请求时传递给拦截器的值
+    config.world = 'hello world'  // 请求拦截器传值到响应拦截器
+    return config
+  })
 
   // 响应拦截器
-  ajax.interceptors.response.use(
-    response => {
-      console.log(response.config.ajax)   // 'hello ajax'  请求时传递给拦截器的值
-      console.log(response.config.world)  // 'hello world' 请求拦截器传到响应拦截器的值
-      return response
-    }
-  )
+  ajax.interceptors.response.use(response => {
+    console.log(response.config.ajax)   // 'hello ajax'  请求时传递给拦截器的值
+    console.log(response.config.world)  // 'hello world' 请求拦截器传到响应拦截器的值
+    return response
+  })
   ```
