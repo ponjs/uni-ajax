@@ -86,7 +86,7 @@ nav:
 - 类型: `Function`
 
   ```ts
-  (config?: AjaxRequestConfig | AjaxFunctionConfig) => AjaxInstance
+  <T extends AjaxConfigType = AjaxConfigType>(config?: T) => AjaxInstance<T>
   ```
 
 - 示例：
@@ -108,7 +108,7 @@ nav:
 - 类型：`Object | Function | undefined`
 
   ```ts
-  AjaxRequestConfig | AjaxFunctionConfig | undefined
+  AjaxConfigType | undefined
   ```
 
 - 示例：
@@ -176,7 +176,7 @@ nav:
 - 类型：`Function`
 
   ```ts
-  (config?: AjaxRequestConfig | AjaxFunctionConfig) => Promise<string>
+  (config?: AjaxConfigType) => Promise<string>
   ```
 
 - 示例：
