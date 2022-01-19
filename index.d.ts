@@ -46,9 +46,10 @@ export interface AjaxRequestConfig {
   adapter?: (config: AjaxRequestConfig, Request: RequestConstructor) => Promise<any>
 }
 
-export interface AjaxFunctionConfig {
-  (): AjaxRequestConfig | Promise<AjaxRequestConfig>
-}
+export type AjaxConfigType =
+  | AjaxRequestConfig
+  | (() => AjaxRequestConfig)
+  | (() => Promise<AjaxRequestConfig>)
 
 export interface AjaxCallbackConfig<T = any> extends AjaxRequestConfig {
   success?: Callback<T>
@@ -76,7 +77,7 @@ export interface AjaxInvoke {
   <T = any, R = AjaxResponse<T>>(url?: string, data?: Data, config?: AjaxRequestConfig): Request<R>
 }
 
-export interface AjaxInstance extends AjaxInvoke {
+export interface AjaxInstance<T extends AjaxConfigType = AjaxConfigType> extends AjaxInvoke {
   get: AjaxInvoke
   post: AjaxInvoke
   put: AjaxInvoke
@@ -85,9 +86,9 @@ export interface AjaxInstance extends AjaxInvoke {
   head: AjaxInvoke
   options: AjaxInvoke
   trace: AjaxInvoke
-  getURL(config?: AjaxRequestConfig | AjaxFunctionConfig): Promise<string>
+  getURL(config?: AjaxConfigType): Promise<string>
   readonly defaults: AjaxRequestConfig
-  readonly config?: AjaxRequestConfig | AjaxFunctionConfig
+  readonly config?: T
   interceptors: {
     request: AjaxInterceptorManager<AjaxRequestConfig>
     response: AjaxInterceptorManager<AjaxResponse>
@@ -95,7 +96,7 @@ export interface AjaxInstance extends AjaxInvoke {
 }
 
 export interface AjaxStatic extends AjaxInstance {
-  create(config?: AjaxRequestConfig | AjaxFunctionConfig): AjaxInstance
+  create<T extends AjaxConfigType = AjaxConfigType>(config?: T): AjaxInstance<T>
 }
 
 declare const Ajax: AjaxStatic
