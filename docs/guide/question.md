@@ -92,6 +92,8 @@ instance()
 
 ## 无感刷新 Token
 
+当 Token 过期的时候，做到用户无感知刷新 Token，避免频繁登录。在响应拦截器中拦截判断当前请求的接口是否已经 Token 过期，如果过期则请求刷新 Token 接口更新，然后再自动将原来请求接口重新请求一遍。
+
 ```js
 import ajax from 'uni-ajax'
 
@@ -140,30 +142,26 @@ function expiredTokenHandler(afresh) {
 
   isRefreshing = true
 
-  return new Promise((resolve, reject) => {
-    refreshToken()
-      .then(res => {
-        // 假设请求成功接口返回的 code === 200
-        if (res.data.code === 200) {
-          // 更新 Token
-          uni.setStorageSync('TOKEN', res.data.data)
-          executeQueue(null)
-          resolve(afresh?.())
-        } else {
-          // 其他情况进入 catch
-          return Promise.reject(res)
-        }
-      })
-      .catch(err => {
-        // 移除 Token
-        uni.removeStorageSync('TOKEN')
-        executeQueue(err)
-        reject(err)
-      })
-      .finally(() => {
-        isRefreshing = false
-      })
-  })
+  return refreshToken()
+    .then(res => {
+      // 假设请求成功接口返回的 code === 200
+      if (res.data.code === 200) {
+        uni.setStorageSync('TOKEN', res.data.data) // 更新 Token
+        executeQueue(null)
+        return afresh?.()
+      }
+
+      return Promise.reject(res) // 其他情况进入 catch
+    })
+    .catch(err => {
+      uni.removeStorageSync('TOKEN') // 移除 Token
+      executeQueue(err)
+      uni.reLaunch({ url: '/pages/login' })
+      return Promise.reject(err)
+    })
+    .finally(() => {
+      isRefreshing = false
+    })
 }
 
 // 添加响应拦截器
@@ -171,15 +169,10 @@ instance.interceptors.response.use(
   response => {
     // 假设接口返回的 code === 401 时则需要刷新 Token
     if (response.data.code === 401) {
-      return expiredTokenHandler(() =>
-        ajax({
-          ...response.config,
-          header: {
-            ...response.config.header,
-            Authorization: uni.getStorageSync('TOKEN')
-          }
-        })
-      )
+      return expiredTokenHandler(() => {
+        response.config.header['Authorization'] = uni.getStorageSync('TOKEN')
+        return ajax(response.config)
+      })
     }
 
     return response
