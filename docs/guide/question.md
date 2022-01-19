@@ -89,3 +89,103 @@ instance({ catch: true }).catch(err => console.log(err))
 // 有发生错误信息时，不返回错误信息
 instance()
 ```
+
+## 无感刷新 Token
+
+```js
+import ajax from 'uni-ajax'
+
+// 创建实例，因为每次请求都需要获取最新的 Token 这里采用函数配置
+const instance = ajax.create(() => ({
+  baseURL: 'https://www.example.com/api',
+  header: {
+    Authorization: uni.getStorageSync('TOKEN')
+  }
+}))
+
+let isRefreshing = false // 当前是否在请求刷新 Token
+let requestQueue = [] // 将在请求刷新 Token 中的请求暂存起来，等刷新 Token 后再重新请求
+
+// 执行暂存起来的请求
+const executeQueue = error => {
+  requestQueue.forEach(promise => {
+    if (error) {
+      promise.reject(error)
+    } else {
+      promise.resolve()
+    }
+  })
+
+  requestQueue = []
+}
+
+// 刷新 Token 请求
+function refreshToken() {
+  return ajax.post({
+    ...instance.config(),
+    url: '/oauth/token'
+  })
+}
+
+// Token 过期处理
+function expiredTokenHandler(afresh) {
+  // 如果当前是在请求刷新 Token 中，则将期间的
+  if (isRefreshing) {
+    return new Promise((resolve, reject) => {
+      requestQueue.push({ resolve, reject })
+    }).then(() => {
+      return afresh?.()
+    })
+  }
+
+  isRefreshing = true
+
+  return new Promise((resolve, reject) => {
+    refreshToken()
+      .then(res => {
+        // 假设请求成功接口返回的 code === 200
+        if (res.data.code === 200) {
+          // 更新 Token
+          uni.setStorageSync('TOKEN', res.data.data)
+          executeQueue(null)
+          resolve(afresh?.())
+        } else {
+          // 其他情况进入 catch
+          return Promise.reject(res)
+        }
+      })
+      .catch(err => {
+        // 移除 Token
+        uni.removeStorageSync('TOKEN')
+        executeQueue(err)
+        reject(err)
+      })
+      .finally(() => {
+        isRefreshing = false
+      })
+  })
+}
+
+// 添加响应拦截器
+instance.interceptors.response.use(
+  response => {
+    // 假设接口返回的 code === 401 时则需要刷新 Token
+    if (response.data.code === 401) {
+      return expiredTokenHandler(() =>
+        ajax({
+          ...response.config,
+          header: {
+            ...response.config.header,
+            Authorization: uni.getStorageSync('TOKEN')
+          }
+        })
+      )
+    }
+
+    return response
+  },
+  error => {
+    return Promise.reject(error)
+  }
+)
+```
