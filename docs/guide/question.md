@@ -135,7 +135,7 @@ const refreshTokenHandler = afresh => {
   return new Promise((resolve, reject) => {
     refreshToken()
       // 假设请求成功接口返回的 code === 200 为刷新成功，其他情况都是刷新失败
-      .then(res => res.data.code === 200 ? res : Promise.reject(res))
+      .then(res => (res.data.code === 200 ? res : Promise.reject(res)))
       .then(res => {
         uni.setStorageSync('TOKEN', res.data.data)
         resolve(afresh?.())

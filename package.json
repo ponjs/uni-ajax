@@ -7,7 +7,7 @@
     "build": "node scripts --build",
     "docs:dev": "dumi dev",
     "docs:build": "dumi build",
-    "prettier": "prettier --write \"**/*.{js,ts,md,json}\"",
+    "prettier": "prettier --write \"**/*.{js,ts,md,json}\" --ignore-path \"./.gitignore\"",
     "lint": "eslint --fix ."
   },
   "files": [

@@ -186,15 +186,13 @@ nstance.interceptors.response.use(response => {
 
 ```js
 // 响应拦截器
-instance.interceptors.response.use(
-  response => {
-    if (response.data.code !== 1) {
-      /* ... */
-      return Promise.reject(response)
-    }
-    return response
+instance.interceptors.response.use(response => {
+  if (response.data.code !== 1) {
+    /* ... */
+    return Promise.reject(response)
   }
-)
+  return response
+})
 
 // 请求
 instance()

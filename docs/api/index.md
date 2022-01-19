@@ -78,7 +78,6 @@ nav:
   ajax.post({ url: '/demo' }) // 等同于 ajax({ url: '/demo', method: 'post' })
   ```
 
-
 ## create
 
 用于创建请求实例，该方法参数可以为一个配置对象的静态配置或一个返回配置对象的函数动态配置。如果是函数的话是支持 Promise 异步的。
@@ -186,13 +185,15 @@ nav:
     baseURL: 'https://www.example.com/api'
   })
 
-  instance.getURL({
-    url: 'demo/:type',
-    params: { type: 'text' },
-    query: { timestamp: 1590832951672 }
-  }).then(url => {
-    console.log(url)  // https://www.example.com/api/demo/text?timestamp=1590832951672
-  })
+  instance
+    .getURL({
+      url: 'demo/:type',
+      params: { type: 'text' },
+      query: { timestamp: 1590832951672 }
+    })
+    .then(url => {
+      console.log(url)  // https://www.example.com/api/demo/text?timestamp=1590832951672
+    })
   ```
 
 ## interceptors
