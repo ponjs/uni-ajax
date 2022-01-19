@@ -20,8 +20,8 @@ export default defineConfig({
   styles: [
     `
       .__dumi-default-navbar .__dumi-default-navbar-logo {
-        height: 32px;
-        line-height: 32px;
+        height: 28px;
+        line-height: 28px;
         padding-left: 48px !important;
       }
     `

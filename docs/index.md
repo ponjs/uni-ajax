@@ -19,6 +19,6 @@ features:
 ---
 
 ```bash
-# V2.4.0
+# @latest
 $ npm install uni-ajax
 ```
