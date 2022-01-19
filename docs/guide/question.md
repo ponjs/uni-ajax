@@ -97,16 +97,13 @@ instance()
 ```js
 import ajax from 'uni-ajax'
 
-// 创建实例，因为每次请求都需要获取最新的 Token 这里采用函数配置
-const instance = ajax.create(() => ({
-  baseURL: 'https://www.example.com/api',
-  header: {
-    Authorization: uni.getStorageSync('TOKEN')
-  }
-}))
+// 创建实例
+const instance = ajax.create({
+  baseURL: 'https://www.example.com/api'
+})
 
-let isRefreshing = false // 当前是否在请求刷新 Token
-let requestQueue = [] // 将在请求刷新 Token 中的请求暂存起来，等刷新 Token 后再重新请求
+let isRefreshing = false  // 当前是否在请求刷新 Token
+let requestQueue = []     // 将在请求刷新 Token 中的请求暂存起来，等刷新 Token 后再重新请求
 
 // 执行暂存起来的请求
 const executeQueue = error => {
@@ -122,57 +119,52 @@ const executeQueue = error => {
 }
 
 // 刷新 Token 请求
-function refreshToken() {
-  return ajax.post({
-    ...instance.config(),
-    url: '/oauth/token'
-  })
-}
+const refreshToken = () => instance.post('/oauth/token')
 
-// Token 过期处理
-function expiredTokenHandler(afresh) {
-  // 如果当前是在请求刷新 Token 中，则将期间的
+// 刷新 Token 请求处理，参数为刷新成功后的回调函数
+const refreshTokenHandler = afresh => {
+  // 如果当前是在请求刷新 Token 中，则将期间的请求暂存起来
   if (isRefreshing) {
     return new Promise((resolve, reject) => {
       requestQueue.push({ resolve, reject })
-    }).then(() => {
-      return afresh?.()
-    })
+    }).then(afresh)
   }
 
   isRefreshing = true
 
-  return refreshToken()
-    .then(res => {
-      // 假设请求成功接口返回的 code === 200
-      if (res.data.code === 200) {
-        uni.setStorageSync('TOKEN', res.data.data) // 更新 Token
+  return new Promise((resolve, reject) => {
+    refreshToken()
+      // 假设请求成功接口返回的 code === 200 为刷新成功，其他情况都是刷新失败
+      .then(res => res.data.code === 200 ? res : Promise.reject(res))
+      .then(res => {
+        uni.setStorageSync('TOKEN', res.data.data)
+        resolve(afresh?.())
         executeQueue(null)
-        return afresh?.()
-      }
-
-      return Promise.reject(res) // 其他情况进入 catch
-    })
-    .catch(err => {
-      uni.removeStorageSync('TOKEN') // 移除 Token
-      executeQueue(err)
-      uni.reLaunch({ url: '/pages/login' })
-      return Promise.reject(err)
-    })
-    .finally(() => {
-      isRefreshing = false
-    })
+      })
+      .catch(err => {
+        uni.removeStorageSync('TOKEN')
+        reject(err)
+        executeQueue(err)
+      })
+      .finally(() => {
+        isRefreshing = false
+      })
+  })
 }
+
+// 添加请求拦截器
+instance.interceptors.request.use(config => {
+  // 给每条请求赋值 Token 请求头
+  config.header['Authorization'] = uni.getStorageSync('TOKEN')
+  return config
+})
 
 // 添加响应拦截器
 instance.interceptors.response.use(
   response => {
     // 假设接口返回的 code === 401 时则需要刷新 Token
     if (response.data.code === 401) {
-      return expiredTokenHandler(() => {
-        response.config.header['Authorization'] = uni.getStorageSync('TOKEN')
-        return ajax(response.config)
-      })
+      return refreshTokenHandler(() => instance(response.config))
     }
 
     return response
