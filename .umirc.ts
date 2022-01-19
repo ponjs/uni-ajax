@@ -4,12 +4,8 @@ export default defineConfig({
   title: 'uni-ajax',
   mode: 'site',
   locales: [['zh-CN', '中文']],
-  publicPath: './',
-  logo: './logo.svg',
-  favicon: './logo.svg',
-  history: {
-    type: process.env.NODE_ENV === 'production' ? 'browser' : 'hash'
-  },
+  logo: '/logo.svg',
+  favicon: '/logo.svg',
   navs: [
     null,
     {
