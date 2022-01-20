@@ -47,26 +47,26 @@ app.config.globalProperties.$ajax = ajax // Vue3
 **sfc.d.ts**
 
 ```ts
-import { AjaxInstance } from 'uni-ajax'
+import { AjaxInstance, AjaxRequestConfig } from 'uni-ajax'
 
 // nvue
 declare namespace UniApp {
   interface Uni {
-    $ajax: AjaxInstance
+    $ajax: AjaxInstance<AjaxRequestConfig>
   }
 }
 
 // Vue2
 declare module 'vue/types/vue' {
   interface Vue {
-    $ajax: AjaxInstance
+    $ajax: AjaxInstance<AjaxRequestConfig>
   }
 }
 
 // Vue3
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
-    $ajax: AjaxInstance
+    $ajax: AjaxInstance<AjaxRequestConfig>
   }
 }
 ```
