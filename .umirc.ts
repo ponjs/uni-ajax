@@ -32,20 +32,20 @@ export default defineConfig({
         background: transparent;
         border-radius: 2px;
       }
+      .__dumi-default-menu-inner::-webkit-scrollbar-corner {
+        background: transparent;
+      }
       .__dumi-default-menu-inner::-webkit-scrollbar-thumb {
-        background-color: #d9dee5;
+        background-color: #f9fafb;
         background-clip: padding-box;
         border-color: transparent;
         border-style: dashed;
         border-width: 2px;
         border-radius: 10px;
         cursor: pointer;
-      }
-      .__dumi-default-menu-inner::-webkit-scrollbar-thumb:hover {
-        background: #cdd4dc;
-      }
-      .__dumi-default-menu-inner::-webkit-scrollbar-corner {
-        background: transparent;
+      }      
+      [data-prefers-color=dark] .__dumi-default-menu-inner::-webkit-scrollbar-thumb {
+        background-color: #262626;
       }
     `
   ]
