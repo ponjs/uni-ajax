@@ -24,6 +24,29 @@ export default defineConfig({
         line-height: 28px;
         padding-left: 48px !important;
       }
+      .__dumi-default-menu-inner::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+      }
+      .__dumi-default-menu-inner::-webkit-scrollbar-track {
+        background: transparent;
+        border-radius: 2px;
+      }
+      .__dumi-default-menu-inner::-webkit-scrollbar-thumb {
+        background-color: #d9dee5;
+        background-clip: padding-box;
+        border-color: transparent;
+        border-style: dashed;
+        border-width: 2px;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+      .__dumi-default-menu-inner::-webkit-scrollbar-thumb:hover {
+        background: #cdd4dc;
+      }
+      .__dumi-default-menu-inner::-webkit-scrollbar-corner {
+        background: transparent;
+      }
     `
   ]
 })
