@@ -36,16 +36,22 @@ export default defineConfig({
         background: transparent;
       }
       .__dumi-default-menu-inner::-webkit-scrollbar-thumb {
-        background-color: #f9fafb;
+        background-color: #d9dee5;
         background-clip: padding-box;
         border-color: transparent;
         border-style: dashed;
         border-width: 2px;
         border-radius: 10px;
         cursor: pointer;
-      }      
+      }
+      .__dumi-default-menu-inner::-webkit-scrollbar-thumb:hover {
+        background: #d9dee5;
+      }
       [data-prefers-color=dark] .__dumi-default-menu-inner::-webkit-scrollbar-thumb {
-        background-color: #262626;
+        background-color: #3d3d3e;
+      }
+      [data-prefers-color=dark] .__dumi-default-menu-inner::-webkit-scrollbar-thumb:hover {
+        background-color: #3d3d3e;
       }
     `
   ]
