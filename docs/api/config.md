@@ -153,7 +153,7 @@ URL 的 params 参数。会替换掉 URL 上的 params 字段。
 
 - 类型：`Number`
 
-- 默认值：30000
+- 默认值：60000
 
 - 平台差异：H5(HBuilderX 2.9.9+)、APP(HBuilderX 2.9.9+)、微信小程序(2.10.0)、支付宝小程序
 

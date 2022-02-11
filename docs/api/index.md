@@ -148,13 +148,6 @@ nav:
   {
     adapter: (config, Request) => {/*...*/},
     header: {},
-    method: 'get',
-    timeout: 30000,
-    dataType: 'json',
-    responseType: 'text',
-    sslVerify: true,
-    withCredentials: false,
-    firstIpv4: false,
     validateStatus: statusCode => statusCode >= 200 && statusCode < 300
   }
   ```
