@@ -58,17 +58,17 @@ export default instance
 
 ## 挂载实例
 
-这一步是将创建好的请求实例挂载在 Vue 实例全局属性上，即可方便地调用请求方法。
+这一步是将创建好的请求实例挂载在 Vue 实例全局属性上，即可方便地调用请求方法。当然，如果你不想挂载在全局上，可忽略下面的步骤。如果不挂载在全局，你也是可以通过引入上面的文件单独调用。
 
 ```js
 // main.js
 
 import ajax from './common/ajax' // 路径需根据项目实际情况
 
-// 如果你是像我下面这样挂载在 Vue 原型链上（Vue2），则通过 this.$ajax 调用
+// Vue2：挂载在 Vue 原型链上，则通过 this.$ajax 调用
 Vue.prototype.$ajax = ajax
 
-// 如果你使用最新的 Vue3，则需要这样挂载（app 为 createApp 后的实例），也是通过 this.$ajax 调用（Options API）
+// Vue3 (Options API)：挂载在当前应用上（app 为 createSSRApp 后的应用），也是通过 this.$ajax 调用
 app.config.globalProperties.$ajax = ajax
 
 // 如果你在项目中有用到 nvue 页面，是无法通过 this.$ajax 调用

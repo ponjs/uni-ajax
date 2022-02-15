@@ -63,7 +63,7 @@ declare module 'vue/types/vue' {
   }
 }
 
-// Vue3
+// Vue3 (Options API)
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
     $ajax: AjaxInstance<AjaxRequestConfig>
