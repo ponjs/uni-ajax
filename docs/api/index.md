@@ -147,7 +147,14 @@ nav:
   ```js
   {
     adapter: (config, Request) => {/*...*/},
-    header: {},
+    method: 'GET',
+    header: {
+      common: {},
+      get: {},
+      post: {},
+      put: {},
+      delete: {}
+    },
     validateStatus: statusCode => statusCode >= 200 && statusCode < 300
   }
   ```
