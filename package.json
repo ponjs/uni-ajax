@@ -7,8 +7,8 @@
     "build": "node scripts --build",
     "docs:dev": "dumi dev",
     "docs:build": "dumi build",
-    "prettier": "prettier --write \"**/*.{js,ts,md,json}\" --ignore-path \"./.gitignore\"",
-    "lint": "eslint --fix ."
+    "lint": "eslint --fix .",
+    "format": "prettier --write \"**/*.{js,ts,md,json}\" --ignore-path \"./.gitignore\""
   },
   "files": [
     "lib",
@@ -31,17 +31,17 @@
   "bugs": {
     "url": "https://github.com/ponjs/uni-ajax/issues"
   },
-  "homepage": "https://github.com/ponjs/uni-ajax#readme",
+  "homepage": "https://uniajax.ponjs.com",
   "devDependencies": {
-    "@babel/core": "^7.16.7",
-    "@babel/eslint-parser": "^7.14.7",
-    "@vue/cli-shared-utils": "^4.5.13",
+    "@babel/core": "^7.17.5",
+    "@babel/eslint-parser": "^7.17.0",
+    "@vue/cli-shared-utils": "^5.0.1",
     "colorette": "^2.0.16",
     "dumi": "^1.1.38",
-    "eslint": "^8.7.0",
-    "eslint-config-prettier": "^8.3.0",
+    "eslint": "^8.9.0",
+    "eslint-config-prettier": "^8.4.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "fs-extra": "^10.0.0",
+    "fs-extra": "^10.0.1",
     "prettier": "^2.3.2"
   }
 }
