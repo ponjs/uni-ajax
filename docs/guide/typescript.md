@@ -41,7 +41,7 @@ import ajax from './common/ajax'
 
 uni.$ajax = ajax // nvue
 Vue.prototype.$ajax = ajax // Vue2
-app.config.globalProperties.$ajax = ajax // Vue3
+app.config.globalProperties.$ajax = ajax // Vue3 (Options API)
 ```
 
 **sfc.d.ts**
