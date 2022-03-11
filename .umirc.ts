@@ -9,6 +9,10 @@ export default defineConfig({
   navs: [
     null,
     {
+      title: 'Playground',
+      path: 'https://github.dev/ponjs/uni-ajax'
+    },
+    {
       title: '插件市场',
       path: 'https://ext.dcloud.net.cn/plugin?id=2351'
     },
