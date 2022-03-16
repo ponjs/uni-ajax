@@ -10,7 +10,7 @@ export default defineConfig({
     null,
     {
       title: 'Playground',
-      path: 'https://github.dev/ponjs/uni-ajax'
+      path: 'https://codesandbox.io/s/uni-ajax-exmple-rgyxv0?file=/src/pages/index/index.vue&resolutionWidth=375&resolutionHeight=667'
     },
     {
       title: '插件市场',
