@@ -67,8 +67,8 @@ export interface AjaxResponse<T = any> {
   cookies: string[]
 }
 
-export interface AjaxInterceptorManager<T> {
-  use(onFulfilled?: (value: T) => T | Promise<T>, onRejected?: (error: any) => any): number
+export interface AjaxInterceptorManager<V> {
+  use<T = V>(onFulfilled?: (value: V) => T | Promise<T>, onRejected?: (error: any) => any): number
   eject(id: number): void
 }
 

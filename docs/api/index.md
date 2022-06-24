@@ -208,8 +208,8 @@ nav:
     response: AjaxInterceptorManager<AjaxResponse>
   }
 
-  interface AjaxInterceptorManager<T> {
-    use(onFulfilled?: (value: T) => T | Promise<T>, onRejected?: (error: any) => any): number
+  interface AjaxInterceptorManager<V> {
+    use<T = V>(onFulfilled?: (value: V) => T | Promise<T>, onRejected?: (error: any) => any): number
     eject(id: number): void
   }
   ```
