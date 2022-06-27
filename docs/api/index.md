@@ -223,7 +223,7 @@ nav:
 - 类型：`Function`
 
   ```ts
-  (onFulfilled?: (value: T) => T | Promise<T>, onRejected?: (error: any) => any) => number
+  <T = V>(onFulfilled?: (value: V) => T | Promise<T>, onRejected?: (error: any) => any) => number
   ```
 
 - 示例：
