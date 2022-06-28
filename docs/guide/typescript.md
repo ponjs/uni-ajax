@@ -107,7 +107,7 @@ instance.interceptors.response.use(response => {
   return response.data
 })
 // 请求方法 通过泛型定义 res 的类型为 ResponseData
-ajax<unknown, ResponseData>().then(res => {
+ajax<never, ResponseData>().then(res => {
   console.log(res) // 这里 res 的类型为 ResponseData
 })
 ```
