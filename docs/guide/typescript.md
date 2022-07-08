@@ -37,7 +37,7 @@ export default instance
 **main.ts**
 
 ```ts
-import ajax from './common/ajax'
+import ajax from './services/ajax'
 
 uni.$ajax = ajax // nvue
 Vue.prototype.$ajax = ajax // Vue2

@@ -63,7 +63,7 @@ export default instance
 ```js
 // main.js
 
-import ajax from './common/ajax' // 路径需根据项目实际情况
+import ajax from './services/ajax' // 路径需根据项目实际情况
 
 // Vue2：挂载在 Vue 原型链上，则通过 this.$ajax 调用
 Vue.prototype.$ajax = ajax

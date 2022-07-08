@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App'
-import * as ajax from './common/ajax'
+import * as ajax from './services/ajax'
 
 Vue.config.productionTip = false
 
