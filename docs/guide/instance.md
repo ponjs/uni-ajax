@@ -169,7 +169,7 @@ instance.interceptors.response.use(
 - 示例：当接口返回的 code 值不为 1 时 toast 提示返回的 msg 信息。
 
 ```js
-nstance.interceptors.response.use(response => {
+instance.interceptors.response.use(response => {
   if (response.data.code !== 1) {
     uni.showToast({
       title: response.data.msg,
