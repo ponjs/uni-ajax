@@ -8,6 +8,10 @@ toc: content
 
 为什么插件市场上的插件名是 `u-ajax` 而不是 `uni-ajax` 呢？因为第一个版本发布在 npm 上，当时就已经取名为 `uni-ajax` 了，后面发布插件市场时发现命名是不能带有 `uni` 关键词的，所以稍微改了下名称。但是二者代码是完全相同的，不同的是为了迎合 `uni_modules` 的规范，所以插件市场的目录结构有所调整。
 
+## 跨域问题
+
+其实在 [uni-app 官方文档](https://uniapp.dcloud.io/api/request/request.html) 里就已经有提到 H5 端本地调试需注意跨域问题，可以参考该具体解答[调试跨域问题解决方案](https://ask.dcloud.net.cn/article/35267)。
+
 ## 上传和下载
 
 uni-ajax 暂时只支持发起网络请求，如果你想要上传或下载，你可以使用 [uni.uploadFile](https://uniapp.dcloud.io/api/request/network-file?id=uploadfile) 和 [uni.downloadFile](https://uniapp.dcloud.io/api/request/network-file?id=downloadfile)。这里举例如果封装上传，你可以根据项目实际情况处理。
