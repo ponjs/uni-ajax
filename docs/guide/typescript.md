@@ -49,8 +49,15 @@ app.config.globalProperties.$ajax = ajax // Vue3 (Options API)
 ```ts
 import { AjaxInstance, AjaxRequestConfig } from 'uni-ajax'
 
-// nvue
+// nvue（Vue2）
 declare namespace UniApp {
+  interface Uni {
+    $ajax: AjaxInstance<AjaxRequestConfig>
+  }
+}
+
+// nvue（Vue3）
+declare global {
   interface Uni {
     $ajax: AjaxInstance<AjaxRequestConfig>
   }
