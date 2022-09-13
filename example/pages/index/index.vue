@@ -72,7 +72,7 @@ const abort = () => {
    * 您可以通过 chrome 调试，打开 Network，将网络状态改为 Slow 3G
    * 然后发起请求后立即点击取消请求方便查看效果
    */
-  request?.abort()
+  request.value?.abort()
 }
 
 const getRequestTask = () => {
