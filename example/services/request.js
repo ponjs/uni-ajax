@@ -34,9 +34,4 @@ instance.interceptors.response.use(
   }
 )
 
-export const install = Vue => {
-  // 如果您是像我下面这样挂载在 Vue 原型链上，则通过 this.$ajax 调用
-  Vue.prototype.$ajax = instance
-}
-
 export default instance

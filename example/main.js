@@ -1,13 +1,25 @@
-import Vue from 'vue'
 import App from './App'
-import * as ajax from './services/ajax'
+import request from '@/services/request'
 
+// 将创建好的请求实例挂载在 uni 对象上
+uni.$ajax = request
+
+// #ifndef VUE3
+import Vue from 'vue'
 Vue.config.productionTip = false
-
-Vue.use(ajax)
-
 App.mpType = 'app'
-
-new Vue({
+const app = new Vue({
   ...App
-}).$mount()
+})
+app.$mount()
+// #endif
+
+// #ifdef VUE3
+import { createSSRApp } from 'vue'
+export function createApp() {
+  const app = createSSRApp(App)
+  return {
+    app
+  }
+}
+// #endif
