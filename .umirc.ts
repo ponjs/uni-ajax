@@ -5,7 +5,17 @@ export default defineConfig({
   mode: 'site',
   locales: [['zh-CN', '中文']],
   logo: '/logo.svg',
-  favicon: '/logo.svg',
+  favicon: '/favicon.ico',
+  metas: [
+    {
+      name: 'keywords',
+      content: 'uni-ajax, uni-app, request, ajax, http'
+    },
+    {
+      name: 'description',
+      content: '🎐 基于 promise 的轻量级 uni-app 网络请求库'
+    }
+  ],
   analytics: {
     baidu: '2c116e47cf85987bca030b54fdc4a8d6'
   },
