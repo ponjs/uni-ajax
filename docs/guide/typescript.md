@@ -4,6 +4,8 @@ order: 5
 toc: menu
 ---
 
+如果要使用 Typescript 开发，则不能用[HBuilderX](https://uniapp.dcloud.net.cn/quickstart-hx.html)直接创建项目，而应该使用[脚手架](https://uniapp.dcloud.net.cn/quickstart-cli.html)创建。对于不太了解 TypeScript 的同学可以查看[深入理解 TypeScript](https://jkchao.github.io/typescript-book-chinese/)，我也是更推荐大家使用 Typescript 去开发项目。
+
 **ajax.ts**
 
 ```ts
@@ -97,7 +99,7 @@ declare module 'uni-ajax' {
 ```ts
 // 定义接口返回的数据类型
 interface ResponseData<T = any> {
-  code: number
+  code: 200 | 404 | 500
   msg: string
   data: T
 }
@@ -114,7 +116,7 @@ instance.interceptors.response.use(response => {
   return response.data
 })
 // 请求方法 通过泛型定义 res 的类型为 ResponseData
-ajax<never, ResponseData>().then(res => {
+instance<never, ResponseData>().then(res => {
   console.log(res) // 这里 res 的类型为 ResponseData
 })
 ```
