@@ -13,6 +13,9 @@ export default defineConfig({
     mode: 'stream'
   },
   exportStatic: {},
+  sitemap: {
+    hostname: 'https://uniajax.ponjs.com'
+  },
   navs: [
     null,
     {
