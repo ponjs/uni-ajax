@@ -6,6 +6,9 @@ export default defineConfig({
   locales: [['zh-CN', '中文']],
   logo: '/logo.svg',
   favicon: '/logo.svg',
+  analytics: {
+    baidu: '2c116e47cf85987bca030b54fdc4a8d6'
+  },
   navs: [
     null,
     {

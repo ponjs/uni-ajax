@@ -35,6 +35,7 @@
   "devDependencies": {
     "@babel/core": "^7.17.5",
     "@babel/eslint-parser": "^7.17.0",
+    "@umijs/plugin-analytics": "^0.2.3",
     "@vue/cli-shared-utils": "^5.0.1",
     "colorette": "^2.0.16",
     "dumi": "^1.1.38",
@@ -43,5 +44,6 @@
     "eslint-plugin-prettier": "^4.0.0",
     "fs-extra": "^10.0.1",
     "prettier": "^2.3.2"
-  }
+  },
+  "dependencies": {}
 }
