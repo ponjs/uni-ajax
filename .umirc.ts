@@ -9,6 +9,8 @@ export default defineConfig({
   analytics: {
     baidu: '2c116e47cf85987bca030b54fdc4a8d6'
   },
+  ssr: {},
+  exportStatic: {},
   navs: [
     null,
     {
