@@ -6,7 +6,7 @@ toc: menu
 
 ## baseURL
 
-请求根地址。自动加在 url 前面，除非 url 是一个绝对地址 (http 或 https 开头)。
+请求根地址。自动拼接在 url 前面，除非 url 是一个绝对地址 (http 或 https 开头)。
 
 - 类型：`String`
 
@@ -18,11 +18,16 @@ toc: menu
 
   // 发起请求，最终发起请求的 url 为 https://www.example.com/api/demo
   instance('demo')
+
+  // url 为绝对地址时则忽略 baseURL，最终发起请求的 url 为 https://www.uniajax.com/api/test
+  instance('https://www.uniajax.com/api/test')
   ```
 
 ## url
 
-开发者服务器接口地址。
+开发者服务器接口地址。可以是绝对地址或基于根地址的路径。
+
+- 类型：`String`
 
 ## data
 
