@@ -8,17 +8,14 @@ export type DataType = 'json' | 'text' | 'html'
 export type ResponseType = 'text' | 'arraybuffer'
 export type Callback<T = any> = (result: T) => void
 
-export interface Request<T> extends Promise<T>, AjaxRequestTask<Request<T>> {}
+export interface Request<T> extends Promise<T>, AjaxRequestTask<Request<T>> {
+  task: AjaxRequestTask | null
+  aborted: boolean
+}
 
 export interface RequestConstructor extends PromiseConstructor {
   readonly prototype: Request<any>
   new <T>(executor: (resolve: (value: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void): Request<T>
-  task: AjaxRequestTask | null
-  aborted: boolean
-  onHeadersReceivedCallback: Callback | null
-  offHeadersReceivedCallback: Callback | null
-  onHeadersReceived(callback: Callback): void
-  offHeadersReceived(callback: Callback): void
 }
 
 export interface AjaxRequestTask<T = void> {
