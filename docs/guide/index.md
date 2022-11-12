@@ -27,7 +27,7 @@ uni-ajax 是一款基于 [promise](https://javascript.info/promise-basics) 的�
 - [GitHub](https://github.com/ponjs/uni-ajax)
 - [npm](https://www.npmjs.com/package/uni-ajax)
 - [插件市场](https://ext.dcloud.net.cn/plugin?id=2351)
-- [QQ群 917428107](https://qm.qq.com/cgi-bin/qm/qr?k=a0NaOxj875pQzpGh0MEx5jJPZnKAw_IM&jump_from=webapi)
+- [QQ群 917428107](https://qm.qq.com/cgi-bin/qm/qr?k=a0NaOxj875pQzpGh0MEx5jJPZnKAw_IM&jump_from=webapi) ([Primitive - MDN](https://developer.mozilla.org/zh-CN/docs/Glossary/Primitive))
 
 ## 思考
 

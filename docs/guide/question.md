@@ -21,7 +21,7 @@ uni-ajax 暂时只支持发起网络请求，如果你想要上传或下载，�
 // 在 Ajax 实例上挂载 upload 方法
 instance.upload = function (filePath, formData, callback) {
   return new Promise(async (resolve, reject) => {
-    const url = await this.getURL({ url: 'upload' })
+    const url = await instance.getURL({ url: 'upload' })
 
     const uploadTask = uni.uploadFile({
       url,
