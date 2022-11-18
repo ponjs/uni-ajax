@@ -180,6 +180,22 @@ instance.interceptors.response.use(response => {
 })
 ```
 
+#### 自定义返回内容
+
+服务端返回的数据是在 `response.data` 中，如果你想直接在请求方法中接收服务端返回数据也是可以的。
+
+```js
+instance.interceptors.response.use(response => {
+  // 直接返回服务端数据
+  return response.data
+})
+
+instance().then(res => {
+  // 这里的 res 即为上面的 response.data
+  console.log(res)
+})
+```
+
 #### 拒绝响应成功
 
 如果你在响应成功方法里返回 Promise.reject，请求接口时则会执行 fail / catch。

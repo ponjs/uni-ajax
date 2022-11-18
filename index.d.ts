@@ -8,10 +8,7 @@ export type DataType = 'json' | 'text' | 'html'
 export type ResponseType = 'text' | 'arraybuffer'
 export type Callback<T = any> = (result: T) => void
 
-export interface Request<T> extends Promise<T>, AjaxRequestTask<Request<T>> {
-  task: AjaxRequestTask | null
-  aborted: boolean
-}
+export interface Request<T> extends Promise<T>, AjaxRequestTask<Request<T>> {}
 
 export interface RequestConstructor extends PromiseConstructor {
   readonly prototype: Request<any>
@@ -24,7 +21,9 @@ export interface AjaxRequestTask<T = void> {
   offHeadersReceived(callback: Callback): T
 }
 
-export interface AjaxRequestConfig {
+export interface CustomConfig {}
+
+export interface AjaxRequestConfig extends CustomConfig {
   baseURL?: string
   url?: string
   data?: Data
@@ -69,10 +68,14 @@ export interface AjaxInterceptorManager<V> {
   eject(id: number): void
 }
 
+export interface CustomResponse<T = any> {}
+
+export type ResponseValue<T> = keyof CustomResponse extends never ? AjaxResponse<T> : CustomResponse<T>
+
 export interface AjaxInvoke {
-  <T = any, R = AjaxResponse<T>>(config?: AjaxRequestConfig): Request<R>
-  <T = any, R = AjaxResponse<T>>(config?: AjaxCallbackConfig<R>): Request<void>
-  <T = any, R = AjaxResponse<T>>(url?: string, data?: Data, config?: AjaxRequestConfig): Request<R>
+  <T = any, R = ResponseValue<T>>(config?: AjaxRequestConfig): Request<R>
+  <T = any, R = ResponseValue<T>>(config?: AjaxCallbackConfig<R>): Request<void>
+  <T = any, R = ResponseValue<T>>(url?: string, data?: Data, config?: AjaxRequestConfig): Request<R>
 }
 
 export interface AjaxInstance<T extends AjaxConfigType> extends AjaxInvoke {
