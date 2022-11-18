@@ -46,7 +46,7 @@ export type AjaxConfigType =
   | AjaxRequestConfig
   | (() => AjaxRequestConfig)
   | (() => Promise<AjaxRequestConfig>)
-  | undefined
+  | void
 
 export interface AjaxCallbackConfig<T = any> extends AjaxRequestConfig {
   success?: Callback<T>
@@ -70,12 +70,12 @@ export interface AjaxInterceptorManager<V> {
 
 export interface CustomResponse<T = any> {}
 
-export type ResponseValue<T> = keyof CustomResponse extends never ? AjaxResponse<T> : CustomResponse<T>
+export type AjaxResult<T> = keyof CustomResponse extends never ? AjaxResponse<T> : CustomResponse<T>
 
 export interface AjaxInvoke {
-  <T = any, R = ResponseValue<T>>(config?: AjaxRequestConfig): Request<R>
-  <T = any, R = ResponseValue<T>>(config?: AjaxCallbackConfig<R>): Request<void>
-  <T = any, R = ResponseValue<T>>(url?: string, data?: Data, config?: AjaxRequestConfig): Request<R>
+  <T = any, R = AjaxResult<T>>(config?: AjaxRequestConfig): Request<R>
+  <T = any, R = AjaxResult<T>>(config?: AjaxCallbackConfig<R>): Request<void>
+  <T = any, R = AjaxResult<T>>(url?: string, data?: Data, config?: AjaxRequestConfig): Request<R>
 }
 
 export interface AjaxInstance<T extends AjaxConfigType> extends AjaxInvoke {
@@ -96,8 +96,8 @@ export interface AjaxInstance<T extends AjaxConfigType> extends AjaxInvoke {
   }
 }
 
-export interface AjaxStatic extends AjaxInstance<undefined> {
-  create<T extends AjaxConfigType = undefined>(config?: T): AjaxInstance<T>
+export interface AjaxStatic extends AjaxInstance<void> {
+  create<T extends AjaxConfigType = void>(config?: T): AjaxInstance<T>
 }
 
 declare const Ajax: AjaxStatic
