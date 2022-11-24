@@ -34,4 +34,8 @@ features:
   --vp-home-hero-image-background-image: linear-gradient(-45deg, #39be68 50%, #ff8570 50%);
   --vp-home-hero-image-filter: blur(56px);
 }
+
+.VPHero.has-image .container {
+  gap: 16px;
+}
 </style>
