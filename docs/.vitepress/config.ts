@@ -39,7 +39,7 @@ export default defineConfig({
     logo: '/logo.svg',
     footer: {
       message: 'Released under the MIT License.',
-      copyright: 'Copyright © 2019-present Ponjs'
+      copyright: 'Copyright © 2020-present ponjs'
     },
     editLink: {
       pattern: 'https://github.com/ponjs/uni-ajax/edit/dev/docs/:path',

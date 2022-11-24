@@ -14,7 +14,7 @@ import ajax from 'uni-ajax'
 
 const instance = ajax.create()
 
-// 这里跟文档快速上手种创建实例一致
+// 这里跟快速上手文档中的创建实例一致
 // https://uniajax.ponjs.com/guide/quickstart#%E5%88%9B%E5%BB%BA%E5%AE%9E%E4%BE%8B
 
 export default instance
@@ -33,7 +33,7 @@ app.config.globalProperties.$ajax = ajax // Vue3 (Options API)
 ```ts
 // sfc.d.ts
 
-import { AjaxInstance, AjaxRequestConfig } from 'uni-ajax'
+import type { AjaxInstance, AjaxRequestConfig } from 'uni-ajax'
 
 // 这里泛型是创建实例所传的参数类型
 // https://uniajax.ponjs.com/guide/instance#%E5%AE%9E%E4%BE%8B%E9%85%8D%E7%BD%AE
