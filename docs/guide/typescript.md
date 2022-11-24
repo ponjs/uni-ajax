@@ -1,9 +1,4 @@
----
-title: TypeScript
-order: 5
-toc: menu
----
-
+# TypeScript
 像 TypeScript 这样的类型系统可以在编译时通过静态分析检测出很多常见错误。通过 IDE 中基于类型的自动补全，TypeScript 还改善了开发体验和效率。
 
 如果要使用 Typescript 开发，则不能用[HBuilderX](https://uniapp.dcloud.net.cn/quickstart-hx.html)直接创建项目，而应该使用[脚手架](https://uniapp.dcloud.net.cn/quickstart-cli.html)创建。对于不太了解 TypeScript 的同学可以查看[深入理解 TypeScript](https://jkchao.github.io/typescript-book-chinese/)，我也是更推荐大家使用 Typescript 去开发项目。
@@ -40,14 +35,17 @@ app.config.globalProperties.$ajax = ajax // Vue3 (Options API)
 
 import { AjaxInstance, AjaxRequestConfig } from 'uni-ajax'
 
-// nvue（Vue2）
+// 这里泛型是创建实例所传的参数类型
+// https://uniajax.ponjs.com/guide/instance#%E5%AE%9E%E4%BE%8B%E9%85%8D%E7%BD%AE
+
+// nvue (Vue2)
 declare namespace UniApp {
   interface Uni {
     $ajax: AjaxInstance<AjaxRequestConfig>
   }
 }
 
-// nvue（Vue3）
+// nvue (Vue3)
 declare global {
   interface Uni {
     $ajax: AjaxInstance<AjaxRequestConfig>
@@ -78,6 +76,9 @@ declare module 'uni-ajax' {
   interface CustomConfig {
     // prop?: type
   }
+
+  // 2.4.5 以下版本
+  // interface AjaxRequestConfig {}
 }
 ```
 
@@ -93,7 +94,7 @@ ajax<never, string>().then(res => {
 })
 ```
 
-响应拦截器自定义返回内容后，上面的第一个请求方法就不太适应，所以这提供了一个自定义响应的类型，并支持一个泛型参数。<Badge>2.4.6</Badge>
+响应拦截器[返回自定义内容](/guide/interceptor#响应自定义内容)后，上面的第一个请求方法就不太适应，所以这提供了一个自定义响应的类型，并支持一个泛型参数。<Badge>2.4.6</Badge>
 
 ```ts
 declare module 'uni-ajax' {

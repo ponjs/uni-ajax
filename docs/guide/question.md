@@ -1,8 +1,4 @@
----
-title: FAQ
-order: 6
-toc: content
----
+# FAQ
 
 ## 插件市场名称
 

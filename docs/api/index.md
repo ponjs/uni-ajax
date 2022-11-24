@@ -1,11 +1,4 @@
----
-title: Ajax
-order: 1
-toc: menu
-nav:
-  title: API
-  order: 2
----
+# 请求方法
 
 ## 发起请求
 
@@ -102,7 +95,7 @@ nav:
 
 ## config
 
-用于获取实例的配置。该属性的类型取决于你创建实例 [create](/api#create) 的参数类型。**注意该属性是只读的。**
+用于获取实例的配置。该属性的类型取决于你创建实例 [create](/api/#create) 的参数类型。**注意该属性是只读的。**
 
 - 类型：`Object | Function | undefined`
 
