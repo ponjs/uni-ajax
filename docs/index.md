@@ -1,6 +1,7 @@
 ---
 layout: home
-title: 首页
+title: UNI-AJAX
+titleTemplate: Lightweight HTTP client for the uni-app
 hero:
   name: UNI-AJAX
   text: Lightweight HTTP client for the uni-app
@@ -10,7 +11,7 @@ hero:
     alt: uni-ajax
   actions:
     - theme: brand
-      text: Getting Started
+      text: Get Started
       link: /guide/
     - theme: alt
       text: View on GitHub
