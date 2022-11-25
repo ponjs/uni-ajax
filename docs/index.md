@@ -36,7 +36,11 @@ features:
   --vp-home-hero-image-filter: blur(56px);
 }
 
-.VPHero.has-image .container {
+.VPHero.has-image.VPHomeHero .container {
   gap: 16px;
+}
+
+.VPHero.has-image.VPHomeHero .VPImage {
+  zoom: 0.72;
 }
 </style>
