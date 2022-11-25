@@ -90,7 +90,7 @@ this.$ajax.get({ url: 'demo' })
 如果你没有挂载实例也是可以通过引入的方式调用，使用方法都是一样的。
 
 ```js
-import ajax from '@/services/ajax' // 路径需根据项目实际情况
+import ajax from '@/services/ajax'  // 路径需根据项目实际情况
 
 ajax('demo')
 ```

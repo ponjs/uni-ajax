@@ -19,15 +19,15 @@ instance()
 ```js
 /**
  * @param {object} config 无回调属性的请求配置对象
- * @returns {resolve} 响应成功对象
- * @returns {reject} 请求或响应失败对象
+ * @returns {Promise.resolve} 响应成功对象
+ * @returns {Promise.reject} 请求或响应失败对象
  */
 ajax(config)
 
 /**
- * @param {object} config 含回调属性 (传入 success / fail / complete 参数中的一个) 的请求配置对象
- * @returns {resolve} undefined
- * @returns {reject} 无
+ * @param {object} config 含回调属性 (至少传入一个 success / fail / complete 参数) 的请求配置对象
+ * @returns {Promise.resolve} undefined
+ * @returns {Promise.reject} 无
  */
 ajax(config)
 
@@ -35,8 +35,8 @@ ajax(config)
  * @param {string} url 请求地址
  * @param {string|object} data 请求参数
  * @param {object} config 无回调属性的请求配置对象
- * @returns {resolve} 响应成功对象
- * @returns {reject} 请求或响应失败对象
+ * @returns {Promise.resolve} 响应成功对象
+ * @returns {Promise.reject} 请求或响应失败对象
  */
 ajax(url, data, config)
 ```
