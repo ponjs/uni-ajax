@@ -6,7 +6,10 @@
 
 ```js
 // 引入
-import ajax from '@/uni_modules/u-ajax/js_sdk'
+import ajax from '@/uni_modules/u-ajax'
+
+// 2.4.5 以下版本
+// import ajax from '@/uni_modules/u-ajax/js_sdk'
 ```
 
 ## npm
