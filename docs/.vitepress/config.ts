@@ -13,7 +13,7 @@ export default defineConfig({
   title: 'UNI-AJAX',
   description: '🎐 基于 promise 的轻量级 uni-app 网络请求库',
   lastUpdated: true,
-  cleanUrls: 'without-subfolders',
+  cleanUrls: 'with-subfolders',
   buildEnd: ({ outDir }) => {
     generateSitemap({
       outDir,
