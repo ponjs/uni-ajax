@@ -22,7 +22,7 @@ export default defineConfig({
   },
   head: [
     ['link', { rel: 'shortcut icon', type: 'image/x-icon', href: '/favicon.ico' }],
-    ['meta', { name: 'keywords', content: 'uni-ajax, uni-app, request, ajax, http' }],
+    ['meta', { name: 'keywords', content: 'uni-ajax, u-ajax, uni-app, request, ajax, http' }],
     [
       'script',
       {},
