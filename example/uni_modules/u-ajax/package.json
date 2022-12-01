@@ -10,6 +10,8 @@
     "request",
     "task"
   ],
+  "main": "./js_sdk/index.js",
+  "types": "./js_sdk/index.d.ts",
   "repository": "https://github.com/ponjs/uni-ajax",
   "dcloudext": {
     "category": [

@@ -1,4 +1,4 @@
-import ajax from '@/uni_modules/u-ajax/js_sdk'
+import ajax from '@/uni_modules/u-ajax'
 
 // 创建请求实例
 const instance = ajax.create({
