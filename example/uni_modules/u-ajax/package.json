@@ -14,10 +14,7 @@
   "types": "./js_sdk/index.d.ts",
   "repository": "https://github.com/ponjs/uni-ajax",
   "dcloudext": {
-    "category": [
-      "JS SDK",
-      "通用 SDK"
-    ],
+    "type": "sdk-js",
     "declaration": {
       "ads": "无",
       "data": "插件不采集任何数据",
@@ -54,7 +51,11 @@
           "阿里": "y",
           "百度": "y",
           "字节跳动": "y",
-          "QQ": "y"
+          "QQ": "y",
+          "钉钉": "y",
+          "快手": "y",
+          "飞书": "y",
+          "京东": "y"
         },
         "快应用": {
           "华为": "y",
