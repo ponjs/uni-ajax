@@ -254,6 +254,43 @@ DNS 解析时优先使用 ipv4。
 
 - 默认值：`(config, Request) => new Promise(/*...*/)`
 
+- 示例：
+
+  ```js
+  // 新增上传方法
+  const instance = ajax.create({
+    /*...*/
+    adapter(config, Request) {
+      if (config.method === 'UPLOAD') {
+        return new Promise((resolve, reject) => {
+          const uploadTask = uni.uploadFile({
+            ...config,
+            complete: result => {
+              const response = { config, ...result }
+              !config.validateStatus || config.validateStatus(result.statusCode)
+                ? resolve(response)
+                : reject(response)
+            }
+          })
+
+          config.getUploadTask?.(uploadTask, config)
+        })
+      }
+
+      return ajax.defaults.adapter(config, Request)
+    }
+  })
+
+  // 如果是 Typescript 建议将上传方法封装成函数，方便定义类型
+  instance({
+    method: 'UPLOAD',
+    url: '/upload',
+    name: 'file',
+    filePath: filePath,
+    getUploadTask: (uploadTask, config) => {/***/}
+  })
+  ```
+
 ## success
 
 收到开发者服务器成功返回的回调函数。**该属性无法在实例配置上定义，只能在请求方法上。**

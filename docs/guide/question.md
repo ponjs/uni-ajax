@@ -10,7 +10,9 @@
 
 ## 上传和下载
 
-uni-ajax 暂时只支持发起网络请求，如果你想要上传或下载，你可以使用 [uni.uploadFile](https://uniapp.dcloud.io/api/request/network-file?id=uploadfile) 和 [uni.downloadFile](https://uniapp.dcloud.io/api/request/network-file?id=downloadfile)。这里举例如果封装上传，你可以根据项目实际情况处理。
+uni-ajax 暂时只支持发起网络请求，如果你想要上传或下载，你可以使用 [uni.uploadFile](https://uniapp.dcloud.io/api/request/network-file?id=uploadfile) 和 [uni.downloadFile](https://uniapp.dcloud.io/api/request/network-file?id=downloadfile)。这里举例封装上传，你可以根据项目实际情况处理。
+
+如果想进阶一点，可以通过 [adapter](/api/config#adapter) 添加上传下载适配器，这样上传下载也跟请求一样会经过拦截器。
 
 ```js
 // ajax.js
