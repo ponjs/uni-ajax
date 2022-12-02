@@ -27,30 +27,17 @@
 
 ## data
 
-请求的参数。如果在创建实例时设定该属性，后面的实例请求方法会合并 data。
+请求的参数。
 
-- 类型：`Object`
+- 类型：`Object | String | ArrayBuffer`
 
 - 平台差异：App（自定义组件编译模式）不支持 ArrayBuffer 类型
 
-- 示例：
+- 数据说明：最终发送给服务器的数据是 String 类型，如果传入的 data 不是 String 类型，会被转换成 String。转换规则如下：
 
-  ```js
-  // 创建实例
-  const instance = ajax.create({
-    data: { hello: 'hello' }
-  })
-
-  // 发起请求
-  instance('demo', { ajax: 'ajax' })
-
-  // 最终发起请求的 data
-  // 如果发起请求时的字段是与默认配置的字段相同，则采用发起请求时的值
-  {
-    hello: 'hello',
-    ajax: 'ajax'
-  }
-  ```
+  - 对于 `GET` 方法，会将数据转换为 `query string`。例如 `{ name: 'name', age: 18 }` 转换后的结果是 `name=name&age=18`。
+  - 对于 `POST` 方法且 `header['content-type']` 为 `application/json` 的数据，会进行 JSON 序列化。
+  - 对于 `POST` 方法且 `header['content-type']` 为 `application/x-www-form-urlencoded` 的数据，会将数据转换为 query string。
 
 ## header
 
