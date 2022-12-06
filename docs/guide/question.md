@@ -182,3 +182,79 @@ instance.interceptors.response.use(
   }
 )
 ```
+
+## 配置全局请求加载
+
+若要实现每个请求默认有 `loading` 效果，可以通过拦截器并搭配[自定义配置](/guide/interceptor#拦截器传值)实现。
+
+```js
+class Loading {
+  times = 0
+  timer = null
+
+  show(loading) {
+    if (loading === false) return // 如果传入的 loading 属性为 false，则不处理
+
+    clearTimeout(this.timer) // 如果有多个请求同时进行，则用最后请求的 loading
+
+    this.times++
+    this.timer = setTimeout(() => {
+      uni.showLoading({
+        title: loading ?? '加载中',
+        mask: true
+      })
+    }, 300) // 设定延迟，如果请求超过 300ms 才显示 loading
+  }
+
+  hide(loading) {
+    if (loading === false) return
+
+    this.times--
+    if (this.times <= 0) {
+      clearTimeout(this.timer)
+      uni.hideLoading()
+      this.times = 0
+    }
+  }
+}
+
+const loading = new Loading()
+
+const instance = ajax.create({/***/})
+
+// 请求拦截器
+instance.interceptors.request.use(
+  config => {
+    loading.show(config.loading)
+    return config
+  },
+  error => {
+    return Promise.reject(error)
+  }
+)
+
+// 响应拦截器
+instance.interceptors.response.use(
+  response => {
+    loading.hide(response.config.loading)
+    return response
+  },
+  error => {
+    loading.hide(error.config.loading)
+    return Promise.reject(error)
+  }
+)
+
+instance({ loading: '登录中' }) // 当前请求自定义加载文字
+instance({ loading: false }) // 当前请求不显示加载
+```
+
+如果是 Typescript 的话是需要定义[配置属性类型](/guide/typescript#定义类型)。
+
+```ts
+declare module 'uni-ajax' {
+  interface CustomConfig {
+    loading?: string | false
+  }
+}
+```
