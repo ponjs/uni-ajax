@@ -1,5 +1,7 @@
 # FAQ
 
+这里列举的是一些常问的问题，如果你有其他问题可以在 GitHub 上提交 [issues](https://github.com/ponjs/uni-ajax/issues/new) 或加群交流 [QQ群 917428107](https://qm.qq.com/cgi-bin/qm/qr?k=a0NaOxj875pQzpGh0MEx5jJPZnKAw_IM&jump_from=webapi)。
+
 ## 插件市场名称
 
 为什么插件市场上的插件名是 `u-ajax` 而不是 `uni-ajax` 呢？因为第一个版本发布在 npm 上，当时就已经取名为 `uni-ajax` 了，后面发布插件市场时发现命名是不能带有 `uni` 关键词的，所以稍微改了下名称。但是二者代码是完全相同的，不同的是为了迎合 `uni_modules` 的规范，所以插件市场的目录结构有所调整。
