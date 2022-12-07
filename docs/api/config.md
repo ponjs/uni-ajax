@@ -1,4 +1,4 @@
-# Config
+# 请求配置
 
 ## baseURL
 
