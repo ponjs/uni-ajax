@@ -4,7 +4,7 @@
 
 uni-ajax 是一款基于 [promise](https://javascript.info/promise-basics) 的轻量级 [uni-app](https://uniapp.dcloud.io/) 网络请求库。参考了 [Axios](https://github.com/axios/axios) 的使用方式封装默认的 [request](https://uniapp.dcloud.io/api/request/request) 方法，但更轻量，更灵活，且保留原有的核心。解决了原有请求方法在 uni-app 项目开发中的一些不方便，更切合企业开发的实际需求，开箱即用，配置简单。
 
-如果你有 Axios 的使用经验，相信很快上手。如果没有，别担心，通过这份文档，带你简单上手并深入使用。
+如果你有 Axios 的使用经验，相信很快上手（有使用上的[区别](/guide/question#与-axios-的使用区别)）。如果没有用过 Axios，你也通过这份文档，带你简单上手并深入使用 uni-ajax。
 
 ## 特性
 

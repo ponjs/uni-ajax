@@ -10,6 +10,20 @@
 
 其实在 [uni-app 官方文档](https://uniapp.dcloud.io/api/request/request.html) 里就已经有提到 H5 端本地调试需注意跨域问题，可以参考该具体解答[调试跨域问题解决方案](https://ask.dcloud.net.cn/article/35267)。
 
+## 与 [Axios](https://github.com/axios/axios) 的使用区别
+
+uni-ajax 底层调用还是用的 [uni.request](https://uniapp.dcloud.io/api/request/request.html)，所以优先遵循 uni-app 的定义。这里列举的是开发者们容易混淆的点，其实还有很大部分是有区别的。
+
+|                        | uni-ajax                                     | axios                                                                                 |
+| :--------------------- | :------------------------------------------- | :------------------------------------------------------------------------------------ |
+| 请求头属性名           | `header`                                     | `headers`                                                                             |
+| 响应状态码             | `statusCode`                                 | `status`                                                                              |
+| 多个请求拦截器执行顺序 | 根据添加顺序执行                             | 根据添加顺序反向执行                                                                  |
+| 请求别名方法传参       | 所有方法的[传参](/api/#请求方式)是保持一致的 | `get` `delete` 传参是两个参数，且没有 data 属性                                       |
+| 请求参数 data          | [详情](/api/config#data)                     | 仅适用 `PUT`, `POST`, `DELETE`, `PATCH` 请求                                          |
+| 获取请求地址           | `getURL` 为异步函数                          | `getUri` 为普通函数                                                                   |
+| 中断请求               | 直接调用 [abort](/guide/usage#取消请求) 方法 | [使用 `AbortController` / `CancelToken`](https://axios-http.com/zh/docs/cancellation) |
+
 ## 上传和下载
 
 uni-ajax 暂时只支持发起网络请求，如果你想要上传或下载，你可以使用 [uni.uploadFile](https://uniapp.dcloud.io/api/request/network-file?id=uploadfile) 和 [uni.downloadFile](https://uniapp.dcloud.io/api/request/network-file?id=downloadfile)。这里举例封装上传，你可以根据项目实际情况处理。
