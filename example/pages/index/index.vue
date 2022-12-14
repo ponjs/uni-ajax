@@ -6,13 +6,14 @@
 
 import { ref } from 'vue'
 import { onReady } from '@dcloudio/uni-app'
+import { Fetcher } from '@/uni_modules/u-ajax'
 
 /** 配置的接口根地址 */
 const baseURL = ref('')
-/** 发起请求对象 */
-const request = ref(null)
 /** 请求服务端返回的结果 */
 const result = ref('...')
+/** 请求任务抓取器 */
+const fetcher = new Fetcher()
 
 /** 获取接口根地址 */
 const getBaseURL = async () => {
@@ -27,93 +28,34 @@ const getBaseURL = async () => {
 
 /** 发起请求 */
 const initiate = () => {
-  /**
-   * 执行方法返回的 request 是在继承 Promise 的基础上，挂载 RequestTask 的一些方法
-   * 所以可以下面的 abort() 这样直接调用中断请求
-   * 参见源码 /lib/adapters/Request.js
-   *
-   * 这里通过 Promise 链式，将请求成功或失败的结果都 JSON.stringify
-   */
-  request.value = uni
-    .$ajax('api.do', {
-      api: 'mtop.common.getTimestamp'
-    })
+  // 这里通过 Promise 链式，将请求成功或失败的结果都 JSON.stringify
+  uni
+    .$ajax('api.do', { api: 'mtop.common.getTimestamp' }, { fetcher })
     .then(({ data }) => data)
     .catch(({ config, ...error }) => error)
     .then(res => {
       result.value = JSON.stringify(res, null, 4)
     })
-
-  /**
-   * 上下两种写法都可以，但是是有一些差异的，具体可看文档
-   * 主要差异在于执行请求方法返回的 request 的 Promise.resolve 返回值
-   * 这里的 Promise.resolve 返回值为 undefined，仅表示所有回调参数执行完成，且不会发生 rejected 状态
-   * 上面的 Promise.resolve 返回值为请求成功对象，表示发起请求成功后返回服务端数据
-   */
-  // request.value = uni.$ajax({
-  //   url: 'api.do',
-  //   data: { api: 'mtop.common.getTimestamp' },
-  //   success: ({ data }) => {
-  //     result.value = JSON.stringify(data, null, 4)
-  //   },
-  //   fail: ({ config, ...error }) => {
-  //     result.value = JSON.stringify(error, null, 4)
-  //   }
-  // })
 }
 
 /** 中断请求 */
 const abort = () => {
-  /**
-   * ?. 是 es2020 的新语法可选链
-   * 大概意思是，判断 this.request 是否有 abort 属性（通过判断 this.request 是否为 null 或 undefined），有的话则获取该属性
-   * 这样可以防止还未请求就先点击取消请求而发生报错的情况
-   *
-   * 您可以通过 chrome 调试，打开 Network，将网络状态改为 Slow 3G
-   * 然后发起请求后立即点击取消请求方便查看效果
-   */
-  request.value?.abort()
+  // 您可以通过 chrome 调试，打开 Network，将网络状态改为 Slow 3G
+  // 然后发起请求后立即点击取消请求方便查看效果
+  fetcher.abort()
 }
 
-const getRequestTask = () => {
-  /**
-   * 通过请求配置的 xhr 回调参数可以获取 RequestTask 对象
-   *
-   * 虽然有提供获取 RequestTask 对象属性方法 xhr，
-   * 但没有上面 abort() 那样直接调用 RequestTask 上的方法来的方便，
-   * 所以有直接中断请求这种操作推荐上面那样直接调用。
-   */
-
-  // 通过传参一个对象参数使用
-  uni.$ajax({
-    url: 'api.do',
-    data: { api: 'mtop.common.getTimestamp' },
-    xhr: (requestTask, config) => {
-      console.log(requestTask)
-    },
-    success: res => {
-      console.log(res)
-    }
-  })
-
-  // 通过传参多个参数使用
-  // uni.$ajax(
-  //   'api.do',
-  //   { api: 'mtop.common.getTimestamp' },
-  //   {
-  //     xhr: (requestTask, config) => {
-  //       console.log(requestTask)
-  //     }
-  //   }
-  // ).then(res => {
-  //   console.log(res)
-  // })
+/** 获取请求任务对象 */
+const getRequestTask = async () => {
+  const requestTask = await fetcher.source()
+  console.log(requestTask)
 }
 
 const guideRef = ref(null)
 
 onReady(() => {
   getBaseURL()
+  getRequestTask()
   setTimeout(() => guideRef.value?.start(), 300) // 开启操作引导
 })
 </script>
