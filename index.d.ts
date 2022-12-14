@@ -1,24 +1,26 @@
-export interface AnyObject {
-  [x: string]: any
-}
+export type AnyObject = { [x: string]: any }
 
 export type Data = string | AnyObject | ArrayBuffer
 export type Method = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'HEAD' | 'OPTIONS' | 'TRACE'
 export type DataType = 'json' | 'text' | 'html'
 export type ResponseType = 'text' | 'arraybuffer'
-export type Callback<T = any> = (result: T) => void
 
-export interface Request<T> extends Promise<T>, AjaxRequestTask<Request<T>> {}
-
-export interface RequestConstructor extends PromiseConstructor {
-  readonly prototype: Request<any>
-  new <T>(executor: (resolve: (value: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void): Request<T>
+export interface RequestTask {
+  abort: () => void
+  onHeadersReceived?: (listener: (header: any) => void) => void
+  offHeadersReceived?: (listener: (header: any) => void) => void
 }
 
-export interface AjaxRequestTask<T = void> {
-  abort(): T
-  onHeadersReceived(callback: Callback): T
-  offHeadersReceived(callback: Callback): T
+export interface FetcherInstance<T = any> {
+  resolve: (value: T) => void
+  reject: (reason?: any) => void
+  source: () => Promise<T>
+  abort: () => Promise<void>
+  readonly aborted: boolean
+}
+
+export interface FetcherConstructor {
+  new <T = RequestTask>(): FetcherInstance<T>
 }
 
 export interface CustomConfig {}
@@ -37,9 +39,9 @@ export interface AjaxRequestConfig extends CustomConfig {
   sslVerify?: boolean
   withCredentials?: boolean
   firstIpv4?: boolean
-  xhr?: (task: AjaxRequestTask, config: AjaxRequestConfig) => void
+  fetcher?: FetcherInstance
   validateStatus?: ((statusCode?: number) => boolean) | null
-  adapter?: (config: AjaxRequestConfig, Request: RequestConstructor) => Promise<any>
+  adapter?: (config: AjaxRequestConfig) => Promise<any>
 }
 
 export type AjaxConfigType =
@@ -47,12 +49,6 @@ export type AjaxConfigType =
   | (() => AjaxRequestConfig)
   | (() => Promise<AjaxRequestConfig>)
   | void
-
-export interface AjaxCallbackConfig<T = any> extends AjaxRequestConfig {
-  success?: Callback<T>
-  fail?: Callback
-  complete?: Callback
-}
 
 export interface AjaxResponse<T = any> {
   data: T
@@ -73,9 +69,8 @@ export interface CustomResponse<T = any> {}
 export type AjaxResult<T> = keyof CustomResponse extends never ? AjaxResponse<T> : CustomResponse<T>
 
 export interface AjaxInvoke {
-  <T = any, R = AjaxResult<T>>(config?: AjaxRequestConfig): Request<R>
-  <T = any, R = AjaxResult<T>>(config?: AjaxCallbackConfig<R>): Request<void>
-  <T = any, R = AjaxResult<T>>(url?: string, data?: Data, config?: AjaxRequestConfig): Request<R>
+  <T = any, R = AjaxResult<T>>(config?: AjaxRequestConfig): Promise<R>
+  <T = any, R = AjaxResult<T>>(url?: string, data?: Data, config?: AjaxRequestConfig): Promise<R>
 }
 
 export interface AjaxInstance<T extends AjaxConfigType> extends AjaxInvoke {
@@ -98,8 +93,12 @@ export interface AjaxInstance<T extends AjaxConfigType> extends AjaxInvoke {
 
 export interface AjaxStatic extends AjaxInstance<void> {
   create<T extends AjaxConfigType = void>(config?: T): AjaxInstance<T>
+  Fetcher: FetcherConstructor
 }
 
 declare const Ajax: AjaxStatic
+declare const Fetcher: FetcherConstructor
+
+export { Fetcher }
 
 export default Ajax
