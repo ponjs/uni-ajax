@@ -14,15 +14,15 @@
 
 uni-ajax 底层调用还是用的 [uni.request](https://uniapp.dcloud.io/api/request/request.html)，所以优先遵循 uni-app 的定义。这里列举的是开发者们容易混淆的点，其实还有很大部分是有区别的。
 
-|                        | uni-ajax                                     | axios                                                                                 |
-| :--------------------- | :------------------------------------------- | :------------------------------------------------------------------------------------ |
-| 请求头属性名           | `header`                                     | `headers`                                                                             |
-| 响应状态码             | `statusCode`                                 | `status`                                                                              |
-| 多个请求拦截器执行顺序 | 根据添加顺序执行                             | 根据添加顺序反向执行                                                                  |
-| 请求别名方法传参       | 所有方法的[传参](/api/#请求方式)是保持一致的 | `get` `delete` 传参是两个参数，且没有 data 属性                                       |
-| 请求参数 data          | [详情](/api/config#data)                     | 仅适用 `PUT`, `POST`, `DELETE`, `PATCH` 请求                                          |
-| 获取请求地址           | `getURL` 为异步函数                          | `getUri` 为普通函数                                                                   |
-| 中断请求               | 直接调用 [abort](/guide/usage#取消请求) 方法 | [使用 `AbortController` / `CancelToken`](https://axios-http.com/zh/docs/cancellation) |
+|                        | uni-ajax                                     | axios                                                                            |
+| :--------------------- | :------------------------------------------- | :------------------------------------------------------------------------------- |
+| 请求头属性名           | `header`                                     | `headers`                                                                        |
+| 响应状态码             | `statusCode`                                 | `status`                                                                         |
+| 多个请求拦截器执行顺序 | 根据添加顺序执行                             | 根据添加顺序反向执行                                                             |
+| 请求别名方法传参       | 所有方法的[传参](/api/#请求方式)是保持一致的 | `get` `delete` 传参是两个参数，且没有 data 属性                                  |
+| 请求参数 data          | [详情](/api/config#data)                     | 仅适用 `PUT`, `POST`, `DELETE`, `PATCH` 请求                                     |
+| 获取请求地址           | `getURL` 为异步函数                          | `getUri` 为普通函数                                                              |
+| 中断请求               | [`Fetcher`](/api/config#fetcher)             | [`AbortController` / `CancelToken`](https://axios-http.com/zh/docs/cancellation) |
 
 ## 上传和下载
 
@@ -58,25 +58,6 @@ instance.upload = function (filePath, formData, callback) {
 // pages
 // 在页面中调用 this.$ajax.upload()
 this.$ajax.upload(filePath)
-```
-
-## 处理重复请求
-
-当我们在提交表单时，提交一次就会发起一次请求，如果用户频繁点击按钮提交则会触发多次请求。避免这种情况我们一般在发起请求处做防抖处理。你也可以在实例配置时处理。将处于 pending 状态的请求用数组存储起来形成请求队列。在请求时判断当前请求是否已存在。如果存在，说明请求重复了，则中断这个请求，并移除队列中的该请求。如果不存在，说明这个请求不是重复的，正常发送并把该请求添入队列中。这里只是提供思路，具体的实现方式请根据实际项目情况。
-
-```js
-// ajax.js
-
-// 请求队列
-const queue = new Map()
-
-// 创建实例
-const instance = ajax.create({
-  xhr(task, config) {
-    queue.get(config.url)?.abort()
-    queue.set(config.url, task)
-  }
-})
 ```
 
 ## 响应失败不抛出错误

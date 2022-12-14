@@ -14,20 +14,13 @@ const instance = ajax.create()
 instance()
 ```
 
-该函数接收三种参数类型，返回都是 Promise。你可根据自己的实际情况使用。
+该函数接收两种参数类型，返回都是 Promise。你可根据自己的实际情况使用。
 
 ```js
 /**
  * @param {object} config 无回调属性的请求配置对象
  * @returns {Promise.resolve} 响应成功对象
  * @returns {Promise.reject} 请求或响应失败对象
- */
-ajax(config)
-
-/**
- * @param {object} config 含回调属性 (至少传入一个 success / fail / complete 参数) 的请求配置对象
- * @returns {Promise.resolve} undefined
- * @returns {Promise.reject} 无
  */
 ajax(config)
 
@@ -40,6 +33,19 @@ ajax(config)
  */
 ajax(url, data, config)
 ```
+
+::: details 传入回调属性参数 <Badge type="danger">2.5.0 废弃</Badge>
+你也可以传入回调属性参数，但该方式使用率较低，所以在 `2.5.0` 版本已弃用。
+
+```js
+/**
+ * @param {object} config 含回调属性 (至少传入一个 success / fail / complete 参数) 的请求配置对象
+ * @returns {Promise.resolve} undefined
+ * @returns {Promise.reject} 无
+ */
+ajax(config)
+```
+:::
 
 为了方便起见，已经为所有支持的请求方法提供了别名。并且调用这些方法的参数跟上面一样，但不同的是在方法别名中传入的 `method` 是无效的。
 
@@ -78,7 +84,7 @@ ajax.delete()
 | onHeadersReceived  | 监听 HTTP Response Header 事件。会比请求完成事件更早，仅 [微信小程序平台][1] 支持 |
 | offHeadersReceived | 取消监听 HTTP Response Header 事件，仅 [微信小程序平台][2] 支持                   |
 
-如果您想使用 RequestTask 上的方法，有下面两种方式：
+::: details 在 2.5.0 前面版本，有两种方式：<Badge type="danger">2.5.0 废弃</Badge>
 
 直接调用。这里 request 接收的是封装后的 Promise，并支持 RequestTask 的以上方法。但实际并非真正的 RequestTask 对象。只是封装继承 Promise 并挂载 RequestTask 的同名方法。
 
@@ -97,10 +103,23 @@ ajax({
   }
 })
 ```
+:::
+
+可以通过 `Fetcher` 抓取器实例来获取 `RequestTask`。<Badge>2.5.0</Badge>
+
+```js
+import ajax, { Fetcher } from 'uni-ajax'
+
+const fetcher = new Fetcher()
+ajax({ fetcher })
+
+fetcher.abort() // 中断请求（Fetcher 只封装了 abort 方法，其他请使用 source 获取使用）
+const requestTask = await fetcher.source() // 获取请求任务对象
+```
 
 ## 取消请求
 
-在 uni-ajax 里实现取消请求是很简单的。上面的 RequestTask 示例中就是通过这两种方式来实现取消请求。
+在 uni-ajax 里实现取消请求是很简单的。上面的 RequestTask 示例中就是实现的取消请求。
 
 [1]: https://developers.weixin.qq.com/miniprogram/dev/api/RequestTask.onHeadersReceived.html
 [2]: https://developers.weixin.qq.com/miniprogram/dev/api/RequestTask.offHeadersReceived.html

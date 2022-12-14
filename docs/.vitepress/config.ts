@@ -103,7 +103,8 @@ export default defineConfig({
           collapsible: true,
           items: [
             { text: 'Typescript', link: '/guide/typescript' },
-            { text: 'FAQ', link: '/guide/question' }
+            { text: 'FAQ', link: '/guide/question' },
+            { text: 'Next', link: '/guide/next' }
           ]
         }
       ],

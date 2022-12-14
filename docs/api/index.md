@@ -7,7 +7,6 @@
 ::: details 类型: `Function`
 ```ts
 <T = any, R = AjaxResult<T>>(config?: AjaxRequestConfig) => Request<R>
-<T = any, R = AjaxResult<T>>(config?: AjaxCallbackConfig<R>) => Request<void>
 <T = any, R = AjaxResult<T>>(url?: string, data?: Data, config?: AjaxRequestConfig) => Request<R>
 ```
 :::
@@ -32,16 +31,6 @@ ajax({
   console.log(res)
 })
 
-// 传入含回调函数配置对象的方式
-ajax({
-  url: 'https://www.example.com/api/demo',
-  data: { value: 'ajax' },
-  header: { token: 'c275bdb5be55e7c2' },
-  success: res => {
-    console.log(res)
-  }
-})
-
 // Promise 传入 [url, data, config] 的方式
 ajax(
   'https://www.example.com/api/demo',
@@ -53,6 +42,26 @@ ajax(
   console.log(res)
 })
 ```
+
+::: details 传入回调属性参数 <Badge type="danger">2.5.0 废弃</Badge>
+类型: `Function`
+```ts
+<T = any, R = AjaxResult<T>>(config?: AjaxCallbackConfig<R>) => Request<void>
+```
+
+示例：
+```js
+// 传入含回调函数配置对象的方式
+ajax({
+  url: 'https://www.example.com/api/demo',
+  data: { value: 'ajax' },
+  header: { token: 'c275bdb5be55e7c2' },
+  success: res => {
+    console.log(res)
+  }
+})
+```
+:::
 
 ## 请求方式别名
 
@@ -137,7 +146,7 @@ interface AjaxRequestConfig extends CustomConfig {
 ::: details 默认值
 ```js
 {
-  adapter: (config, Request) => {/*...*/},
+  adapter: config => {/*...*/},
   method: 'GET',
   header: {
     common: {},
@@ -206,7 +215,7 @@ interface AjaxInterceptorManager<V> {
 
 使用拦截器。接受两个参数，且这两个参数都是函数类型，并且支持异步。前一个函数参数表示发起请求前/响应成功后，后一个函数参数表示请求前错误/响应失败后。你可以创建多个拦截器，并且执行顺序根据你创建的顺序。
 
-需要注意的是，**后一个函数参数必须返回 `Promise.reject` 才能触发 `fail / catch` 请求失败事件。**
+需要注意的是，**后一个函数参数必须返回 `Promise.reject` 才能触发 `catch` 请求失败事件。**
 
 ::: details 类型：`Function`
 ```ts

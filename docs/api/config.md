@@ -214,7 +214,7 @@ DNS 解析时优先使用 ipv4。
 
 ## xhr
 
-获取每次请求的 RequestTask 对象。
+获取每次请求的 RequestTask 对象。<Badge type="danger">2.5.0 废弃</Badge>
 
 - 类型：`Function`
 
@@ -233,13 +233,29 @@ DNS 解析时优先使用 ipv4。
   })
   ```
 
+## fetcher
+
+该属性需要传递抓取器实例，请求方法内部会获取 RequestTask。<Badge>2.5.0</Badge>
+
+- 类型: `FetcherInstance`
+
+- 示例：
+
+  ```js
+  import ajax, { Fetcher } from 'uni-ajax'
+
+  const fetcher = new Fetcher()
+  ajax({ fetcher })
+  fetcher.source()
+  ```
+
 ## adapter
 
-自定义处理请求。通过该属性可自定义请求方法，有着较强的可扩展性，一旦修改则替换默认的请求方法。该属性类型为函数类型，需返回一个 Promise（参见源码 [`/lib/adapters/http.js`](https://github.com/ponjs/uni-ajax/blob/dev/lib/adapters/http.js) ）。且该函数有两个参数 config 和 Request，config 为每次请求的请求配置，Request 为请求方法的构造函数
+自定义处理请求。通过该属性可自定义请求方法，有着较强的可扩展性，一旦修改则替换默认的请求方法。该属性类型为函数类型，需返回一个 Promise（参见源码 [`/lib/adapters/http.js`](https://github.com/ponjs/uni-ajax/blob/dev/lib/adapters/http.js) ）。该函数有一个参数 config 每次请求的请求配置。
 
 - 类型：`Function`
 
-- 默认值：`(config, Request) => new Promise(/*...*/)`
+- 默认值：`config => new Promise(/*...*/)`
 
 - 示例：
 
@@ -247,7 +263,7 @@ DNS 解析时优先使用 ipv4。
   // 新增上传方法
   const instance = ajax.create({
     /*...*/
-    adapter(config, Request) {
+    adapter(config) {
       if (config.method === 'UPLOAD') {
         return new Promise((resolve, reject) => {
           const uploadTask = uni.uploadFile({
@@ -260,27 +276,29 @@ DNS 解析时优先使用 ipv4。
             }
           })
 
-          config.getUploadTask?.(uploadTask, config)
+          config.fetcher?.resolve(uploadTask)
         })
       }
 
-      return ajax.defaults.adapter(config, Request)
+      return ajax.defaults.adapter(config)
     }
   })
 
-  // 如果是 Typescript 建议将上传方法封装成函数，方便定义类型
+  const fetcher = new Fetcher()
+  fetcher.source().then(uploadTask => {/***/})
+
   instance({
     method: 'UPLOAD',
     url: '/upload',
     name: 'file',
-    filePath: filePath,
-    getUploadTask: (uploadTask, config) => {/***/}
+    filePath,
+    fetcher
   })
   ```
 
 ## success
 
-收到开发者服务器成功返回的回调函数。**该属性无法在实例配置上定义，只能在请求方法上。**
+收到服务器成功返回的回调函数。**该属性无法在实例配置上定义，只能在请求方法上。**<Badge type="danger">2.5.0 废弃</Badge>
 
 - 类型：`Function`
 
@@ -288,7 +306,7 @@ DNS 解析时优先使用 ipv4。
 
 ## fail
 
-接口调用失败的回调函数。**该属性无法在实例配置上定义，只能在请求方法上。**
+接口调用失败的回调函数。**该属性无法在实例配置上定义，只能在请求方法上。**<Badge type="danger">2.5.0 废弃</Badge>
 
 - 类型：`Function`
 
@@ -296,7 +314,7 @@ DNS 解析时优先使用 ipv4。
 
 ## complete
 
-接口调用结束的回调函数（调用成功、失败都会执行）。**该属性无法在实例配置上定义，只能在请求方法上。**
+接口调用结束的回调函数（调用成功、失败都会执行）。**该属性无法在实例配置上定义，只能在请求方法上。**<Badge type="danger">2.5.0 废弃</Badge>
 
 - 类型：`Function`
 

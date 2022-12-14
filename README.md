@@ -37,14 +37,14 @@ npm update uni-ajax
 ```JavaScript
 // ajax.js
 
-import ajax from 'uni-ajax'                                    // 引入 uni-ajax 模块
+import ajax from 'uni-ajax'                                 // 引入 uni-ajax 模块
 
-const instance = ajax.create(config)                           // 创建请求实例
+const instance = ajax.create(config)                        // 创建请求实例
 
-instance.interceptors.request.use(onFulfilled, onRejected)     // 添加请求拦截器
-instance.interceptors.response.use(onFulfilled, onRejected)    // 添加响应拦截器
+instance.interceptors.request.use(onFulfilled, onRejected)  // 添加请求拦截器
+instance.interceptors.response.use(onFulfilled, onRejected) // 添加响应拦截器
 
-export default instance                                        // 导出创建后的实例
+export default instance                                     // 导出创建后的实例
 ```
 
 ## 🥪 使用
@@ -65,17 +65,19 @@ ajax.delete()
 **RequestTask**
 
 ```JavaScript
-const request = ajax()                  // 请求方法每项皆可
+import ajax, { Fetcher } from 'uni-ajax'
 
-request.abort()                         // 中断请求任务
-request.onHeadersReceived(callback)     // 监听 HTTP Response Header 事件
-request.offHeadersReceived(callback)    // 取消监听 HTTP Response Header 事件
+const fetcher = new Fetcher()
+ajax({ fetcher })
+
+fetcher.abort()                            // 中断请求任务
+const requestTask = await fetcher.source() // 获取请求任务对象
 ```
 
 **其他属性方法**
 
 ```JavaScript
-ajax.defaults          // 全局默认配置
-ajax.config            // 当前实例配置
-ajax.getURL(config)    // 获取实例请求地址
+ajax.defaults       // 全局默认配置
+ajax.config         // 当前实例配置
+ajax.getURL(config) // 获取实例请求地址
 ```

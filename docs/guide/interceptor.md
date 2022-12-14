@@ -4,7 +4,7 @@
 
 拦截器简单点说就是拦截每一次你的请求和响应，然后进行相应的处理，之后再进到 then / catch 。前面说到如何创建实例，这里是在创建实例后的基础上加入拦截器，拦截器有请求拦截和响应拦截。
 
-在创建拦截器我们可以传入两个参数 `onFulfilled` 和 `onRejected`，一是成功事件拦截处理，需返回对应的数据下一步才能接收到；二是错误事件拦截处理，注意的是必须返回 Promise.reject 才能触发 fail / catch ，否则都是触发 success / then 。
+在创建拦截器我们可以传入两个参数 `onFulfilled` 和 `onRejected`，一是成功事件拦截处理，需返回对应的数据下一步才能接收到；二是错误事件拦截处理，注意的是必须返回 Promise.reject 才能触发 catch ，否则都是触发 then 。
 
 ## 请求拦截器
 
@@ -36,7 +36,7 @@ instance.interceptors.request.use(config => {
 
 ### 拒绝发送请求
 
-如果你想在请求拦截器中中断请求，则只返回 Promise.reject 即可。中断请求后会触发请求错误事件，即会触发 fail / catch 。
+如果你想在请求拦截器中中断请求，则只返回 Promise.reject 即可。中断请求后会触发请求错误事件，即会触发 catch 。
 
 ```js
 // 请求拦截器
@@ -104,7 +104,7 @@ instance().then(res => {
 
 ### 拒绝响应成功
 
-如果你在响应成功方法里返回 Promise.reject，请求接口时则会执行 fail / catch。
+如果你在响应成功方法里返回 Promise.reject，请求接口时则会执行 catch。
 
 ```js
 // 响应拦截器
