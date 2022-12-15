@@ -235,7 +235,7 @@ DNS 解析时优先使用 ipv4。
 
 ## fetcher
 
-该属性需要传递抓取器实例，请求方法内部会获取 RequestTask。<Badge>2.5.0</Badge>
+该属性需要传递[抓取器实例](/api/#fetcher)，请求方法内部会获取 RequestTask。<Badge>2.5.0</Badge>
 
 - 类型: `FetcherInstance`
 

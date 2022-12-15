@@ -105,7 +105,7 @@ ajax({
 ```
 :::
 
-可以通过 `Fetcher` 抓取器实例来获取 `RequestTask`。<Badge>2.5.0</Badge>
+可以通过 [Fetcher](/api/#fetcher) 抓取器实例来获取 `RequestTask`。<Badge>2.5.0</Badge>
 
 ```js
 import ajax, { Fetcher } from 'uni-ajax'

@@ -263,3 +263,28 @@ ajax.interceptors.response.use(
 const myInterceptor = ajax.interceptors.request.use(() => {/*...*/})
 ajax.interceptors.request.eject(myInterceptor)
 ```
+
+## Fetcher
+
+抓取器构造函数。是一个工具构造函数，不含请求相关代码，其内部原理为 Promise 的异处调用。在 `uni-ajax` 中通过 [fetcher](/api/config#fetcher) 属性内部会获取 RequestTask。<Badge>2.5.0</Badge>
+
+::: details 类型：`Class`
+```ts
+interface FetcherConstructor {
+  new <T = RequestTask>(): FetcherInstance<T>
+}
+
+interface FetcherInstance<T = any> {
+  resolve: (value: T) => void
+  reject: (reason?: any) => void
+  source: () => Promise<T>
+  abort: () => Promise<void>
+}
+```
+:::
+
+```js
+import { Fetcher } from 'uni-ajax'
+
+const fetcher = new Fetcher()
+```
