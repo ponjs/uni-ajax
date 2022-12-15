@@ -16,7 +16,6 @@ export interface FetcherInstance<T = any> {
   reject: (reason?: any) => void
   source: () => Promise<T>
   abort: () => Promise<void>
-  readonly aborted: boolean
 }
 
 export interface FetcherConstructor {
