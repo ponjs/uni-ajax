@@ -13,7 +13,7 @@ const baseURL = ref('')
 /** 请求服务端返回的结果 */
 const result = ref('...')
 /** 请求任务抓取器 */
-const fetcher = new Fetcher()
+const fetcher = ref(null)
 
 /** 获取接口根地址 */
 const getBaseURL = async () => {
@@ -27,10 +27,16 @@ const getBaseURL = async () => {
 }
 
 /** 发起请求 */
-const initiate = () => {
+const request = () => {
+  // 如果连续点击发起请求，可以先中断前面的请求，再发起新的请求
+  // abort()
+
+  // 每次请求都要创建一个实例，这样才能保证下面中断的请求是最新的
+  fetcher.value = new Fetcher()
+
   // 这里通过 Promise 链式，将请求成功或失败的结果都 JSON.stringify
   uni
-    .$ajax('api.do', { api: 'mtop.common.getTimestamp' }, { fetcher })
+    .$ajax('api.do', { api: 'mtop.common.getTimestamp' }, { fetcher: fetcher.value })
     .then(({ data }) => data)
     .catch(({ config, ...error }) => error)
     .then(res => {
@@ -42,12 +48,12 @@ const initiate = () => {
 const abort = () => {
   // 您可以通过 chrome 调试，打开 Network，将网络状态改为 Slow 3G
   // 然后发起请求后立即点击取消请求方便查看效果
-  fetcher.abort()
+  fetcher.value?.abort()
 }
 
 /** 获取请求任务对象 */
 const getRequestTask = async () => {
-  const requestTask = await fetcher.source()
+  const requestTask = await fetcher.value?.source()
   console.log(requestTask)
 }
 
@@ -55,7 +61,6 @@ const guideRef = ref(null)
 
 onReady(() => {
   getBaseURL()
-  getRequestTask()
   setTimeout(() => guideRef.value?.start(), 300) // 开启操作引导
 })
 </script>
@@ -65,7 +70,7 @@ onReady(() => {
     <view id="guide-2" class="preview" data-guide-text="请求结果">{{ result }}</view>
 
     <popup arrow drag-placeholder :stowed-height="350">
-      <view id="guide-0" class="button" data-guide-text="点击请求服务端数据" @tap="initiate">
+      <view id="guide-0" class="button" data-guide-text="点击请求服务端数据" @tap="request">
         发起请求
       </view>
       <view id="guide-1" class="button" data-guide-text="发起请求后可点击中断请求" @tap="abort">
