@@ -41,6 +41,11 @@ export default defineConfig({
       message: 'Released under the MIT License.',
       copyright: 'Copyright © 2020-present ponjs'
     },
+    algolia: {
+      appId: 'D2IXXEJRLV',
+      apiKey: '8ffd502abf97714e9847d8172e03e408',
+      indexName: 'uniajax-ponjs'
+    },
     editLink: {
       pattern: 'https://github.com/ponjs/uni-ajax/edit/dev/docs/:path',
       text: 'Edit this page on GitHub'
