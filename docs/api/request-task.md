@@ -16,7 +16,7 @@
   const requestTask = await fetcher.source() // 获取请求任务对象
   ```
 
-  ::: details 可通过请求配置的 [xhr](/api/config#xhr) 获取原生 RequestTask 对象，进而可以执行下面方法。但是 uni-ajax 已经将这些方法封装，使其方便调用。<Badge type="danger">2.5.0 废弃</Badge>
+  ::: details 可通过请求配置的 [xhr](/api/config#xhr) 获取原生 RequestTask 对象，进而可以执行下面方法。但是 uni-ajax 已经将这些方法封装，使其方便调用。<Badge type="danger">2.5.0</Badge>
   ```js
   // 通过 xhr 属性获取原生 RequestTask 对象调用
   ajax({

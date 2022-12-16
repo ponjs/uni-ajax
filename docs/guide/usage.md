@@ -34,7 +34,7 @@ ajax(config)
 ajax(url, data, config)
 ```
 
-::: details 传入回调属性参数 <Badge type="danger">2.5.0 废弃</Badge>
+::: details 传入回调属性参数 <Badge type="danger">2.5.0</Badge>
 你也可以传入回调属性参数，但该方式使用率较低，所以在 `2.5.0` 版本已弃用。
 
 ```js
@@ -84,7 +84,7 @@ ajax.delete()
 | onHeadersReceived  | 监听 HTTP Response Header 事件。会比请求完成事件更早，仅 [微信小程序平台][1] 支持 |
 | offHeadersReceived | 取消监听 HTTP Response Header 事件，仅 [微信小程序平台][2] 支持                   |
 
-::: details 在 2.5.0 前面版本，有两种方式：<Badge type="danger">2.5.0 废弃</Badge>
+::: details 请求方法调用或通过 xhr 获取：<Badge type="danger">2.5.0</Badge>
 
 直接调用。这里 request 接收的是封装后的 Promise，并支持 RequestTask 的以上方法。但实际并非真正的 RequestTask 对象。只是封装继承 Promise 并挂载 RequestTask 的同名方法。
 

@@ -70,7 +70,7 @@ declare module '@vue/runtime-core' {
 
 ## 定义类型
 
-我们在请求时或在请求拦截器中是可以自定义属性到拦截器，但是在 TypeScript 中需要定义属性类型。
+我们在请求时或在请求拦截器中是可以自定义属性到拦截器，但是在 TypeScript 中需要定义属性类型。<Badge type="warning">2.4.6</Badge>
 
 ```ts
 declare module 'uni-ajax' {

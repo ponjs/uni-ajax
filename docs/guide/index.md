@@ -22,6 +22,16 @@ uni-ajax 是一款基于 [promise](https://javascript.info/promise-basics) 的�
 - [插件市场](https://ext.dcloud.net.cn/plugin?id=2351)
 - [QQ群 917428107](https://qm.qq.com/cgi-bin/qm/qr?k=a0NaOxj875pQzpGh0MEx5jJPZnKAw_IM&jump_from=webapi) ([Primitive - MDN](https://developer.mozilla.org/zh-CN/docs/Glossary/Primitive))
 
+## 文档说明
+
+这份文档是适用于 `2.3.0` 以上版本，如果您 `uni-ajax` 低于此版本，该文档内容会对应不上，您可查看[更新日志](https://ext.dcloud.net.cn/plugin?id=2351&update_log)查看变更对照。
+
+在文档中您会看到一些版本标记，不同颜色代表不同的意思：
+
+- <Badge type="tip" text="新增" /> 表示在此版本的新增功能
+- <Badge type="warning" text="调整" /> 表示在此版本做了调整
+- <Badge type="danger" text="废弃" /> 表示在此版本已废弃
+
 ## 思考
 
 uni-ajax 是基于 Promise 开发的。自然继承了 Promise 链状结构，我们的发起请求时的配置参数从调用到响应，都是从上至下传递。我们不妨思考一下，不同位置链中的函数都是可以对我们的数据操作，所以这就给我们更多扩展性和灵活性，如传值到拦截器、动态处理请求配置、根据响应结果自定义返回内容。
