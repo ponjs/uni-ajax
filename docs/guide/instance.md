@@ -51,7 +51,7 @@ const instance = ajax.create(() => {
 
 ### 全局配置
 
-`ajax.defaults` <Badge>2.4.1</Badge>
+`ajax.defaults` <Badge text="2.4.1" />
 
 我们上面的创建的请求实例，在应用中可以创建多个，但是它们都是共享着这个全局默认配置。在这个配置中的修改会应用到每个请求实例，但如果你的实例中配置了同样的属性，uni-ajax 取的是实例中属性。
 
@@ -64,7 +64,7 @@ ajax.defaults = { baseURL: 'https://www.example.com/api' }
 
 ### 实例配置
 
-`instance.config` <Badge>2.4.1</Badge>
+`instance.config` <Badge text="2.4.1" />
 
 该属性是获取我们创建实例时所传递的实例配置。如果你在创建实例时传递的对象那么它就是对象类型，反之如果是传递的是函数则它函数类型，与你所创建时的配置相对应。要注意的是它是只读的，你不可对其修改。
 

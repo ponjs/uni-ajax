@@ -35,7 +35,7 @@ import ajax from 'uni-ajax'
 npm init -y
 ```
 
-项目根目录下创建 vue.config.js 文件。因为 uni-ajax 使用了 ES11 的新特性，所以需要通过项目 Babel 显式转译。<Badge>2.4.1</Badge>
+项目根目录下创建 vue.config.js 文件。因为 uni-ajax 使用了 ES11 的新特性，所以需要通过项目 Babel 显式转译。<Badge text="2.4.1" />
 
 ```js
 // vue.config.js

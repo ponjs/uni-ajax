@@ -154,7 +154,7 @@ instance.interceptors.response.use(response => {
 
 ## 移除拦截器
 
-`ajax.interceptors[state].eject(id)` <Badge>2.3.0</Badge>
+`ajax.interceptors[state].eject(id)` <Badge text="2.3.0" />
 
 上面我们添加的拦截器是可以多个点，且根据添加的顺序执行。通过添加拦截器 `use` 方法返回的 id，然后将该 id 传递到 `eject` 方法可移除指定拦截器。
 

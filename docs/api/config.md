@@ -105,7 +105,7 @@
 
 ## query
 
-URL 的 query 参数。会将数据转换为 query string 拼接在 URL 上。<Badge>2.4.2</Badge>
+URL 的 query 参数。会将数据转换为 query string 拼接在 URL 上。<Badge text="2.4.2" />
 
 - 类型：`Object`
 
@@ -121,7 +121,7 @@ URL 的 query 参数。会将数据转换为 query string 拼接在 URL 上。<B
 
 ## params
 
-URL 的 params 参数。会替换掉 URL 上声明的 params 字段。<Badge type="warning">2.4.2</Badge>
+URL 的 params 参数。会替换掉 URL 上声明的 params 字段。<Badge type="warning" text="2.4.2" />
 
 - 类型：`Object`
 
@@ -216,7 +216,7 @@ DNS 解析时优先使用 ipv4。
 
 ## xhr
 
-获取每次请求的 RequestTask 对象。<Badge type="danger">2.5.0</Badge>
+获取每次请求的 RequestTask 对象。<Badge type="danger" text="2.5.0" />
 
 - 类型：`Function`
 
@@ -237,7 +237,7 @@ DNS 解析时优先使用 ipv4。
 
 ## fetcher
 
-该属性需要传递[抓取器实例](/api/#fetcher)，请求方法内部会获取 RequestTask。<Badge>2.5.0</Badge>
+该属性需要传递[抓取器实例](/api/#fetcher)，请求方法内部会获取 RequestTask。<Badge text="2.5.0" />
 
 - 类型: `FetcherInstance`
 
@@ -253,7 +253,7 @@ DNS 解析时优先使用 ipv4。
 
 ## adapter
 
-自定义处理请求。通过该属性可自定义请求方法，有着较强的可扩展性，一旦修改则替换默认的请求方法。该属性类型为函数类型，需返回一个 Promise（参见源码 [`/lib/adapters/http.js`](https://github.com/ponjs/uni-ajax/blob/dev/lib/adapters/http.js) ）。该函数有一个参数 config 每次请求的请求配置。<Badge>2.3.0</Badge>
+自定义处理请求。通过该属性可自定义请求方法，有着较强的可扩展性，一旦修改则替换默认的请求方法。该属性类型为函数类型，需返回一个 Promise（参见源码 [`/lib/adapters/http.js`](https://github.com/ponjs/uni-ajax/blob/dev/lib/adapters/http.js) ）。该函数有一个参数 config 每次请求的请求配置。<Badge text="2.3.0" />
 
 - 类型：`Function`
 
@@ -300,7 +300,7 @@ DNS 解析时优先使用 ipv4。
 
 ## success
 
-收到服务器成功返回的回调函数。**该属性无法在实例配置上定义，只能在请求方法上。**<Badge type="danger">2.5.0</Badge>
+收到服务器成功返回的回调函数。**该属性无法在实例配置上定义，只能在请求方法上。**<Badge type="danger" text="2.5.0" />
 
 - 类型：`Function`
 
@@ -308,7 +308,7 @@ DNS 解析时优先使用 ipv4。
 
 ## fail
 
-接口调用失败的回调函数。**该属性无法在实例配置上定义，只能在请求方法上。**<Badge type="danger">2.5.0</Badge>
+接口调用失败的回调函数。**该属性无法在实例配置上定义，只能在请求方法上。**<Badge type="danger" text="2.5.0" />
 
 - 类型：`Function`
 
@@ -316,7 +316,7 @@ DNS 解析时优先使用 ipv4。
 
 ## complete
 
-接口调用结束的回调函数（调用成功、失败都会执行）。**该属性无法在实例配置上定义，只能在请求方法上。**<Badge type="danger">2.5.0</Badge>
+接口调用结束的回调函数（调用成功、失败都会执行）。**该属性无法在实例配置上定义，只能在请求方法上。**<Badge type="danger" text="2.5.0" />
 
 - 类型：`Function`
 

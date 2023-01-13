@@ -43,7 +43,7 @@ ajax(
 })
 ```
 
-::: details 传入回调属性参数 <Badge type="danger">2.5.0</Badge>
+::: details 传入回调属性参数 <Badge type="danger" text="2.5.0" />
 类型: `Function`
 ```ts
 <T = any, R = AjaxResult<T>>(config?: AjaxCallbackConfig<R>) => Request<void>
@@ -98,7 +98,7 @@ const instance = ajax.create(() => ({
 
 ## config
 
-用于获取实例的配置。该属性的类型取决于你创建实例 [create](/api/#create) 的参数类型。**注意该属性是只读的。**<Badge>2.4.1</Badge>
+用于获取实例的配置。该属性的类型取决于你创建实例 [create](/api/#create) 的参数类型。**注意该属性是只读的。**<Badge text="2.4.1" />
 
 ::: details 类型：`Object | Function | undefined`
 ```ts
@@ -132,7 +132,7 @@ const instance = ajax.create(async () => ({
 
 ## defaults
 
-全局默认配置。你的应用中无论你创建多少个请求实例，都是共享着这个全局默认配置。<Badge>2.4.1</Badge>
+全局默认配置。你的应用中无论你创建多少个请求实例，都是共享着这个全局默认配置。<Badge text="2.4.1" />
 
 ::: details 类型：`Object`
 ```ts
@@ -169,7 +169,7 @@ ajax.defaults = { baseURL: 'https://www.example.com/api' }
 
 ## getURL
 
-根据当前实例获取请求地址。你可以传递一个带有 `baseURL`, `url`, `params`, `query` 这些属性的一个对象或返回该对象的函数，然后根据这些属性生成最终请求地址。<Badge>2.4.1</Badge>
+根据当前实例获取请求地址。你可以传递一个带有 `baseURL`, `url`, `params`, `query` 这些属性的一个对象或返回该对象的函数，然后根据这些属性生成最终请求地址。<Badge text="2.4.1" />
 
 ::: details 类型：`Function`
 ```ts
@@ -215,7 +215,7 @@ interface AjaxInterceptorManager<V> {
 
 使用拦截器。接受两个参数，且这两个参数都是函数类型，并且支持异步。前一个函数参数表示发起请求前/响应成功后，后一个函数参数表示请求前错误/响应失败后。你可以创建多个拦截器，并且执行顺序根据你创建的顺序。
 
-**后一个函数参数必须返回 `Promise.reject` 才能触发 `catch` 请求失败事件。**<Badge type="warning">2.3.0</Badge>
+**后一个函数参数必须返回 `Promise.reject` 才能触发 `catch` 请求失败事件。**<Badge type="warning" text="2.3.0" />
 
 ::: details 类型：`Function`
 ```ts
@@ -251,7 +251,7 @@ ajax.interceptors.response.use(
 
 ### eject
 
-移除拦截器。上面我们通过 `use` 可以创建多个拦截器，如果你稍后需要移除拦截器，可以通过该方法移除。<Badge>2.3.0</Badge>
+移除拦截器。上面我们通过 `use` 可以创建多个拦截器，如果你稍后需要移除拦截器，可以通过该方法移除。<Badge text="2.3.0" />
 
 ::: details 类型：`Function`
 ```ts
@@ -266,7 +266,7 @@ ajax.interceptors.request.eject(myInterceptor)
 
 ## Fetcher
 
-抓取器构造函数。是一个工具构造函数，不含请求相关代码，其内部原理为 Promise 的异处调用。在 `uni-ajax` 中通过 [fetcher](/api/config#fetcher) 属性内部会获取 RequestTask。<Badge>2.5.0</Badge>
+抓取器构造函数。是一个工具构造函数，不含请求相关代码，其内部原理为 Promise 的异处调用。在 `uni-ajax` 中通过 [fetcher](/api/config#fetcher) 属性内部会获取 RequestTask。<Badge text="2.5.0" />
 
 ::: details 类型：`Class`
 ```ts

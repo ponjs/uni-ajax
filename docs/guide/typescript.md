@@ -68,7 +68,7 @@ declare module '@vue/runtime-core' {
 
 ## 定义类型
 
-我们在请求时或在请求拦截器中是可以自定义属性到拦截器，但是在 TypeScript 中需要定义属性类型。<Badge type="warning">2.4.6</Badge>
+我们在请求时或在请求拦截器中是可以自定义属性到拦截器，但是在 TypeScript 中需要定义属性类型。<Badge type="warning" text="2.4.6" />
 
 ```ts
 declare module 'uni-ajax' {
@@ -93,7 +93,7 @@ ajax<never, string>().then(res => {
 })
 ```
 
-响应拦截器[返回自定义内容](/guide/interceptor#响应自定义内容)后，上面的第一个请求方法就不太适应，所以这提供了一个自定义响应的类型，并支持一个泛型参数。<Badge>2.4.6</Badge>
+响应拦截器[返回自定义内容](/guide/interceptor#响应自定义内容)后，上面的第一个请求方法就不太适应，所以这提供了一个自定义响应的类型，并支持一个泛型参数。<Badge text="2.4.6" />
 
 ```ts
 declare module 'uni-ajax' {

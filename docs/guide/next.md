@@ -1,4 +1,4 @@
-# Next 版本 <Badge>2.5.0-next</Badge>
+# Next 版本 <Badge text="2.5.0-next" />
 
 该版本精简了很多代码，体积更小，性能提升 `28%` ！因此在使用上有所调整，主要是中断请求方法。
 
@@ -17,14 +17,14 @@ npm install uni-ajax@next
 
 ## 调整中断请求方法
 
-在常规版本中，我们实现中断请求方式如下，该方式实现是通过继承 `Promise` 来扩展。<Badge type="danger">废弃</Badge>
+在常规版本中，我们实现中断请求方式如下，该方式实现是通过继承 `Promise` 来扩展。<Badge type="danger" text="废弃" />
 
 ```js
 const request = ajax()
 request.abort() 
 ```
 
-又或者通过获取 `RequestTask` 对象来中断。<Badge type="danger">废弃</Badge>
+又或者通过获取 `RequestTask` 对象来中断。<Badge type="danger" text="废弃" />
 
 ```js
 ajax({
