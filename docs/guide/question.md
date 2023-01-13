@@ -97,13 +97,10 @@ instance()
 
 当 Token 过期的时候，做到用户无感知刷新 Token，避免频繁登录。在响应拦截器中拦截判断当前请求的接口是否已经 Token 过期，如果过期则请求刷新 Token 接口更新，然后再自动将原来请求接口重新请求一遍。
 
-```js
-import ajax from 'uni-ajax'
+:::  code-group
 
-// 创建实例
-const instance = ajax.create({
-  baseURL: 'https://www.example.com/api'
-})
+```js [refresh.js]
+import request from './ajax'
 
 let isRefreshing = false  // 当前是否在请求刷新 Token
 let requestQueue = []     // 将在请求刷新 Token 中的请求暂存起来，等刷新 Token 后再重新请求
@@ -121,11 +118,11 @@ const executeQueue = error => {
   requestQueue = []
 }
 
-// 刷新 Token 请求
-const refreshToken = () => instance.post('/oauth/token')
+// 获取 Token 请求
+const getToken = () => request.post('/oauth/token')
 
 // 刷新 Token 请求处理，参数为刷新成功后的回调函数
-const refreshTokenHandler = afresh => {
+const refreshToken = afresh => {
   // 如果当前是在请求刷新 Token 中，则将期间的请求暂存起来
   if (isRefreshing) {
     return new Promise((resolve, reject) => {
@@ -136,7 +133,7 @@ const refreshTokenHandler = afresh => {
   isRefreshing = true
 
   return new Promise((resolve, reject) => {
-    refreshToken()
+    getToken()
       // 假设请求成功接口返回的 code === 200 为刷新成功，其他情况都是刷新失败
       .then(res => (res.data.code === 200 ? res : Promise.reject(res)))
       .then(res => {
@@ -155,6 +152,18 @@ const refreshTokenHandler = afresh => {
   })
 }
 
+export default refreshToken
+```
+
+```js [ajax.js]
+import ajax from 'uni-ajax'
+import refreshToken from './refresh'
+
+// 创建实例
+const instance = ajax.create({
+  baseURL: 'https://www.example.com/api'
+})
+
 // 添加请求拦截器
 instance.interceptors.request.use(config => {
   // 给每条请求赋值 Token 请求头
@@ -167,7 +176,7 @@ instance.interceptors.response.use(
   response => {
     // 假设接口返回的 code === 401 时则需要刷新 Token
     if (response.data.code === 401) {
-      return refreshTokenHandler(() => instance(response.config))
+      return refreshToken(() => instance(response.config))
     }
 
     return response
@@ -176,13 +185,19 @@ instance.interceptors.response.use(
     return Promise.reject(error)
   }
 )
+
+export default instance
 ```
+
+:::
 
 ## 配置全局请求加载
 
 若要实现每个请求默认有 `loading` 效果，可以通过拦截器并搭配[自定义配置](/guide/interceptor#拦截器传值)实现。
 
-```js
+:::  code-group
+
+```js [loading.js]
 class Loading {
   times = 0
   timer = null
@@ -213,20 +228,21 @@ class Loading {
   }
 }
 
-const loading = new Loading()
+export default Loading
+```
+
+```js [ajax.js]
+import ajax from 'uni-ajax'
+import Loading from './loading'
 
 const instance = ajax.create({/***/})
+const loading = new Loading()
 
 // 请求拦截器
-instance.interceptors.request.use(
-  config => {
-    loading.show(config.loading)
-    return config
-  },
-  error => {
-    return Promise.reject(error)
-  }
-)
+instance.interceptors.request.use(config => {
+  loading.show(config.loading)
+  return config
+})
 
 // 响应拦截器
 instance.interceptors.response.use(
@@ -244,7 +260,9 @@ instance({ loading: '登录中' }) // 当前请求自定义加载文字
 instance({ loading: false }) // 当前请求不显示加载
 ```
 
-如果是 Typescript 的话是需要定义[配置属性类型](/guide/typescript#定义类型)。
+:::
+
+如果是 Typescript 的话还需要定义[配置属性类型](/guide/typescript#定义类型)。
 
 ```ts
 declare module 'uni-ajax' {
