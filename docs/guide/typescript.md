@@ -8,9 +8,9 @@
 
 这里的项目配置指的是将创建好的请求实例挂载在全局上，如果你不想这么做也可以略过下面挂载步骤。
 
-```ts
-// ajax.ts
+:::  code-group
 
+```ts [ajax.ts]
 import ajax from 'uni-ajax'
 
 const instance = ajax.create()
@@ -21,9 +21,7 @@ const instance = ajax.create()
 export default instance
 ```
 
-```ts
-// main.ts
-
+```ts [main.ts]
 import ajax from './services/ajax'
 
 uni.$ajax = ajax // nvue
@@ -31,9 +29,7 @@ Vue.prototype.$ajax = ajax // Vue2
 app.config.globalProperties.$ajax = ajax // Vue3 (Options API)
 ```
 
-```ts
-// sfc.d.ts
-
+```ts [sfc.d.ts]
 import type { AjaxInstance, AjaxRequestConfig } from 'uni-ajax'
 
 // 这里泛型是创建实例所传的参数类型
@@ -67,6 +63,8 @@ declare module '@vue/runtime-core' {
   }
 }
 ```
+
+:::
 
 ## 定义类型
 

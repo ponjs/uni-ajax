@@ -1,6 +1,7 @@
 .DS_Store
 node_modules
 dist
+cache
 unpackage
 **/u-ajax/*
 !**/u-ajax/package.json

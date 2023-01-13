@@ -40,7 +40,6 @@ ajax({
 import ajax, { Fetcher } from 'uni-ajax'
 
 const fetcher = new Fetcher()
-
 ajax({ fetcher })
 
 fetcher.abort() // 中断请求（Fetcher 只封装了 abort 方法，其他请使用 source 获取使用）
