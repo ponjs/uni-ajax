@@ -36,4 +36,4 @@ uni-ajax 是一款基于 [promise](https://javascript.info/promise-basics) 的�
 
 uni-ajax 是基于 Promise 开发的。自然继承了 Promise 链状结构，我们的发起请求时的配置参数从调用到响应，都是从上至下传递。我们不妨思考一下，不同位置链中的函数都是可以对我们的数据操作，所以这就给我们更多扩展性和灵活性，如传值到拦截器、动态处理请求配置、根据响应结果自定义返回内容。
 
-<img src="./schematic.svg" width="768px" />
+![schematic](./schematic.svg)
