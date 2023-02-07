@@ -25,6 +25,14 @@ export default defineConfig({
     ['meta', { name: 'keywords', content: 'uni-ajax, u-ajax, uni-app, request, ajax, http' }],
     [
       'script',
+      {
+        async: 'async',
+        src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6275273053223414',
+        crossorigin: 'anonymous'
+      }
+    ],
+    [
+      'script',
       {},
       `var _hmt = _hmt || [];
       (function() {
