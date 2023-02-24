@@ -39,6 +39,7 @@ npm init -y
 
 ```js
 // vue.config.js
+// 如果是 vue3 + vite, 无需添加配置
 
 module.exports = {
   transpileDependencies: ['uni-ajax']
