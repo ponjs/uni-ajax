@@ -286,16 +286,15 @@ DNS 解析时优先使用 ipv4。
     }
   })
 
+  // 建议根据实际情况封成上传方法调用
+  export const upload = config =>
+    instance({ name: 'file', ...config, method: 'UPLOAD' })
+
+  // 可以传入 fetcher 以获取 uploadTask
   const fetcher = new Fetcher()
   fetcher.source().then(uploadTask => {/***/})
 
-  instance({
-    method: 'UPLOAD',
-    url: '/upload',
-    name: 'file',
-    filePath,
-    fetcher
-  })
+  upload({ url: '/upload', filePath, fetcher })
   ```
 
 ## success
