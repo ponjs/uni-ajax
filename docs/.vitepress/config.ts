@@ -1,6 +1,8 @@
 import { defineConfig } from 'vitepress'
+import { createWriteStream } from 'node:fs'
+import { resolve } from 'node:path'
+import { SitemapStream } from 'sitemap'
 import { version } from '../../package.json'
-import { generateSitemap } from 'sitemap-ts'
 
 const DCloudSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="153" height="153" viewBox="0 0 153 153">
 <title>DCloud</title>
@@ -8,17 +10,28 @@ const DCloudSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="153" height="1
 </svg>
 `
 
+const links: { url: string; lastmod?: number }[] = []
+
 export default defineConfig({
   lang: 'zh-CN',
   title: 'UNI-AJAX',
   description: '🎐 基于 promise 的轻量级 uni-app 网络请求库',
   lastUpdated: true,
   cleanUrls: 'with-subfolders',
+  transformHtml: (_, id, { pageData }) => {
+    if (!/[\\/]404\.html$/.test(id))
+      links.push({
+        // you might need to change this if not using clean urls mode
+        url: pageData.relativePath.replace(/((^|\/)index)?\.md$/, '$2'),
+        lastmod: pageData.lastUpdated
+      })
+  },
   buildEnd: ({ outDir }) => {
-    generateSitemap({
-      outDir,
-      hostname: 'https://uniajax.ponjs.com/'
-    })
+    const sitemap = new SitemapStream({ hostname: 'https://uniajax.ponjs.com/' })
+    const writeStream = createWriteStream(resolve(outDir, 'sitemap.xml'))
+    sitemap.pipe(writeStream)
+    links.forEach(link => sitemap.write(link))
+    sitemap.end()
   },
   head: [
     ['link', { rel: 'shortcut icon', type: 'image/x-icon', href: '/favicon.ico' }],
@@ -38,7 +51,7 @@ export default defineConfig({
       (function() {
         var hm = document.createElement("script");
         hm.src = "https://hm.baidu.com/hm.js?2c116e47cf85987bca030b54fdc4a8d6";
-        var s = document.getElementsByTagName("script")[0]; 
+        var s = document.getElementsByTagName("script")[0];
         s.parentNode.insertBefore(hm, s);
       })();`
     ]
