@@ -83,6 +83,11 @@ export default defineConfig({
         activeMatch: '/api/'
       },
       {
+        text: 'Sponsor',
+        link: '/sponsor/',
+        activeMatch: '/sponsor/'
+      },
+      {
         text: 'Playground',
         link: 'https://stackblitz.com/edit/uni-ajax-sfc'
       },

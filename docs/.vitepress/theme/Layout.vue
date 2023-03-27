@@ -11,7 +11,7 @@ const route = useRoute()
 <template>
   <Layout>
     <template #doc-after>
-      <Adsense :key="route.path" style="margin-top: 24px">
+      <Adsense v-if="!route.path.startsWith('/sponsor')" :key="route.path" style="margin-top: 24px">
         <ins
           class="adsbygoogle"
           style="display: block"
