@@ -122,12 +122,12 @@ const executeQueue = error => {
 const getToken = () => request.post('/oauth/token')
 
 // 刷新 Token 请求处理，参数为刷新成功后的回调函数
-const refreshToken = afresh => {
+const refreshToken = () => {
   // 如果当前是在请求刷新 Token 中，则将期间的请求暂存起来
   if (isRefreshing) {
     return new Promise((resolve, reject) => {
       requestQueue.push({ resolve, reject })
-    }).then(afresh)
+    })
   }
 
   isRefreshing = true
@@ -138,13 +138,13 @@ const refreshToken = afresh => {
       .then(res => (res.data.code === 200 ? res : Promise.reject(res)))
       .then(res => {
         uni.setStorageSync('TOKEN', res.data.data)
-        resolve(afresh?.())
+        resolve()
         executeQueue(null)
       })
       .catch(err => {
         uni.removeStorageSync('TOKEN')
         reject(err)
-        executeQueue(err)
+        executeQueue(err || new Error('Refresh token error'))
       })
       .finally(() => {
         isRefreshing = false
@@ -176,7 +176,7 @@ instance.interceptors.response.use(
   response => {
     // 假设接口返回的 code === 401 时则需要刷新 Token
     if (response.data.code === 401) {
-      return refreshToken(() => instance(response.config))
+      return refreshToken().then(() => instance(response.config))
     }
 
     return response
