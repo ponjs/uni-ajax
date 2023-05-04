@@ -43,10 +43,8 @@
     "eslint-plugin-prettier": "^4.2.1",
     "fs-extra": "^11.1.0",
     "prettier": "^2.8.0",
+    "sitemap": "^7.1.1",
     "vitepress": "^1.0.0-alpha.36",
     "vue": "^3.2.45"
-  },
-  "dependencies": {
-    "sitemap": "^7.1.1"
   }
 }
