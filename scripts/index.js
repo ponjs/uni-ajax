@@ -3,7 +3,6 @@ const fs = require('fs-extra')
 const { resolve } = require('path')
 const { ESLint } = require('eslint')
 const { bold, dim, green, red } = require('colorette')
-const { logWithSpinner, stopSpinner } = require('@vue/cli-shared-utils')
 const { include, outDir } = require('./config')
 
 const cwd = process.cwd()
@@ -40,8 +39,8 @@ async function run(path = include) {
 
 async function build() {
   const start = Date.now()
-
-  logWithSpinner(dim('Code compiling...\n'))
+  const ora = await import('ora').then(m => m.default)
+  const spinner = ora(dim('Code compiling...\n')).start()
 
   await run()
   await copy({ files: ['README.md'] })
@@ -54,16 +53,16 @@ async function build() {
   json.version = require(resolve(cwd, 'package.json')).version
   await fs.outputJSON(file, json, { spaces: 2 })
 
-  stopSpinner(false)
+  spinner.stop()
 
   const time = ((Date.now() - start) / 1000).toFixed(2)
-  console.log(`🎉  ${green(`Build complete in ${time}s.`)}`)
+  console.log(`🎉 ${green(`Build complete in ${time}s.`)}`)
 }
 
 async function watch() {
   const listener = path => {
     console.clear()
-    console.log(`🚀  ${dim('Waiting for changes...')}`)
+    console.log(`🚀 ${dim('Waiting for changes...')}`)
     return run(path).catch(() => {})
   }
 
