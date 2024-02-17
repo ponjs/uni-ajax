@@ -1,18 +1,20 @@
 const chokidar = require('chokidar')
 const fs = require('fs-extra')
-const { join } = require('path')
+const { resolve } = require('path')
 const { ESLint } = require('eslint')
 const { bold, dim, green, red } = require('colorette')
 const { logWithSpinner, stopSpinner } = require('@vue/cli-shared-utils')
-const { include, exclude } = require('./config')
+const { include, outDir } = require('./config')
 
 const cwd = process.cwd()
-function copy({ src = '', dest = '', files = [] }) {
+function copy({ dest = '', files = [] }) {
   return Promise.all(
     files.map(file => {
-      const _src = join(cwd, src, file)
-      const _dest = join(exclude, dest, file)
-      return fs.copy(_src, _dest).catch(() => {})
+      if (file && typeof file === 'string') {
+        const _src = resolve(cwd, file)
+        const _dest = resolve(cwd, outDir, dest, file)
+        return fs.copy(_src, _dest).catch(() => {})
+      }
     })
   )
 }
@@ -31,8 +33,9 @@ async function lint(patterns) {
 }
 
 async function run(path = include) {
-  typeof path === 'string' ? await lint(path) : await Promise.all(path.map(lint))
-  await copy({ dest: 'js_sdk', files: include })
+  const files = Array.isArray(path) ? path : [path]
+  await Promise.all(files.map(lint))
+  await copy({ dest: 'js_sdk', files })
 }
 
 async function build() {
@@ -43,12 +46,12 @@ async function build() {
   await run()
   await copy({ files: ['README.md'] })
 
-  const file = join(exclude, 'package.json')
+  const file = resolve(cwd, outDir, 'package.json')
   const json = await fs.readJSON(file).catch(error => {
     console.log(`\n${bold(red(error.message))}\n`)
     return Promise.reject(error)
   })
-  json.version = require(join(cwd, 'package.json')).version
+  json.version = require(resolve(cwd, 'package.json')).version
   await fs.outputJSON(file, json, { spaces: 2 })
 
   stopSpinner(false)
