@@ -101,7 +101,7 @@ export default defineConfig({
         {
           text: '进阶',
           items: [
-            { text: 'Typescript', link: '/guide/typescript' },
+            { text: 'TypeScript', link: '/guide/typescript' },
             { text: 'FAQ', link: '/guide/question' }
           ]
         }

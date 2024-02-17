@@ -1,5 +1,9 @@
 # 请求配置
 
+这里 uni-ajax 的请求配置与 uni.request 一致，下面这些配置项为 uni-ajax 所用到的，其他配置项请参考 [uni.request](https://uniapp.dcloud.net.cn/api/request/request.html)。
+
+如果你使用的 TypeScript 的话可能出现属性没定义的提示，那是因为该属性为 uni.request 后续新增的，你可以通过 [CustomConfig](https://uniajax.ponjs.com/guide/typescript#定义类型) 来拓展它。
+
 ## baseURL
 
 请求根地址。自动拼接在 url 前面，除非 url 是一个绝对地址 (http 或 https 开头)。
@@ -18,26 +22,6 @@
   // url 为绝对地址时则忽略 baseURL，最终发起请求的 url 为 https://www.uniajax.com/api/test
   instance('https://www.uniajax.com/api/test')
   ```
-
-## url
-
-开发者服务器接口地址。可以是绝对地址或基于根地址的路径。
-
-- 类型：`String`
-
-## data
-
-请求的参数。
-
-- 类型：`Object | String | ArrayBuffer`
-
-- 平台差异：App（自定义组件编译模式）不支持 ArrayBuffer 类型
-
-- 数据说明：最终发送给服务器的数据是 String 类型，如果传入的 data 不是 String 类型，会被转换成 String。转换规则如下：
-
-  - 对于 `GET` 方法，会将数据转换为 `query string`。例如 `{ name: 'name', age: 18 }` 转换后的结果是 `name=name&age=18`。
-  - 对于 `POST` 方法且 `header['content-type']` 为 `application/json` 的数据，会进行 JSON 序列化。
-  - 对于 `POST` 方法且 `header['content-type']` 为 `application/x-www-form-urlencoded` 的数据，会将数据转换为 query string。
 
 ## header
 
@@ -85,24 +69,6 @@
   })
   ```
 
-## method
-
-请求方式。在实例中配置可定义 `ajax()` 方法在没有传入指定的 method 的情况下的请求方式。
-
-- 类型：`String`
-
-- 默认值：GET
-
-- 示例：
-
-  ```js
-  // 创建实例
-  const instance = ajax.create({ method: 'post' })
-
-  // 发起请求
-  instance()  // 这里没有传入指定的 method，则以默认配置的 method，这里即 POST
-  ```
-
 ## query
 
 URL 的 query 参数。会将数据转换为 query string 拼接在 URL 上。<Badge text="2.4.2" />
@@ -136,64 +102,6 @@ URL 的 params 参数。会替换掉 URL 上声明的 params 字段。<Badge typ
     params: { type: 'text' }
   })
   ```
-
-## timeout
-
-超时时间。单位 ms。
-
-- 类型：`Number`
-
-- 默认值：60000
-
-- 平台差异：H5(HBuilderX 2.9.9+)、APP(HBuilderX 2.9.9+)、微信小程序(2.10.0)、支付宝小程序
-
-## dataType
-
-返回数据类型。如果设为 json，会尝试对返回的数据做一次 JSON.parse。
-
-- 类型：`String`
-
-- 默认值：json
-
-## responseType
-
-响应的数据类型。
-
-- 类型：`'text' ｜ 'arraybuffer'`
-
-- 默认值：text
-
-- 平台差异：支付宝小程序不支持
-
-## sslVerify
-
-是否验证 ssl 证书。
-
-- 类型：`Boolean`
-
-- 默认值：true
-
-- 平台差异：仅 App 安卓端支持（HBuilderX 2.3.3+）
-
-## withCredentials
-
-跨域请求时是否携带凭证（cookies）。
-
-- 类型：`Boolean`
-
-- 默认值：false
-
-- 平台差异：仅 H5 支持（HBuilderX 2.6.15+）
-
-## firstIpv4
-
-DNS 解析时优先使用 ipv4。
-
-- 类型：`Boolean`
-
-- 默认值：false
-
-- 平台差异：仅 App-Android 支持 (HBuilderX 2.8.0+)
 
 ## validateStatus
 

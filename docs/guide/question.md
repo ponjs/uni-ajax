@@ -262,7 +262,7 @@ instance({ loading: false }) // 当前请求不显示加载
 
 :::
 
-如果是 Typescript 的话还需要定义[配置属性类型](/guide/typescript#定义类型)。
+如果是 TypeScript 的话还需要定义[配置属性类型](/guide/typescript#定义类型)。
 
 ```ts
 declare module 'uni-ajax' {

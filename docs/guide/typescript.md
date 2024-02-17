@@ -2,7 +2,7 @@
 
 像 TypeScript 这样的类型系统可以在编译时通过静态分析检测出很多常见错误。通过 IDE 中基于类型的自动补全，TypeScript 还改善了开发体验和效率。
 
-如果要使用 Typescript 开发，则不能用[HBuilderX](https://uniapp.dcloud.net.cn/quickstart-hx.html)直接创建项目，而应该使用[脚手架](https://uniapp.dcloud.net.cn/quickstart-cli.html)创建。对于不太了解 TypeScript 的同学可以查看[深入理解 TypeScript](https://jkchao.github.io/typescript-book-chinese/)，我也是更推荐大家使用 Typescript 去开发项目。
+如果要使用 TypeScript 开发，则不能用[HBuilderX](https://uniapp.dcloud.net.cn/quickstart-hx.html)直接创建项目，而应该使用[脚手架](https://uniapp.dcloud.net.cn/quickstart-cli.html)创建。对于不太了解 TypeScript 的同学可以查看[深入理解 TypeScript](https://jkchao.github.io/typescript-book-chinese/)，我也是更推荐大家使用 TypeScript 去开发项目。
 
 ## 项目配置
 

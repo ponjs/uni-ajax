@@ -1,7 +1,7 @@
 ## ✨ 特性
 
 - 支持 Promise API
-- 支持 Typescript 开发
+- 支持 TypeScript 开发
 - 拦截请求和响应
 - 自定义配置请求实例
 - 多种 Method 方法请求
