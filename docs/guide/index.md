@@ -46,4 +46,10 @@ Promise.resolve(0)
 ```
 :::
 
-![schematic](./schematic.svg)
+<img class="schematic" src="/guide/schematic.svg" alt="schematic">
+
+<style> 
+.dark .schematic {
+  filter: invert(0.8898);
+}
+</style>
