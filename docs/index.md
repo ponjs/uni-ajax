@@ -27,20 +27,3 @@ features:
     title: 灵活开发
     details: 支持创建请求实例和拦截器，让配置灵活传递于发起请求到响应结果
 ---
-
-<style>
-:root {
-  --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #39be68 30%, #fa9d58);
-  --vp-home-hero-image-background-image: linear-gradient(-45deg, #39be68 50%, #ff8570 50%);
-  --vp-home-hero-image-filter: blur(56px);
-}
-
-.VPHero.has-image.VPHomeHero .container {
-  gap: 16px;
-}
-
-.VPHero.has-image.VPHomeHero .VPImage {
-  zoom: 0.72;
-}
-</style>
