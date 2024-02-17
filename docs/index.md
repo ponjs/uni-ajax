@@ -11,10 +11,10 @@ hero:
     alt: uni-ajax
   actions:
     - theme: brand
-      text: Get Started
+      text: 快速开始
       link: /guide/
     - theme: alt
-      text: View on GitHub
+      text: 在 GitHub 上查看
       link: https://github.com/ponjs/uni-ajax
 features:
   - icon: 📦
