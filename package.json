@@ -36,13 +36,13 @@
     "@babel/core": "^7.20.5",
     "@babel/eslint-parser": "^7.19.1",
     "chokidar": "^3.5.3",
-    "colorette": "^2.0.19",
+    "colorette": "^2.0.20",
     "eslint": "^8.28.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "fs-extra": "^11.1.0",
+    "fs-extra": "^11.2.0",
     "ora": "^8.0.1",
     "prettier": "^2.8.0",
-    "vitepress": "^1.0.0-rc.42"
+    "vitepress": "^1.0.0-rc.43"
   }
 }
