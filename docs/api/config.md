@@ -2,7 +2,7 @@
 
 这里 uni-ajax 的请求配置与 uni.request 一致，下面这些配置项为 uni-ajax 所用到的，其他配置项请参考 [uni.request](https://uniapp.dcloud.net.cn/api/request/request.html)。
 
-如果你使用的 TypeScript 的话可能出现属性没定义的提示，那是因为该属性为 uni.request 后续新增的，你可以通过 [CustomConfig](https://uniajax.ponjs.com/guide/typescript#定义类型) 来拓展它。
+如果你使用的 TypeScript 的话可能出现属性没定义的提示，那是因为该属性为 uni.request 后续新增的，你可以通过 [CustomConfig](/guide/typescript#定义类型) 来拓展它。
 
 ## baseURL
 
