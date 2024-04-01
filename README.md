@@ -32,7 +32,7 @@ npm update uni-ajax
 
 ## 🥐 实例
 
-新建 `ajax.js` 文件（文件名可自定义）用于处理拦截器、接口根地址、默认配置等，详细配置请[查看文档](https://uniajax.ponjs.com/instance/create.html)
+新建 `ajax.js` 文件（文件名可自定义）用于处理拦截器、接口根地址、默认配置等，详细配置请[查看文档](https://uniajax.ponjs.com/guide/instance#创建实例)
 
 ```JavaScript
 // ajax.js
