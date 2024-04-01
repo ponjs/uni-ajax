@@ -43,6 +43,6 @@
     "fs-extra": "^11.2.0",
     "ora": "^8.0.1",
     "prettier": "^2.8.0",
-    "vitepress": "^1.0.0-rc.43"
+    "vitepress": "^1.0.2"
   }
 }
