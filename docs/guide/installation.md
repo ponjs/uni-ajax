@@ -16,13 +16,21 @@ import ajax from '@/uni_modules/u-ajax'
 
 在项目开发中更推荐使用 npm 安装。
 
-```bash
-# 安装
-npm install uni-ajax
+::: code-group
 
-# 更新
-npm update uni-ajax
+```bash [npm]
+npm install uni-ajax
 ```
+
+```bash [yarn]
+yarn add uni-ajax
+```
+
+```bash [pnpm]
+pnpm add uni-ajax
+```
+
+:::
 
 ```js
 // 引入

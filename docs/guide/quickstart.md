@@ -4,13 +4,9 @@
 
 前面我们已经介绍了如何[安装](/guide/installation#npm)，接下来我带你从创建请求实例到发起请求的简单入门。
 
-```bash
-npm install uni-ajax
-```
-
 ## 创建实例
 
-新建 `ajax.js` 文件（文件名可自定义）用于处理拦截器、接口根地址、默认配置等。如果想深入了解请求实例，可通过后面的文档查看详细内容。
+新建 ajax.js 文件（文件名可自定义）用于处理拦截器、接口根地址、默认配置等。如果想深入了解请求实例，可通过后面的文档查看详细内容。
 
 ```js
 // ajax.js
@@ -52,9 +48,25 @@ instance.interceptors.response.use(
 export default instance
 ```
 
-## 挂载实例（可选）
+## 发起请求
 
-这一步是将创建好的请求实例挂载在 Vue 实例全局属性上，即可方便地调用请求方法。但在 Vue3 中使用 `Composition API`，更多的是通过引入上面的文件调用。
+导入上面创建好的请求实例即可发起请求。
+
+```js
+import ajax from '@/services/ajax'  // 路径需根据项目实际情况
+
+// GET 请求 https://www.example.com/api/demo 接口
+ajax('demo')
+
+// 你也可以下面这样使用
+ajax({ url: 'demo' })
+ajax.get('demo')
+ajax.get({ url: 'demo' })
+```
+
+::: details 通过挂载全局方式调用（Vue2 / nvue）
+
+在 Vue2 我们常将创建好的请求实例挂载在 Vue 实例全局属性上，即可方便地调用请求方法。
 
 ```js
 // main.js
@@ -64,18 +76,12 @@ import ajax from '@/services/ajax' // 路径需根据项目实际情况
 // Vue2：挂载在 Vue 原型链上，则通过 this.$ajax 调用
 Vue.prototype.$ajax = ajax
 
-// Vue3 (Options API)：挂载在当前应用上（app 为 createSSRApp 后的应用），也是通过 this.$ajax 调用
-// 我们在写 Vue3 时更推荐用 Composition API，即不挂载在实例上
-app.config.globalProperties.$ajax = ajax
-
 // 如果你在项目中有用到 nvue 页面，是无法通过 this.$ajax 调用
 // 需要将请求方法添加到 uni 对象上，然后通过 uni.$ajax 调用
 uni.$ajax = ajax
 ```
 
-## 发起请求
-
-上面我们已经挂载在 Vue 实例全局属性上，则无需引入上面创建的 `ajax.js` 文件，便可通过 `this.$ajax` 在页面中调用发起请求。
+通过 `this.$ajax` 在页面中调用发起请求。
 
 ```js
 // GET 请求 https://www.example.com/api/demo 接口
@@ -87,10 +93,6 @@ this.$ajax.get('demo')
 this.$ajax.get({ url: 'demo' })
 ```
 
-如果你没有挂载实例也是可以通过引入的方式调用，使用方法都是一样的。
+但在 Vue3 中使用 `Composition API`，更多的是通过引入请求实例来调用。
 
-```js
-import ajax from '@/services/ajax'  // 路径需根据项目实际情况
-
-ajax('demo')
-```
+:::
