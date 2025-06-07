@@ -159,6 +159,21 @@ URL 的 params 参数。会替换掉 URL 上声明的 params 字段。
   fetcher.source()
   ```
 
+## signal <Badge text="2.6.0" />
+
+可用于取消请求，详情查看[文档](/guide/usage#取消请求)。
+
+- 类型: `AbortSignal`
+
+- 示例：
+
+  ```js
+  const controller = new AbortController()
+  ajax({ signal: controller.signal })
+
+  controller.abort()
+  ```
+
 ## adapter <Badge text="2.3.0" />
 
 自定义处理请求。通过该属性可自定义请求方法，有着较强的可扩展性，一旦修改则替换默认的请求方法。该属性类型为函数类型，需返回一个 Promise（参见源码 [`/lib/adapters/http.js`](https://github.com/ponjs/uni-ajax/blob/dev/lib/adapters/http.js) ）。该函数有一个参数 config 每次请求的请求配置。
