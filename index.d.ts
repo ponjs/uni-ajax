@@ -11,17 +11,6 @@ export interface RequestTask {
   offHeadersReceived?: (listener: (header: any) => void) => void
 }
 
-export interface FetcherInstance<T = any> {
-  resolve: (value: T) => void
-  reject: (reason?: any) => void
-  source: () => Promise<T>
-  abort: () => Promise<void>
-}
-
-export interface FetcherConstructor {
-  new <T = RequestTask>(): FetcherInstance<T>
-}
-
 export interface CustomConfig {}
 
 export interface AjaxRequestConfig extends CustomConfig {
@@ -38,7 +27,7 @@ export interface AjaxRequestConfig extends CustomConfig {
   sslVerify?: boolean
   withCredentials?: boolean
   firstIpv4?: boolean
-  fetcher?: FetcherInstance
+  signal?: AbortSignal
   validateStatus?: ((statusCode?: number) => boolean) | null
   adapter?: (config: AjaxRequestConfig) => Promise<any>
 }
@@ -92,12 +81,8 @@ export interface AjaxInstance<T extends AjaxConfigType> extends AjaxInvoke {
 
 export interface AjaxStatic extends AjaxInstance<void> {
   create<T extends AjaxConfigType = void>(config?: T): AjaxInstance<T>
-  Fetcher: FetcherConstructor
 }
 
 declare const Ajax: AjaxStatic
-declare const Fetcher: FetcherConstructor
-
-export { Fetcher }
 
 export default Ajax
