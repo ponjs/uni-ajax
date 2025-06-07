@@ -6,14 +6,13 @@
 
 import { ref } from 'vue'
 import { onReady } from '@dcloudio/uni-app'
-import { Fetcher } from '@/uni_modules/u-ajax'
 
 /** 配置的接口根地址 */
 const baseURL = ref('')
 /** 请求服务端返回的结果 */
 const result = ref('...')
-/** 请求任务抓取器 */
-const fetcher = ref(null)
+/** 取消请求控制器器 */
+const controller = new AbortController()
 
 /** 获取接口根地址 */
 const getBaseURL = async () => {
@@ -28,15 +27,9 @@ const getBaseURL = async () => {
 
 /** 发起请求 */
 const request = () => {
-  // 如果连续点击发起请求，可以先中断前面的请求，再发起新的请求
-  // abort()
-
-  // 每次请求都要创建一个实例，这样才能保证下面中断的请求是最新的
-  fetcher.value = new Fetcher()
-
   // 这里通过 Promise 链式，将请求成功或失败的结果都 JSON.stringify
   uni
-    .$ajax('api.do', { api: 'mtop.common.getTimestamp' }, { fetcher: fetcher.value })
+    .$ajax('api.do', { api: 'mtop.common.getTimestamp' }, { signal: controller.signal })
     .then(({ data }) => data)
     .catch(({ config, ...error }) => error)
     .then(res => {
@@ -48,13 +41,7 @@ const request = () => {
 const abort = () => {
   // 您可以通过 chrome 调试，打开 Network，将网络状态改为 Slow 3G
   // 然后发起请求后立即点击取消请求方便查看效果
-  fetcher.value?.abort()
-}
-
-/** 获取请求任务对象 */
-const getRequestTask = async () => {
-  const requestTask = await fetcher.value?.source()
-  console.log(requestTask)
+  controller.abort()
 }
 
 const guideRef = ref(null)
