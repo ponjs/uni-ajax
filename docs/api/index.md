@@ -96,9 +96,9 @@ const instance = ajax.create(() => ({
 }))
 ```
 
-## config
+## config <Badge text="2.4.1" />
 
-用于获取实例的配置。该属性的类型取决于你创建实例 [create](/api/#create) 的参数类型。**注意该属性是只读的。**<Badge text="2.4.1" />
+用于获取实例的配置。该属性的类型取决于你创建实例 [create](/api/#create) 的参数类型。**注意该属性是只读的。**
 
 ::: details 类型：`Object | Function | undefined`
 ```ts
@@ -130,9 +130,9 @@ const instance = ajax.create(async () => ({
 ;(await instance.config()).baseURL  // 调用异步函数实例配置获取 baseURL
 ```
 
-## defaults
+## defaults <Badge text="2.4.1" />
 
-全局默认配置。你的应用中无论你创建多少个请求实例，都是共享着这个全局默认配置。<Badge text="2.4.1" />
+全局默认配置。你的应用中无论你创建多少个请求实例，都是共享着这个全局默认配置。
 
 ::: details 类型：`Object`
 ```ts
@@ -167,9 +167,9 @@ ajax.defaults.baseURL = 'https://www.example.com/api'
 ajax.defaults = { baseURL: 'https://www.example.com/api' }
 ```
 
-## getURL
+## getURL <Badge text="2.4.1" />
 
-根据当前实例获取请求地址。你可以传递一个带有 `baseURL`, `url`, `params`, `query` 这些属性的一个对象或返回该对象的函数，然后根据这些属性生成最终请求地址。<Badge text="2.4.1" />
+根据当前实例获取请求地址。你可以传递一个带有 `baseURL`, `url`, `params`, `query` 这些属性的一个对象或返回该对象的函数，然后根据这些属性生成最终请求地址。
 
 ::: details 类型：`Function`
 ```ts
@@ -249,9 +249,9 @@ ajax.interceptors.response.use(
 )
 ```
 
-### eject
+### eject <Badge text="2.3.0" />
 
-移除拦截器。上面我们通过 `use` 可以创建多个拦截器，如果你稍后需要移除拦截器，可以通过该方法移除。<Badge text="2.3.0" />
+移除拦截器。上面我们通过 `use` 可以创建多个拦截器，如果你稍后需要移除拦截器，可以通过该方法移除。
 
 ::: details 类型：`Function`
 ```ts
@@ -264,9 +264,9 @@ const myInterceptor = ajax.interceptors.request.use(() => {/*...*/})
 ajax.interceptors.request.eject(myInterceptor)
 ```
 
-## Fetcher
+## Fetcher <Badge type="danger" text="2.6.0" /><Badge text="2.5.0" />
 
-抓取器构造函数。是一个工具构造函数，不含请求相关代码，其内部原理为 Promise 的异处调用。在 `uni-ajax` 中通过 [fetcher](/api/config#fetcher) 属性内部会获取 RequestTask。<Badge text="2.5.0" />
+抓取器构造函数。是一个工具构造函数，不含请求相关代码，其内部原理为 Promise 的异处调用。在 `uni-ajax` 中通过 [fetcher](/api/config#fetcher) 属性内部会获取 RequestTask。
 
 ::: details 类型：`Class`
 ```ts

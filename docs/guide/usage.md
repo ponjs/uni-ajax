@@ -74,7 +74,46 @@ ajax.delete()
 | config     | Object                        | 请求提供的配置信息                     |
 | cookies    | Array\<string\>               | 服务器返回的 cookies，格式为字符串数组 |
 
-## RequestTask
+## 取消请求
+
+从 `2.6.0` 开始，支持使用 [AbortController][3] 取消请求：<Badge text="2.6.0" />  
+之前版本可通过下面的 [RequestTask](#requesttask) 方式。
+
+```js
+const controller = new AbortController()
+ajax({ signal: controller.signal })
+
+controller.abort() // 取消请求
+```
+
+注意的是 `AbortController` 仅支持 H5，其他环境可以通过下面方式使用：
+
+```bash
+# 安装依赖
+npm install abort-controller
+```
+
+```js
+// vite.config.ts
+export default defineConfig({
+  resolve: {
+    alias: {
+      'abort-controller': 'abort-controller/dist/abort-controller'
+    }
+  }
+})
+```
+
+```js
+// 如果没有上面的 vite 配置则需要引入完整路径
+// import { AbortController } from 'abort-controller/dist/abort-controller'
+
+// #ifndef H5
+import { AbortController } from 'abort-controller'
+// #endif
+```
+
+## ~~RequestTask~~
 
 网络请求任务对象。
 
@@ -84,8 +123,21 @@ ajax.delete()
 | onHeadersReceived  | 监听 HTTP Response Header 事件。会比请求完成事件更早，仅 [微信小程序平台][1] 支持 |
 | offHeadersReceived | 取消监听 HTTP Response Header 事件，仅 [微信小程序平台][2] 支持                   |
 
-::: details 请求方法调用或通过 xhr 获取：<Badge type="danger" text="2.5.0" />
+::: details 通过 fetcher 获取：<Badge type="danger" text="2.6.0" />
+使用 [Fetcher](/api/#fetcher) 抓取器实例来获取 `RequestTask`。<Badge text="2.5.0" />
 
+```js
+import ajax, { Fetcher } from 'uni-ajax'
+
+const fetcher = new Fetcher()
+ajax({ fetcher })
+
+fetcher.abort() // 中断请求（Fetcher 只封装了 abort 方法，其他请使用 source 获取使用）
+const requestTask = await fetcher.source() // 获取请求任务对象
+```
+:::
+
+::: details 请求方法调用或通过 xhr 获取：<Badge type="danger" text="2.5.0" />
 直接调用。这里 request 接收的是封装后的 Promise，并支持 RequestTask 的以上方法。但实际并非真正的 RequestTask 对象。只是封装继承 Promise 并挂载 RequestTask 的同名方法。
 
 ```js
@@ -105,21 +157,6 @@ ajax({
 ```
 :::
 
-可以通过 [Fetcher](/api/#fetcher) 抓取器实例来获取 `RequestTask`。<Badge text="2.5.0" />
-
-```js
-import ajax, { Fetcher } from 'uni-ajax'
-
-const fetcher = new Fetcher()
-ajax({ fetcher })
-
-fetcher.abort() // 中断请求（Fetcher 只封装了 abort 方法，其他请使用 source 获取使用）
-const requestTask = await fetcher.source() // 获取请求任务对象
-```
-
-## 取消请求
-
-在 uni-ajax 里实现取消请求是很简单的。上面的 RequestTask 示例中就是实现的取消请求。
-
 [1]: https://developers.weixin.qq.com/miniprogram/dev/api/RequestTask.onHeadersReceived.html
 [2]: https://developers.weixin.qq.com/miniprogram/dev/api/RequestTask.offHeadersReceived.html
+[3]: https://developer.mozilla.org/zh-CN/docs/Web/API/AbortController

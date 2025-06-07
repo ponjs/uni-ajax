@@ -1,6 +1,6 @@
 {
   "name": "uni-ajax",
-  "version": "2.5.1",
+  "version": "2.6.0",
   "description": "Lightweight HTTP client for the uni-app",
   "scripts": {
     "dev": "node scripts --watch",

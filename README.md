@@ -62,16 +62,13 @@ ajax.put()
 ajax.delete()
 ```
 
-**RequestTask**
+**取消请求**
 
 ```JavaScript
-import ajax, { Fetcher } from 'uni-ajax'
+const controller = new AbortController()
+ajax({ signal: controller.signal })
 
-const fetcher = new Fetcher()
-ajax({ fetcher })
-
-fetcher.abort()                            // 中断请求任务
-const requestTask = await fetcher.source() // 获取请求任务对象
+controller.abort()  // 取消请求
 ```
 
 **其他属性方法**

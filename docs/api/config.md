@@ -69,9 +69,9 @@
   })
   ```
 
-## query
+## query <Badge text="2.4.2" />
 
-URL 的 query 参数。会将数据转换为 query string 拼接在 URL 上。<Badge text="2.4.2" />
+URL 的 query 参数。会将数据转换为 query string 拼接在 URL 上。
 
 - 类型：`Object`
 
@@ -85,9 +85,9 @@ URL 的 query 参数。会将数据转换为 query string 拼接在 URL 上。<B
   })
   ```
 
-## params
+## params <Badge type="warning" text="2.4.2" />
 
-URL 的 params 参数。会替换掉 URL 上声明的 params 字段。<Badge type="warning" text="2.4.2" />
+URL 的 params 参数。会替换掉 URL 上声明的 params 字段。
 
 - 类型：`Object`
 
@@ -122,9 +122,9 @@ URL 的 params 参数。会替换掉 URL 上声明的 params 字段。<Badge typ
   })
   ```
 
-## xhr
+## xhr <Badge type="danger" text="2.5.0" />
 
-获取每次请求的 RequestTask 对象。<Badge type="danger" text="2.5.0" />
+获取每次请求的 RequestTask 对象。
 
 - 类型：`Function`
 
@@ -143,9 +143,9 @@ URL 的 params 参数。会替换掉 URL 上声明的 params 字段。<Badge typ
   })
   ```
 
-## fetcher
+## fetcher <Badge type="danger" text="2.6.0" /><Badge text="2.5.0" />
 
-该属性需要传递[抓取器实例](/api/#fetcher)，请求方法内部会获取 RequestTask。<Badge text="2.5.0" />
+该属性需要传递[抓取器实例](/api/#fetcher)，请求方法内部会获取 RequestTask。
 
 - 类型: `FetcherInstance`
 
@@ -159,9 +159,9 @@ URL 的 params 参数。会替换掉 URL 上声明的 params 字段。<Badge typ
   fetcher.source()
   ```
 
-## adapter
+## adapter <Badge text="2.3.0" />
 
-自定义处理请求。通过该属性可自定义请求方法，有着较强的可扩展性，一旦修改则替换默认的请求方法。该属性类型为函数类型，需返回一个 Promise（参见源码 [`/lib/adapters/http.js`](https://github.com/ponjs/uni-ajax/blob/dev/lib/adapters/http.js) ）。该函数有一个参数 config 每次请求的请求配置。<Badge text="2.3.0" />
+自定义处理请求。通过该属性可自定义请求方法，有着较强的可扩展性，一旦修改则替换默认的请求方法。该属性类型为函数类型，需返回一个 Promise（参见源码 [`/lib/adapters/http.js`](https://github.com/ponjs/uni-ajax/blob/dev/lib/adapters/http.js) ）。该函数有一个参数 config 每次请求的请求配置。
 
 - 类型：`Function`
 
@@ -205,25 +205,25 @@ URL 的 params 参数。会替换掉 URL 上声明的 params 字段。<Badge typ
   upload({ url: '/upload', filePath, fetcher })
   ```
 
-## success
+## success <Badge type="danger" text="2.5.0" />
 
-收到服务器成功返回的回调函数。**该属性无法在实例配置上定义，只能在请求方法上。**<Badge type="danger" text="2.5.0" />
+收到服务器成功返回的回调函数。**该属性无法在实例配置上定义，只能在请求方法上。**
 
 - 类型：`Function`
 
 - 参数：请求成功对象
 
-## fail
+## fail <Badge type="danger" text="2.5.0" />
 
-接口调用失败的回调函数。**该属性无法在实例配置上定义，只能在请求方法上。**<Badge type="danger" text="2.5.0" />
+接口调用失败的回调函数。**该属性无法在实例配置上定义，只能在请求方法上。**
 
 - 类型：`Function`
 
 - 参数：请求失败对象
 
-## complete
+## complete <Badge type="danger" text="2.5.0" />
 
-接口调用结束的回调函数（调用成功、失败都会执行）。**该属性无法在实例配置上定义，只能在请求方法上。**<Badge type="danger" text="2.5.0" />
+接口调用结束的回调函数（调用成功、失败都会执行）。**该属性无法在实例配置上定义，只能在请求方法上。**
 
 - 类型：`Function`
 
