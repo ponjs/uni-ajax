@@ -9,7 +9,8 @@
 
 ## 🍟 文档
 
-**[uniajax.ponjs.com](https://uniajax.ponjs.com)**
+- [uniajax.ponjs.com](https://uniajax.ponjs.com)
+- [uniajax.netlify.app](https://uniajax.netlify.app)
 
 ## 🥗 安装
 
